@@ -27,18 +27,21 @@ void Izvlacenje(int loto[]) {
 void Tiket(int korisnik[]) { //korisnik unosi svoje brojeve
 
 	int i,broj;
+	char c;
 	printf("Unesite 7 brojeva da popunite vas tiket\n");
 	printf("Vasi brojevi moraju biti u rasponu od 1 do 45\n");
 	for (i = 0; i < TIKET_SIZE; i++)
 	{
 		printf("Unesite broj-> ");
 		scanf("%d", &broj);
+		while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		int a = VecPostoji(korisnik,TIKET_SIZE, broj);
 		while (broj < 1 || broj>45 || !a)
 		{
 			printf("Greska! Broj nije u zadanom opsegu ili je vec ranije unesen\n");
 			printf("Unesite broj-> ");
 			scanf("%d", &broj);
+			while ((c = getchar()) != EOF && c != '\n');	//za slucajan unos znaka ili stringa
 			a = VecPostoji(korisnik,TIKET_SIZE, broj);
 		}
 		korisnik[i] = broj;
