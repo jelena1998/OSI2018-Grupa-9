@@ -5,7 +5,8 @@
 #define  BROJ_IZVLACENJA  20
 
 int VecPostoji(int[], int n, int a);	//provjerava da li se broj a vec nalazi u nizu
-void Izvlacenje(int[]);					
 void Tiket(int[]);						//ispunjavanje tiketa
+void Izvlacenje(int[],int[],int);					
+void Kombinacija(int a, int[]);		//u niz treba da smjesti jednu slucajnu kombinaciju pogodaka za osvajanje a-bodova
 void BrojPogodaka(int[], int[], int*);	
 void PisiNiz(int[], int n,int pauza);    //ispisuju se elementi niza u razmaku pauza-sekundi
