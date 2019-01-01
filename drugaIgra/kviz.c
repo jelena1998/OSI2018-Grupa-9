@@ -6,59 +6,42 @@ int TacanOdgovor(PITANJE *pitanje, int odgovor)
 }
 
 
-int UporediNiz(int niz1[5], int niz2[5], int j) //pomocna: NasumicniBrojevi
+int VecPostoji(int niz[], int n, int broj)
 {
 	int i;
-	for (i = 0; i < 5; i++) {
-		if (niz1[j] == niz2[i])
-			return 1;
-		else if (niz1[j] == 0 || niz1[i] == 0)
-			break;
-	}
-	return 0;
-}
-
-void NasumicniBrojevi(int* randomNovi, int max, int min) //nekad nece da radi
-{
-	//time_t t;
-	int i, randomStari[5] = { 0 };
-	//srand((unsigned)time(&t));
-	srand(time(0));
-	for (i = 0; i < 5; i++)
+	for (i = 0;i < n;i++)
 	{
-		randomNovi[i] = rand() % (max + 1 - min) + min;
-		while (UporediNiz(randomNovi, randomStari, i))
-			randomNovi[i] = rand() % (max + 1 - min) + min;
-		//printf("%d ", randomNovi[i]); //ispisuje brojeve
-		randomStari[i] = randomNovi[i];
+		if (niz[i] == broj)
+			return 0;
 	}
 }
 
 void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 {
-	char *pom, b[2];
+	srand(time(0));
+	char *pom;
 	int duzina;
-	int znak, linija, i = 0, j, k, broj, brojPitanja;
-	int nizBrojeva[5] = { 0 };
-	while ((brojPitanja = fgetc(file)) != '\n')
-	{
-		b[i] = brojPitanja;
-		i++;
-	}
-	brojPitanja = atoi(b); //ukupan broj pitanja
+	int znak, linija, i = 0, j, k, broj, ukupnoPitanja;
+	int indexPitanja[BROJ_PITANJA] = { 0 };
+	fscanf(file, "%d", &ukupnoPitanja);
 	rewind(file);
-	NasumicniBrojevi(nizBrojeva, brojPitanja, 1);
+	while (i < BROJ_PITANJA)
+	{
+		broj = rand() % ukupnoPitanja + 1;
+		if (VecPostoji(indexPitanja, 5, broj))
+			indexPitanja[i++] = broj;
+	}
 	printf("\n");
 	for (i = 0; i < 5; i++)
 	{
 		int c = 10;
 		pom = (char*)malloc(c * sizeof(char));
 		duzina = 0;
-		broj = nizBrojeva[i];
+		broj = indexPitanja[i];
 		for (linija = 2, k = 0; k < broj - 1; linija += 5, k++); //trazi pocetak linije pitanja
 		for (j = 1; j < linija; j++) //preskace sve linije prije linije sa pitanjem
 			while ((znak = fgetc(file)) != '\n');
-		for (j = 0; j < 5; j++) //obradjuje 5 linija; pitanje, 3 odgovora i tacan odgovor
+		for (j = 0; j < 4; j++) //obradjuje 5 linija; pitanje, 3 odgovora
 		{
 			while ((znak = fgetc(file)) != '\n')
 			{
@@ -73,38 +56,25 @@ void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 				pitanja[i].pitanje = (char*)malloc(duzina * sizeof(char));
 				strcpy(pitanja[i].pitanje, pom);
 			}
-			else if (j == 1)
+			else
 			{
-				pitanja[i].prviOdgovor = (char*)malloc(duzina * sizeof(char));
-				strcpy(pitanja[i].prviOdgovor, pom);
-			}
-			else if (j == 2)
-			{
-				pitanja[i].drugiOdgovor = (char*)malloc(duzina * sizeof(char));
-				strcpy(pitanja[i].drugiOdgovor, pom);
-			}
-			else if (j == 3)
-			{
-				pitanja[i].treciOdgovor = (char*)malloc(duzina * sizeof(char));
-				strcpy(pitanja[i].treciOdgovor, pom);
-			}
-			else if (j == 4)
-			{
-				pitanja[i].tacanOdgovor = atoi(pom);
+				pitanja[i].odgovor[j - 1] = (char*)malloc(duzina * sizeof(char));
+				strcpy(pitanja[i].odgovor[j - 1], pom);
 			}
 			duzina = 0;
 		}
+		fscanf(file, "%d", &pitanja[i].tacanOdgovor);
 		rewind(file);
-		//free(pom);
 	}
 }
 
 void IspisPitanja(PITANJE *pitanje, int rb)
 {
-	printf("%s\n", pitanje[rb].pitanje);
-	printf("\n\t1. %s\n", pitanje[rb].prviOdgovor);
-	printf("\t2. %s\n", pitanje[rb].drugiOdgovor);
-	printf("\t3. %s\n\n", pitanje[rb].treciOdgovor);
+	int i;
+	printf("%s\n\n", pitanje[rb].pitanje);
+	for (i = 0;i < BROJ_ODGOVORA;i++)
+		printf("\t%d. %s\n", i + 1, pitanje[rb].odgovor[i]);
+	printf("\n");
 }
 
 void IspisPocetak()
@@ -112,7 +82,7 @@ void IspisPocetak()
 	printf("==========================================\n");
 	printf("************DOBRODOSLI NA KVIZ************\n");
 	printf("==========================================\n\n");
-	Sleep(3000);
+	Sleep(2000);
 	system("cls");
 }
 
@@ -120,17 +90,17 @@ void IspisKraj(int x)
 {
 	if (x == 150)
 	{
-		for (int i = 0; i < 60; i++)
+		for (int i = 0; i < 46; i++)
 		{
 			printf("*");
-			Sleep(50);
+			Sleep(35);
 		}
 		printf("\n");
-		printf("Cestitamo! Osvojili ste sve poene igrice KVIZ, dobijate bonus 50 bodova!\nUkupan broj osvojenih bodova: %d\n", x);
-		for (int i = 0; i < 60; i++)
+		printf("Cestitamo! Osvojili ste sve poene igrice KVIZ\nDobijate bonus 50 bodova!\nUkupan broj osvojenih bodova: %d\n", x);
+		for (int i = 0; i < 46; i++)
 		{
 			printf("*");
-			Sleep(50);
+			Sleep(35);
 		}
 		printf("\n");
 		Sleep(3000);
@@ -140,7 +110,7 @@ void IspisKraj(int x)
 	{
 		printf("\n********************************************\n");
 		printf("Ukupan broj osvojenih bodova: %d\n", x);
-		printf("**********************************************\n\n");
+		printf("********************************************\n\n");
 		Sleep(3000);
 		system("cls");
 	}
@@ -151,7 +121,7 @@ void IspisKraj(int x)
 
 void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 {
-	int i, bodoviBrojac = 0;
+	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
 		int odgovorKorisnik,pom;
@@ -160,7 +130,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		printf("Unesi tacan odgovor (1,2,3) : ");
 		do {
 			pom = 0;
-			if (scanf("%d", &odgovorKorisnik) != 1)
+			if (scanf("%d", &odgovorKorisnik) != 1 || odgovorKorisnik <1 || odgovorKorisnik >3)
 			{
 				int c;
 				pom++;
@@ -177,7 +147,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			*korisnikBodovi += 20;
-			bodoviBrojac++;
+			tacniOdg++;
 			Sleep(2000);
 		}
 		else
@@ -186,7 +156,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 			*korisnikBodovi -= 30;
 			Sleep(2000);
 		}
-		if (bodoviBrojac == 5)
+		if (tacniOdg == 5)
 			*korisnikBodovi += 50;
 		system("cls");
 	}

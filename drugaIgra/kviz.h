@@ -6,16 +6,18 @@
 #include<Windows.h>
 #include<time.h>
 
+#define BROJ_PITANJA 5
+#define BROJ_ODGOVORA 3
+
 typedef struct pitanje
 {
 	char *pitanje;
-	char *prviOdgovor, *drugiOdgovor, *treciOdgovor;
+	char *odgovor[BROJ_PITANJA];
 	int tacanOdgovor;
 }PITANJE;
 
 int TacanOdgovor(PITANJE *pitanje, int odgovor);
-int UporediNiz(int niz1[5], int niz2[5], int j);
-void NasumicniBrojevi(int* randomNovi, int max, int min);
+int VecPostoji(int niz[], int n, int broj);
 void OdaberiPitanja(PITANJE* pitanja, FILE* file);
 void IspisPitanja(PITANJE *pitanje, int rb);
 void IspisPocetak();
