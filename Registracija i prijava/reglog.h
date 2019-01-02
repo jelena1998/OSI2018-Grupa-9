@@ -8,3 +8,4 @@ typedef struct korisnik {
 
 int reg();
 int login();
+int provjeri(char*);

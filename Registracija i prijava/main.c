@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<conio.h>
 int main() {
+	/*napravljeno radi potreba testiranja. Smije se mijenjati main.*/
 	/*Testni podaci za prijavu: korisnicko ime: ognjen lozinka testiramose*/
 	printf("*** Registracija/Prijava ***\n");
 	int izaberi;
@@ -21,12 +22,12 @@ int main() {
 			case 2:
 				if (login()) printf("Dobrodosli na pocetnu\n"); else printf("Korisnicko ime/lozinka su vam netacni\n");
 				break;
-			//	default: printf("Greska\n");
+			default: printf("Pogresan unos.\n");
 		
 		}
 
 	//} while (izaberi != 1 || izaberi != 2);
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
