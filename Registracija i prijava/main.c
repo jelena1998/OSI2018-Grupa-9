@@ -8,10 +8,7 @@ int main() {
 	/*Testni podaci za prijavu: korisnicko ime: ognjen lozinka testiramose*/
 	printf("*** Registracija/Prijava ***\n");
 	int izaberi;
-	//za provjeru funkcija
-	//do{
-		//system("cls");
-	//	printf("*** REG/LOGIN ***\n");
+
 		printf("1.Registracija\n2.Prijava\n(1,2)->");
 		scanf("%d", &izaberi);
 		switch (izaberi) {
@@ -26,8 +23,5 @@ int main() {
 		
 		}
 
-	//} while (izaberi != 1 || izaberi != 2);
-
-	//system("pause");
 	return 0;
 }

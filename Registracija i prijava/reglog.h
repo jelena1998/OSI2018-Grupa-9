@@ -2,10 +2,11 @@
 #define MAX 21
 typedef struct korisnik {
 	char korisnickoIme[MAX];
-	char lozinka[21];
+	char lozinka[MAX];
 	int bodovi;
 }KORISNIK;
 
 int reg();
 int login();
-int provjeri(char*);
+int provjeriIme(char*);
+int provjeriLozinku(char*);
