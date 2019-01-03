@@ -51,7 +51,7 @@ int UzHodnik(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Primjecujete na desnoj strani pored vrata panel za otvaranje. Prilazite panelu koji zahtjeva da unesete sifru kako bi ste otvorili vrata.\n");
 	Kviz();
 	int odgovor, izlaz = 1;
-	char sifra[6] = "??????", ch[100];
+	char sifra[6] = "??????", ch[7];
 	
 	printf("1) Koja od navedenih planeta se najsporije rotira oko svoje ose?\n");
 	CetiriIzbora("1. Mars", "2. Zemlja", "3. Venera", "4. Saturn", "HORIZONTALNO");
@@ -111,7 +111,7 @@ int UzHodnik(int* zivotniBodovi){
 	
 	do{
 		UsporeniIspisTeksta(100, "Unesite kod: ");
-		scanf("%s", ch);
+		scanf_s("%s", ch, sizeof(ch));
 		if(strcmp("528401", ch) == 0){
 			izlaz = 0;
 		} else{
@@ -735,7 +735,7 @@ void MaliMartiks(int milisekunde){
 		char cb = 'a' + rand() % (('z'-'a') + 1);
 		char c = 'a' + rand() % (('z'-'a') + 1);
 		de = rand() % 26;
-		printf("%\tc", de );
+		printf("\t%c", de );
 		printf("\t\t%c", cb );
 		printf("\t\t\t%c", c);
 		printf("\t\t\t\t%c", cb );

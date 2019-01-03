@@ -23,8 +23,8 @@ void OnDasNot(){
 	IspisSlike("Mordor.txt");
 	VremenskaPauza(10);
 	UsporeniIspisTeksta(100, "Unesite bilo sta kako bi ste izasli.\n");
-	char hobit[100];
-	scanf("%s", &hobit);
+	char hobit[6];
+	scanf_s("%s", &hobit, sizeof(hobit));
 	if(strcmp(hobit, "frodo") == 0){
 		UMordor();
 	} else if(strcmp(hobit, "FRODO") == 0){
