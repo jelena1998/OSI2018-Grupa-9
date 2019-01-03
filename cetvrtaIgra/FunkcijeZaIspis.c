@@ -58,9 +58,10 @@ void SpecijalniIspis(char* tekst){
 
 void IspisSlike(char* url) {
 
-	FILE* slika = fopen(url, "r");
+	FILE* slika;
+	errno_t err = fopen_s(&slika, url, "r");
 
-	if (slika != NULL) {
+	if (err == 0) {
 
 		char red[171];
 		while (fgets(red, 171, slika)) {
@@ -76,9 +77,10 @@ void IspisSlike(char* url) {
 }
 void IspisPasosa(char* url) {
 
-	FILE* pasos = fopen(url, "r");
+	FILE* pasos;
+	errno_t err = fopen_s(&pasos, url, "r");
 
-	if (pasos != NULL) {
+	if (err == 0) {
 
 		char red[171];
 		while (fgets(red, 171, pasos)) {
