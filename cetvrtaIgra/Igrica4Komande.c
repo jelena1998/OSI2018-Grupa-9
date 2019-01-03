@@ -115,6 +115,7 @@ int Pomoc(int* brojPomoci, char* tekst, int* glavniXP, int cijena){
 			}
 		}
 	}
+	return 0;
 }
 
 void KordinateXY(int x, int y){
