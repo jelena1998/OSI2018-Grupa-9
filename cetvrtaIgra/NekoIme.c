@@ -121,10 +121,10 @@ void SlomljeniMatriks(){
 							coord.Y = mevcut[x] - i * 10;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - i * 10][x]);
-							printf("hvh kh kjb uh j hu AVANTURA jk45 68 %# ) @# h j  lhnk .moj k,  4 x21 fd4 v gd6 41v 46 1df 46v 4v g 46");
+							printf("hvh kh kjb uh j hu AVANTURA jk45 68 # ) @# h j  lhnk .moj k,  4 x21 fd4 v gd6 41v 46 1df 46v 4v g 46");
 						}
 					}
-					printf("dva f 863hf 4sg5n7bdg 4 8fd fs sf 4f f f +f re %&RTIU # *((U E(OR GYI  T#O*I))) gfrn6 45n 7rn4  8nnf45hdn");
+					printf("dva f 863hf 4sg5n7bdg 4 8fd fs sf 4f f f +f re &RTIU # *((U E(OR GYI  T#O*I))) gfrn6 45n 7rn4  8nnf45hdn");
 					if(mevcut[x] + 1 <= giris[x] + uzunluk[x]){
 						mevcut[x]++;
 					}else{
@@ -512,18 +512,18 @@ int PovratakIzPukotine(int* zivotniBodovi){
 }
 int Skok(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Pocinjete da trcite i sticete do vjestacke litice.\nSta ce te da ucinite?\n");
-		DvaIzbora("1. Skociti sa litice", "2. Krenuti u drugom smjeru", "VERTIKALNO");
-		int odgovor = UcitajOdgovor();
-		if(odgovor == 1){
-			UsporeniIspisTeksta(100, "Nastavljate da trcite i skacete sa litice. ");
-			Tepih(zivotniBodovi);
-		} else if(odgovor == 2){
-			Titanik(zivotniBodovi);
-		} else{
-			IspisGreskeONepravilnomUnosu();
-			Skok(zivotniBodovi);
-		}
-		return 0;
+	DvaIzbora("1. Skociti sa litice", "2. Krenuti u drugom smjeru", "VERTIKALNO");
+	int odgovor = UcitajOdgovor();
+	if(odgovor == 1){
+		UsporeniIspisTeksta(100, "Nastavljate da trcite i skacete sa litice. ");
+		Tepih(zivotniBodovi);
+	} else if(odgovor == 2){
+		Titanik(zivotniBodovi);
+	} else{
+		IspisGreskeONepravilnomUnosu();
+		Skok(zivotniBodovi);
+	}
+	return 0;
 }
 int Tepih(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Ali ne padate na tlo vec padate na leteci tepih.\nAladin: Duse! Uzeo je Krpenog. Zaustavi ga.\nIznenada se ispred vas pojavljuje dzinovski flisani meda.\nTed: Ti. Ti si ubio Dzona.\nTed vadi laserski mac i pocinje da mase sa njim.\nTed: Muahahaha!\nSta ce te uciniti?\n");
