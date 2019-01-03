@@ -2,7 +2,6 @@
 #include "FunkcijeZaIspis.h"
 #include <windows.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <time.h>
 
 #include <stdlib.h>
@@ -61,7 +60,8 @@ void PuniEkran(int uslov){
 }
 
 void VremenskaPauza(int sekunde){
-	sleep(sekunde);
+	unsigned int vrijeme = 1000 * sekunde;
+	sleepM(vrijeme);
 }
 
 int Nasumicno(int max){
