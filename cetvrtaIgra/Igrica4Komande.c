@@ -71,7 +71,7 @@ int UcitajOdgovor(){
 	char odgovor[100];
 	int prenos = -1;
 	printf("Vas odgovor je: ");
-	scanf("%s", odgovor);
+	scanf_s("%s", odgovor, sizeof(odgovor));
 	if(odgovor[0] == '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'){
 		prenos = atoi(odgovor);
 	} else{
@@ -135,21 +135,11 @@ void Load(char* tekst, int x){
 	KordinateXY(30,15);
 	
 	for(i = 1; i <= 20; i++){
-		sleepM(200); // Usporava ispis karaktera
+		sleepM(250); // Usporava ispis karaktera
 		printf("%c",177);
 	}
 	
-	printf("\n\n\n                              Pritisni Enter.");
-	
-	char *ch;
-	do{
-		ch = fgetc(stdin);
-	} while(ch != 0x0A);
-	
-	
-	if(c == 0x0A){
-		getch();
-	}
+	VremenskaPauza(1);
 	
 	OcistiEkran();
 }
