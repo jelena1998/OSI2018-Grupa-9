@@ -12,14 +12,15 @@
 typedef struct pitanje
 {
 	char *pitanje;
-	char *odgovor[BROJ_PITANJA];
+	char *odgovor[BROJ_ODGOVORA];
 	int tacanOdgovor;
 }PITANJE;
 
 int TacanOdgovor(PITANJE *pitanje, int odgovor);
-int VecPostoji(int niz[], int n, int broj);
+int VecPostojiBroj(int niz[], int n, int broj);
 void OdaberiPitanja(PITANJE* pitanja, FILE* file);
 void IspisPitanja(PITANJE *pitanje, int rb);
 void IspisPocetak();
 void IspisKraj(int x);
 void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi);
+void IgrajDruguIgru(); 

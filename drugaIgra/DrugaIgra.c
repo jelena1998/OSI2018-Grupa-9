@@ -1,4 +1,4 @@
-#include"kviz.h"
+#include"DrugaIgra.h"
 
 int TacanOdgovor(PITANJE *pitanje, int odgovor)
 {
@@ -6,7 +6,7 @@ int TacanOdgovor(PITANJE *pitanje, int odgovor)
 }
 
 
-int VecPostoji(int niz[], int n, int broj)
+int VecPostojiBroj(int niz[], int n, int broj)
 {
 	int i;
 	for (i = 0;i < n;i++)
@@ -28,7 +28,7 @@ void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 	while (i < BROJ_PITANJA)
 	{
 		broj = rand() % ukupnoPitanja + 1;
-		if (VecPostoji(indexPitanja, 5, broj))
+		if (VecPostojiBroj(indexPitanja, 5, broj))
 			indexPitanja[i++] = broj;
 	}
 	printf("\n");
@@ -112,11 +112,11 @@ void IspisKraj(int x)
 		printf("Ukupan broj osvojenih bodova: %d\n", x);
 		printf("********************************************\n\n");
 		Sleep(3000);
-		system("cls");
 	}
 	printf("==========================================\n");
-	printf("****************DIVIDJENJA****************\n");
+	printf("****************DOVIDUVANJE****************\n");
 	printf("==========================================\n\n");
+	system("cls");
 }
 
 void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
@@ -161,4 +161,21 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		system("cls");
 	}
 	IspisKraj(*korisnikBodovi);
+}
+
+void IgrajDruguIgru()
+{
+	FILE *file;
+	PITANJE pitanja[5];
+	int korisnikBodovi = 0, bodoviBrojac = 0;
+	char pitanjaa[17]; printf("Unesi pitanjaLaka.txt ili pitanjaTeska.txt:   "); scanf("%s", pitanjaa); //dok se ne napravi manipulacija ishoda
+	if ((file = fopen(pitanjaa, "r")) != NULL)
+	{
+		OdaberiPitanja(pitanja, file);
+		fclose(file);
+	}
+	else
+		printf("Greska pri otvaranju datoteke\n");
+	IspisPocetak();
+	IgrajKviz(pitanja, &korisnikBodovi);
 }
