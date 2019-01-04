@@ -10,3 +10,4 @@ void Izvlacenje(int[],int[],int);
 void Kombinacija(int a, int[]);		//u niz treba da smjesti jednu slucajnu kombinaciju pogodaka za osvajanje a-bodova
 void BrojPogodaka(int[], int[], int*);	
 void PisiNiz(int[], int n,int pauza);    //ispisuju se elementi niza u razmaku pauza-sekundi
+void IgrajTrecuIgru();
