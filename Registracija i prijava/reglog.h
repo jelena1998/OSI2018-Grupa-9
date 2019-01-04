@@ -10,3 +10,4 @@ int reg();
 int login();
 int provjeriIme(char*);
 int provjeriLozinku(char*);
+int obrisiBafer();

@@ -13,12 +13,16 @@ int login() {
 
 	char korisnickoIme[100], lozinka[100];
 	char odrediste[100] = "Korisnici\\", eks[5] = ".dat";
-
+	//provjeravamo i ovdje unos sa razmakom da ne dodje do punjena bafera...
+	do {
+		printf("Unesite korisnicko ime:\n->");
+		scanf("%s", korisnickoIme);
+	} while (!obrisiBafer());
 	
-	printf("Unesite korisnicko ime:\n->");
-	scanf("%s", korisnickoIme);
-	printf("Unesite lozinku:\n->");
-	scanf("%s", lozinka);
+	do{
+		printf("Unesite lozinku:\n->");
+		scanf("%s", lozinka);
+	} while (!obrisiBafer());
 
 	strcat(odrediste, korisnickoIme);
 	strcat(odrediste, eks);
@@ -60,6 +64,7 @@ int reg() {
 		scanf("%s", korisnickoIme);
 		duzina = strlen(korisnickoIme); 
 		p = provjeriIme(korisnickoIme); //provjera za ime
+		p = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
 	} while (duzina > 20 || !p); //max unos 20 karaktera
 	p = 0;
 
@@ -68,6 +73,7 @@ int reg() {
 		scanf("%s", lozinka);
 		duzina = strlen(lozinka);
 		p = provjeriLozinku(lozinka); //provjera za lozinku
+		p = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
 	} while (duzina < 6 || duzina > 10 || !p); //lozinka moze da ima min 6 karaktera i max 10 karaktera
 	
 	strcat(odrediste, korisnickoIme);
@@ -130,5 +136,21 @@ int provjeriLozinku(char* lozinka) { //provjera ispravnosti lozinke
 			printf("\nLozinka se mora sastojati min 6, max 10 karaktera iz engleskog alfabeta i cifri (kombinovano)\n");
 	else
 		printf("\nDozvoljeno je koristiti samo engleski alfabet i cifre\n");
+	return 0;
+}
+
+
+int obrisiBafer(){
+	char c;
+	int brojac = -1;
+
+	do {
+		scanf("%c", &c);
+		brojac++;
+	} while (c != EOF && c != '\n');
+	if (!brojac)
+		return 1;
+	
+	printf("Ne smije se nalaziti razmak.\n");
 	return 0;
 }
