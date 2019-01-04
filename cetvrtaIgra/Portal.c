@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <time.h>
 
-int Portal(int* glavniXP2){
+int Portal(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
 	system("title Portal");
 	
 	OcistiEkran();
@@ -22,6 +22,9 @@ int Portal(int* glavniXP2){
 	osvojeniXP += (zivotniBodovi / 7);
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
+	if(pisi == 1){
+		IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+	}
 	if(zivotniBodovi == 0){
 		return 1;
 	}

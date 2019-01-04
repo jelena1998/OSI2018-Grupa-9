@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <time.h>
 
-int NekoIme(int* glavniXP2){
+int NekoIme(int* glavniXP2, int najboljiR, int najboljiP){
 	system("title Neko Ime");
 	
 	OcistiEkran();
@@ -24,7 +24,7 @@ int NekoIme(int* glavniXP2){
 	osvojeniXP += (zivotniBodovi / 7);
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
-	
+	IspisRezultata(najboljiR, najboljiP, osvojeniXP);
 	
 	return 0;
 }
