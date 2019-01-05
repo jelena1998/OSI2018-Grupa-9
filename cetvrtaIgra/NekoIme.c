@@ -4,6 +4,7 @@
 #include "Igrica4Komande.h"
 #include "FunkcijeZaIspis.h"
 #include <windows.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
