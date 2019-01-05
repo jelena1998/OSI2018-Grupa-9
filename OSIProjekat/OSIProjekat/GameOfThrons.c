@@ -2,8 +2,10 @@
 #include "FunkcijeZaIspis.h"
 #include "Igrica4Komande.h"
 #include <stdio.h>
-#include<stdlib.h> //Ogi, zbog system()
-int GOTPohod(int* glavniXP2){
+#include<stdlib.h> //Isto
+
+
+int GOTPohod(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
 	system("title Game Of Throns");
 	
 	OcistiEkran();
@@ -17,6 +19,9 @@ int GOTPohod(int* glavniXP2){
 		glavniXP += osvojeniXP;
 	}
 	*glavniXP2 = glavniXP;
+	if(pisi == 1){
+		IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+	}
 	if(zivotniBodovi == 0){
 		return 1;
 	}
@@ -32,6 +37,7 @@ int Gavran(int* zivotniBodovi){
 		Poruka(zivotniBodovi);
 	} else if (odgovor == 2) {
 		*zivotniBodovi = 0;
+		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -118,6 +124,8 @@ int SjecaGlave(int* zivotniBodovi) {
 	UsporeniIspisTeksta(100, "Novi kralj Joffrey vas je proglasio za izdajnika krune\n");
 	UsporeniIspisTeksta(100, "i naredio je da vam odsjeku glavu.\n");
 	UsporeniIspisTeksta(100, "Cestitam. Vase lose odluke su vas dovele do smrti.\n");
+	VremenskaPauza(5);
+	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
 	UkloniIgracevXP(&glavniXP);
 	*zivotniBodovi = 0;
@@ -191,6 +199,7 @@ int NapadPesnicama1(int* zivotniBodovi) {
 	if(zivotniBodovi < 0){
 		UsporeniIspisTeksta(100, "Strazar vam zadaje smrtonosti udarac.\nUpravo ste umrli.\n");
 		VremenskaPauza(3);
+		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 		UkloniIgrice4XP(&osvojeniXP);
 		*zivotniBodovi = 0;
@@ -266,6 +275,8 @@ int PripremaZaNapad(int* zivotniBodovi){
 		UsporeniIspisTeksta(100, "Zao mi je ali vasa strategija je bila pogresna. Vase trupe su masakrirane i Winterfell je pao.\nVi krvarite na bojnom polju. Smrt je neizbjezna.\n");
 		VremenskaPauza(3);
 		printf("Umrli ste.");
+		VremenskaPauza(3);
+		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 		UkloniIgrice4XP(&osvojeniXP);
 		*zivotniBodovi = 0;
@@ -318,6 +329,8 @@ int PadKraljevstava(int* zivotniBodovi){
 	UkloniIgrice4XP(&osvojeniXP);
 	UsporeniIspisTeksta(100, "Dok ste se vi igrali Igre prestola, Zid je pao i White Walker-i su presli zid.\nSmrt, a sa njom mrtvi i vjecita zima su stigli u Westeros.\n");
 	UsporeniIspisTeksta(100, "Trebali ste poslusati Jon-ovo upozorenje.\n");
+	VremenskaPauza(7);
+	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
 	*zivotniBodovi = 0;
 	return 0;
@@ -329,6 +342,7 @@ int PadZida(int* zivotniBodovi){
 	VremenskaPauza(4);
 	UsporeniIspisTeksta(100, "Tvoja sudbina kao i sudbina citavog Westeros-a je sad u rukama Sedam bogova\n i George R. R. Martin-a.\n");
 	VremenskaPauza(7);
+	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
 	glavniXP += 200;
 	return 0;

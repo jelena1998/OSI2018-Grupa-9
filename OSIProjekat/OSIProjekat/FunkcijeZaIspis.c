@@ -94,6 +94,34 @@ void IspisPasosa(char* url) {
 	fclose(pasos);
 	printf("\n");
 }
+void PisiZvijezde(){
+	printf("                      ******************************************************\n");
+}
+void PisiStrele(){
+	
+	printf("                      * /////========================================\\\\\\\\\\ *\n");
+	printf("                      *	\\\\\\\\\\========================================///// *\n");
+}
+void PisiRed(){
+	printf("                      *	|||||					     ||||| *\n");
+}
+void PisiLiniju(){
+	printf("                      *	|||||	=================================    ||||| *\n");
+}
+void IspisRezultata(int najboljiR, int najboljiP, int novi){
+	IspisiPrazanRed(3);
+	PisiZvijezde();
+	PisiStrele();
+	PisiRed();
+	printf("                      *	|||||	Najbolji rekord:	   %04d      ||||| *\n", najboljiR);
+	PisiLiniju();
+	printf("                      * |||||   Rekord price:		   %04d      ||||| *\n", najboljiP);
+	PisiLiniju();
+	printf("                      *	|||||	Trenutni rekord:	   %04d      ||||| *\n", novi);
+	PisiRed();
+	PisiStrele();
+	PisiZvijezde();
+}
 
 void DaNe(char* orjentacija) {
 

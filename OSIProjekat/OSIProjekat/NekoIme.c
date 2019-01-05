@@ -4,10 +4,11 @@
 #include "Igrica4Komande.h"
 #include "FunkcijeZaIspis.h"
 #include <windows.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
-int NekoIme(int* glavniXP2){
+int NekoIme(int* glavniXP2, int najboljiR, int najboljiP){
 	system("title Neko Ime");
 	
 	OcistiEkran();
@@ -24,7 +25,7 @@ int NekoIme(int* glavniXP2){
 	osvojeniXP += (zivotniBodovi / 7);
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
-	
+	IspisRezultata(najboljiR, najboljiP, osvojeniXP);
 	
 	return 0;
 }
@@ -65,7 +66,7 @@ int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
 }
 void SlomljeniMatriks(){
 	int width = 170,height = 43;
-	srand((unsigned int)time(NULL)); //Ogi, dodaj unsigned int
+	srand((unsigned int)time(NULL));
 	system("color 09");
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};
@@ -319,7 +320,7 @@ void Gospodar1(){
 	
 	int x = 100;
 	MaliMatriks1();
-	Portal(&x);
+	Portal(&x, 0, 0, 0);
 	
 	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);
@@ -341,7 +342,7 @@ void Gospodar2(){
 	UsporeniIspisTeksta(100, "Budite se nekom zamku.\n");
 	int x = 100;
 	MaliMatriks1();
-	GOTPohod(&x);
+	GOTPohod(&x, 0, 0, 0);
 	
 	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);

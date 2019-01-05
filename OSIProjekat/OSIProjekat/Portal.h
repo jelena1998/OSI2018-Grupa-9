@@ -3,7 +3,7 @@
 
 int glavniXP, osvojeniXP, brojPomoci;
 
-int Portal(int*);
+int Portal(int*, int, int, int);
 int Pocetak(int*);
 int UzHodnik(int*);
 int NizHodnik(int*);

@@ -47,11 +47,12 @@ int main() {
 	//if (!p) return; //u slucaju da proba nastaviti ako nije prijavljen
 
 	izbor = 0;
+
 	do {
 		printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Izlaz\n");
 		scanf("%d", &izbor);
 		while ((c = getchar()) != EOF && c != '\n');
-		obrisiBafer(); // ocistimo bafer
+		//obrisiBafer(); // ocistimo bafer
 		switch(izbor) {
 		case 1: IgrajPrvuIgru(); break;
 		case 2: IgrajDruguIgru(); break;

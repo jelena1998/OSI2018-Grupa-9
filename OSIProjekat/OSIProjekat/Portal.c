@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <time.h>
 
-int Portal(int* glavniXP2){
+int Portal(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
 	system("title Portal");
 	
 	OcistiEkran();
@@ -22,6 +22,9 @@ int Portal(int* glavniXP2){
 	osvojeniXP += (zivotniBodovi / 7);
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
+	if(pisi == 1){
+		IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+	}
 	if(zivotniBodovi == 0){
 		return 1;
 	}
@@ -443,7 +446,7 @@ void MatriksEfekat(){
 	
 	OcistiEkran();
 	int width = 170,height = 43;
-	srand((unsigned int)time(NULL)); //Ogi dodao unsigned int
+	srand((unsigned int)time(NULL));
 	system("color A");
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};

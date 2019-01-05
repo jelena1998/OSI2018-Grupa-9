@@ -1,13 +1,11 @@
 #include"DrugaIgra.h"
 
-#include "reglog.h" //Ogi zbog obrisiBafer()
-
 int TacanOdgovor(PITANJE *pitanje, int odgovor)
 {
 	return pitanje->tacanOdgovor == odgovor;
 }
 
-/*Ovdje trebaju dva returna u slucaju da se if ne ispuni funkcija ipak ocekuje neki povratak int*/
+
 int VecPostojiBroj(int niz[], int n, int broj)
 {
 	int i;
@@ -16,11 +14,12 @@ int VecPostojiBroj(int niz[], int n, int broj)
 		if (niz[i] == broj)
 			return 0;
 	}
+	return 1; //Ogi, ako se if ne izvrsi mora nesto vratiti
 }
 
 void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 {
-	srand((unsigned int)time(0)); //Ogi dodao unsigned int zbog warrninga
+	srand((unsigned)time(0));
 	char *pom;
 	int duzina;
 	int znak, linija, i = 0, j, k, broj, ukupnoPitanja;
@@ -116,7 +115,7 @@ void IspisKraj(int x)
 		Sleep(3000);
 	}
 	printf("==========================================\n");
-	printf("****************DOVIDUVANJE****************\n");
+	printf("****************DOVIDJENJA****************\n");
 	printf("==========================================\n\n");
 	system("cls");
 }
@@ -126,7 +125,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
-		int odgovorKorisnik,pom;
+		int odgovorKorisnik,pom,c;
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
 		printf("Unesi tacan odgovor (1,2,3) : ");
@@ -138,21 +137,18 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 				pom++;
 				while ((c = getchar()) != EOF && c != '\n');
 				printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
-				obrisiBafer(); //brisanje bafera u slucaju razmaka da ga ocisti, Ogi
 			}
 			else
 			{
-				if (odgovorKorisnik < 1 || odgovorKorisnik > 3) {
+				if (odgovorKorisnik < 1 || odgovorKorisnik > 3)
 					printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
-					obrisiBafer(); //Ogi
-				}
-				obrisiBafer(); //Ogi
 			}
 		} while (pom != 0 || odgovorKorisnik < 1 || odgovorKorisnik > 3);
 		if (TacanOdgovor((pitanja + i), odgovorKorisnik))
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			*korisnikBodovi += 20;
+			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
 			Sleep(2000);
 		}
@@ -160,6 +156,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		{
 			printf("\nNetacan odgovor!\n\n");
 			*korisnikBodovi -= 30;
+			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
 		if (tacniOdg == 5)

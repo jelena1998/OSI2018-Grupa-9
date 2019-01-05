@@ -3,7 +3,7 @@
 
 int glavniXP, osvojeniXP;
 
-int GOTPohod(int*);
+int GOTPohod(int*, int, int, int);
 // Pitanja
 int Gavran(int*);
 int Poruka(int*);

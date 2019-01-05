@@ -4,8 +4,8 @@
 #include "FunkcijeZaIspis.h"
 #include <stdio.h>
 #include <string.h>
-#include<stdlib.h> //Ogi zbog system()
-int Mordor(int* glavniXP2){
+#include<stdlib.h>
+int Mordor(int* glavniXP2, int najboljiR, int najboljiP){
 	system("title Mordor");
 	OcistiEkran();
 	Load("Mordor loading...", 32);
@@ -17,6 +17,7 @@ int Mordor(int* glavniXP2){
 	
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
+	IspisRezultata(najboljiR, najboljiP, osvojeniXP);
 	return 0;
 }
 void OnDasNot(){
