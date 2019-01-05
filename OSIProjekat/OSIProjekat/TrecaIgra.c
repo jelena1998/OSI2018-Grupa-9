@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include<Windows.h>
 #include "TrecaIgra.h"
-
+#include<time.h>
 int VecPostoji(int niz[], int n, int broj) { 
 	int i;
 	for (i = 0; i < n; i++) {
@@ -37,7 +37,7 @@ void Tiket(int korisnik[]) { //korisnik unosi svoje brojeve
 }
 
 void Izvlacenje(int loto[], int korisnik[], int max) {		//max je maksimalan broj bodova koji se moze osvojiti 
-	srand(time(0));
+	srand((unsigned int)time(0)); //Ogi dodao unsigned int
 	if (max > 208) max = 280;							//jer je maksimalan broj poena u igri 280
 	max /= 10;
 	int i = 0, broj, komb[7], poz[TIKET_SIZE] = {-1,-1,-1,-1,-1,-1,-1};		//u nizu poz smjestaju se pozicije pogodaka u loto nizu
@@ -137,7 +137,7 @@ void IgrajTrecuIgru() {
 	int poeni, max, izgubljeniPoeni;
 	printf("Unesi broj izgubljenih poena: ");
 	scanf("%d", &izgubljeniPoeni);
-	max = izgubljeniPoeni - izgubljeniPoeni * 0.4;
+	max = (int)(izgubljeniPoeni - izgubljeniPoeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
 	printf("Maksimalan broj poena koji je moguce osvojiti u igri je %d\n", max);
 	Tiket(korisnik);								//korisnik unosi 7 brojeva
 	Izvlacenje(loto, korisnik, max);					//sistem generise 20 brojeva za loto

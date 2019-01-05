@@ -7,6 +7,8 @@
 #include "Mordor.h"
 #include <string.h>
 #include <stdio.h>
+#include<stdlib.h> //Ogi zbog system()
+
 
 int Avantura(int* glavniXP, char* sifra){
 	

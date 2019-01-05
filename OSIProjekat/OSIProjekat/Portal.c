@@ -443,7 +443,7 @@ void MatriksEfekat(){
 	
 	OcistiEkran();
 	int width = 170,height = 43;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL)); //Ogi dodao unsigned int
 	system("color A");
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};

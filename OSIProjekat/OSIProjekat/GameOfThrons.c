@@ -2,7 +2,7 @@
 #include "FunkcijeZaIspis.h"
 #include "Igrica4Komande.h"
 #include <stdio.h>
-
+#include<stdlib.h> //Ogi, zbog system()
 int GOTPohod(int* glavniXP2){
 	system("title Game Of Throns");
 	

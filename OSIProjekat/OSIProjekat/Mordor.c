@@ -4,7 +4,7 @@
 #include "FunkcijeZaIspis.h"
 #include <stdio.h>
 #include <string.h>
-
+#include<stdlib.h> //Ogi zbog system()
 int Mordor(int* glavniXP2){
 	system("title Mordor");
 	OcistiEkran();

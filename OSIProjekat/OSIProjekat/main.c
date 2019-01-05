@@ -6,9 +6,13 @@
 #include "reglog.h"
 
 
+void pocetnaStranica();
+
+
 int main() {
 	/*Podaci za test: korisnicko ime: ognjen  lozinka: ognjen123*/
 	
+	pocetnaStranica(); //pozivanje pocetne strane
 	
 	//za potrebe Avantura()
 	int bodovi = 0;
@@ -17,8 +21,7 @@ int main() {
 	int izbor;
 	int p = 0;
 	char c;
-	printf("\t\t\tDobrodosli na POHOD\n\n\n");
-
+	printf("Ukolliko nemate nalog molimo da se registrujete\nUkoliko ste vec registrovani prijavite se na sistem\n\n");
 	do {
 		printf("1.Registracija\n2.Prijava\n->");
 		scanf("%d", &izbor);
@@ -58,4 +61,17 @@ int main() {
 		}
 	} while (izbor != 5);
 	return 0;
+}
+
+
+void pocetnaStranica() {
+	system("title Platforma za igre - POHOD");
+	printf("\n\n\n\n\n\n\n\n\n\t\t\tDOBRODOSLI NA PLATFORMU ZA IGRE\n\t\t\t\t  \"POHOD\"\n\n");
+	printf("\t\t\t\tUcitavanje igre\n\n\t\t\t");
+	for (int i = 0; i < 16; i++) {
+		Sleep(500);
+		printf("%c ", 177);
+	}
+	Sleep(3000);
+	system("cls");
 }

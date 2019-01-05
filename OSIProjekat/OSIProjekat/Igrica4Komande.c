@@ -129,7 +129,7 @@ void sleepM(unsigned int milisekunde){
 	while (vrijeme > clock());
 }
 void Load(char* tekst, int x){
-	int i, c;
+	int i;
 	KordinateXY(x,14);
 	printf("%s", tekst);
 	KordinateXY(30,15);

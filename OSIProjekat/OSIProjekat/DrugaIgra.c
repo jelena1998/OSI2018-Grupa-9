@@ -1,11 +1,13 @@
 #include"DrugaIgra.h"
 
+#include "reglog.h" //Ogi zbog obrisiBafer()
+
 int TacanOdgovor(PITANJE *pitanje, int odgovor)
 {
 	return pitanje->tacanOdgovor == odgovor;
 }
 
-
+/*Ovdje trebaju dva returna u slucaju da se if ne ispuni funkcija ipak ocekuje neki povratak int*/
 int VecPostojiBroj(int niz[], int n, int broj)
 {
 	int i;
@@ -18,7 +20,7 @@ int VecPostojiBroj(int niz[], int n, int broj)
 
 void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 {
-	srand(time(0));
+	srand((unsigned int)time(0)); //Ogi dodao unsigned int zbog warrninga
 	char *pom;
 	int duzina;
 	int znak, linija, i = 0, j, k, broj, ukupnoPitanja;
@@ -136,11 +138,15 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 				pom++;
 				while ((c = getchar()) != EOF && c != '\n');
 				printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
+				obrisiBafer(); //brisanje bafera u slucaju razmaka da ga ocisti, Ogi
 			}
 			else
 			{
-				if (odgovorKorisnik < 1 || odgovorKorisnik > 3)
+				if (odgovorKorisnik < 1 || odgovorKorisnik > 3) {
 					printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
+					obrisiBafer(); //Ogi
+				}
+				obrisiBafer(); //Ogi
 			}
 		} while (pom != 0 || odgovorKorisnik < 1 || odgovorKorisnik > 3);
 		if (TacanOdgovor((pitanja + i), odgovorKorisnik))

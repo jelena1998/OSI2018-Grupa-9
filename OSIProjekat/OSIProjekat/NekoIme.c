@@ -65,7 +65,7 @@ int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
 }
 void SlomljeniMatriks(){
 	int width = 170,height = 43;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL)); //Ogi, dodaj unsigned int
 	system("color 09");
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};

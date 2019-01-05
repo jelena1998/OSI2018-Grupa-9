@@ -1,2 +1,3 @@
-﻿  main.c
+﻿  DrugaIgra.c
+c:\users\hp\source\repos\osiprojekat\osiprojekat\drugaigra.c(19): warning C4715: 'VecPostojiBroj': not all control paths return a value
   OSIProjekat.vcxproj -> C:\Users\HP\source\repos\OSIProjekat\Debug\OSIProjekat.exe
