@@ -37,14 +37,14 @@ int Avantura(int* glavniXP, char* sifra){
 		
 		if(izbor == 1){
 			Hahahaha();
-			mim = GOTPohod(&glavniXPA);
+			mim = GOTPohod(&glavniXPA, 0, 0, 1);
 			Slika(mim);
 		} else if(izbor == 2){
 			Hahahaha();
-			mim = Portal(&glavniXPA);
+			mim = Portal(&glavniXPA, 0, 0, 1);
 			Slika(mim);
 		} else if(izbor == 3){
-			mim = Mordor(&glavniXPA);
+			mim = Mordor(&glavniXPA, 0, 0);
 		} else if(izbor == 4){
 			UsporeniIspisTeksta(100, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li ce te nastaviti danje?\n");
 			DaNe("HORIZONTALNO");
@@ -52,7 +52,7 @@ int Avantura(int* glavniXP, char* sifra){
 			if(odgovor == 1){
 				UsporeniIspisTeksta(100, "Gospodar Igre: Zastooo! Zastoooo!\n");
 				VremenskaPauza(3);
-				NekoIme(&glavniXPA);
+				NekoIme(&glavniXPA, 0, 0);
 			} else{
 				UsporeniIspisTeksta(100, "Gospodar Igre: Napravili ste dobar izbor.\n");
 			}
