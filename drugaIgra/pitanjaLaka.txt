@@ -1,9 +1,9 @@
 10
-Zabe spadaju u...
-Sisare
-Vodozemce
-Ribe
-2
+Koja je najstarija vjera?
+Budizam
+Jainizam
+Islam
+3
 Kad je poceo Prvi Svjetski rat?
 1912
 1915
@@ -44,13 +44,13 @@ Antigona
 Domenika
 Helena
 1
-Povrsinu kruga rjesava formula R na kvadrat...
-r
-R
-Pi
+Ko je naslikao “Istrajnost memorije”?
+Vincent van Gogh
+Johanes Vermer
+Salvador Dali
 3
-1 bajt ima...
-8 bita
-16 bita
-32 bita
+Koja je najbrza ptica na svijetu?
+Orao
+Sivi soko
+Noj
 1

@@ -18,7 +18,7 @@ int VecPostojiBroj(int niz[], int n, int broj)
 
 void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 {
-	srand(time(0));
+	srand((unsigned)time(0));
 	char *pom;
 	int duzina;
 	int znak, linija, i = 0, j, k, broj, ukupnoPitanja;
@@ -114,7 +114,7 @@ void IspisKraj(int x)
 		Sleep(3000);
 	}
 	printf("==========================================\n");
-	printf("****************DOVIDUVANJE****************\n");
+	printf("****************DOVIDJENJA****************\n");
 	printf("==========================================\n\n");
 	system("cls");
 }
@@ -124,7 +124,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
-		int odgovorKorisnik,pom;
+		int odgovorKorisnik,pom,c;
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
 		printf("Unesi tacan odgovor (1,2,3) : ");
@@ -147,6 +147,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			*korisnikBodovi += 20;
+			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
 			Sleep(2000);
 		}
@@ -154,6 +155,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		{
 			printf("\nNetacan odgovor!\n\n");
 			*korisnikBodovi -= 30;
+			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
 		if (tacniOdg == 5)
