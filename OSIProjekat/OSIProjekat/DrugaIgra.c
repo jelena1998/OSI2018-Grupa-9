@@ -166,7 +166,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 	IspisKraj(*korisnikBodovi);
 }
 
-void IgrajDruguIgru()
+void IgrajDruguIgru(KORISNIK* korisnik)
 {
 	FILE *file;
 	PITANJE pitanja[5];

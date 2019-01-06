@@ -1,14 +1,10 @@
 #include"reglog.h"
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
 
-int login() {
+int login(KORISNIK *korisnik) {
 
 	system("cls");
 	printf("Login\n\n");
 
-	KORISNIK korisnik;
 	FILE* file;
 
 	char korisnickoIme[100], lozinka[100];
@@ -18,8 +14,8 @@ int login() {
 		printf("Unesite korisnicko ime:\n->");
 		scanf("%s", korisnickoIme);
 	} while (!obrisiBafer());
-	
-	do{
+
+	do {
 		printf("Unesite lozinku:\n->");
 		scanf("%s", lozinka);
 	} while (!obrisiBafer());
@@ -33,14 +29,14 @@ int login() {
 		printf("Korisnicko ime ne postoji u bazi podataka\nMolimo da se registrujete.\n");
 		return 0;
 	}
-	
-	fread(&korisnik, sizeof(KORISNIK), 1, file); //citanje podataka
-	
-	//poslije pronalazenja korisnika i citanja podataka provjerava se identicnost unijetih podataka
-	if (!strcmp(korisnik.korisnickoIme, korisnickoIme)) { 
-		if (!strcmp(korisnik.lozinka, lozinka)) {
 
-				printf("Dobrodosli %s na platformu.\nVasi bodovi su: %d.\n", korisnik.korisnickoIme, korisnik.bodovi);
+	fread(korisnik, sizeof(KORISNIK), 1, file); //citanje podataka
+
+	//poslije pronalazenja korisnika i citanja podataka provjerava se identicnost unijetih podataka
+	if (!strcmp(korisnik->korisnickoIme, korisnickoIme)) {
+		if (!strcmp(korisnik->lozinka, lozinka)) {
+
+			printf("Dobrodosli %s na platformu.\nVasi bodovi su: %d.\n", korisnik->korisnickoIme, korisnik->bodovi);
 			return 1;
 		}
 	}
@@ -56,7 +52,7 @@ int reg() {
 	FILE* file;
 	char korisnickoIme[100], lozinka[100];
 	char odrediste[100] = "Korisnici\\", eks[5] = ".dat";
-	int duzina;
+	int duzina, i;
 	int p=0;
 
 	do {
@@ -91,12 +87,28 @@ int reg() {
 	strcpy(korisnik.korisnickoIme, korisnickoIme);
 	strcpy(korisnik.lozinka, lozinka);
 	korisnik.bodovi = 10;
-
+	for (i = 0; i < 4; i++)
+		korisnik.indeksKljca[i] = KreirajKljuc();
+	PisiKljuc(korisnik);
 	//upisivanje podataka u datoteku
 	file = fopen(odrediste, "wb");
 	fwrite(&korisnik, sizeof(KORISNIK), 1, file);
 	fclose(file);
+	IGRANJE igranje;
 
+	time_t now = time(NULL);
+	file = fopen("igranje.csv", "a");
+	if (file == NULL) { printf("Greska prilikom otvaranja datoteke 'igranje.txt'\n"); return 0; }
+	strcpy(igranje.korisnickoIme, korisnik.korisnickoIme);
+	igranje.aktivna = -1;
+	igranje.datum = localtime(&now);
+	for (i = 0; i < 4; i++) {
+		igranje.sifraIgre = i + 1;
+		fprintf(file, "%s ;%d;%2d.%2d.%d.;%2d:%2d:%2d;%d\n", igranje.korisnickoIme, igranje.sifraIgre, \
+			igranje.datum->tm_mday, igranje.datum->tm_mon + 1, igranje.datum->tm_year + 1900, \
+			igranje.datum->tm_hour, igranje.datum->tm_min, igranje.datum->tm_sec, igranje.aktivna);
+	}
+	fclose(file);
 	return 1;
 }
 

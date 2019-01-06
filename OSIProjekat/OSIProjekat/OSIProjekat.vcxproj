@@ -23,7 +23,9 @@
     <ClInclude Include="DrugaIgra.h" />
     <ClInclude Include="FunkcijeZaIspis.h" />
     <ClInclude Include="GameOfThrons.h" />
+    <ClInclude Include="Igra.h" />
     <ClInclude Include="Igrica4Komande.h" />
+    <ClInclude Include="Kljuc.h" />
     <ClInclude Include="Mordor.h" />
     <ClInclude Include="NekoIme.h" />
     <ClInclude Include="Portal.h" />
@@ -37,7 +39,9 @@
     <ClCompile Include="DrugaIgra.c" />
     <ClCompile Include="FunkcijeZaIspis.c" />
     <ClCompile Include="GameOfThrons.c" />
+    <ClCompile Include="igra.c" />
     <ClCompile Include="Igrica4Komande.c" />
+    <ClCompile Include="Kljuc.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Mordor.c" />
     <ClCompile Include="NekoIme.c" />
@@ -107,6 +111,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

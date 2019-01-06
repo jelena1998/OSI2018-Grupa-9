@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include<Windows.h>
 #include "TrecaIgra.h"
-#include<time.h>
+
 int VecPostoji(int niz[], int n, int broj) { 
 	int i;
 	for (i = 0; i < n; i++) {
@@ -131,20 +128,20 @@ void PisiNiz(int niz[], int n, int pauza) {
 	Sleep(pauza * 1000);
 	printf("\n");
 }
-void IgrajTrecuIgru() {
+void IgrajTrecuIgru(KORISNIK* korisnik) {
 	int loto[20] = { 0 };
-	int korisnik[7] = { 0 };
+	int korisnikUnos[7] = { 0 };
 	int poeni, max, izgubljeniPoeni;
 	printf("Unesi broj izgubljenih poena: ");
 	scanf("%d", &izgubljeniPoeni);
 	max = (int)(izgubljeniPoeni - izgubljeniPoeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
 	printf("Maksimalan broj poena koji je moguce osvojiti u igri je %d\n", max);
-	Tiket(korisnik);								//korisnik unosi 7 brojeva
-	Izvlacenje(loto, korisnik, max);					//sistem generise 20 brojeva za loto
+	Tiket(korisnikUnos);								//korisnik unosi 7 brojeva
+	Izvlacenje(loto, korisnikUnos, max);					//sistem generise 20 brojeva za loto
 	//system("cls");
-	PisiNiz(korisnik, TIKET_SIZE, 0);
+	PisiNiz(korisnikUnos, TIKET_SIZE, 0);
 	PisiNiz(loto, BROJ_IZVLACENJA, 1);
-	BrojPogodaka(loto, korisnik, &poeni);
+	BrojPogodaka(loto, korisnikUnos, &poeni);
 	printf("Osvojili ste ukupno %d bodova u ovoj igri\n", poeni);
 	system("pause");
 }

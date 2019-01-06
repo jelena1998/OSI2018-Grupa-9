@@ -5,6 +5,7 @@
 #include<string.h>
 #include<Windows.h>
 #include<time.h>
+#include "igra.h"
 
 #define BROJ_PITANJA 5
 #define BROJ_ODGOVORA 3
@@ -23,4 +24,4 @@ void IspisPitanja(PITANJE *pitanje, int rb);
 void IspisPocetak();
 void IspisKraj(int x);
 void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi);
-void IgrajDruguIgru(); 
+void IgrajDruguIgru(KORISNIK*); 

@@ -1,10 +1,6 @@
 #include "PrvaIgra.h"
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-
-void IgrajPrvuIgru() {
+void IgrajPrvuIgru(KORISNIK* korisnik) {
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
 	printf("\tPravila:\n1. Unesite broj (0-100).\n2.Imate pravo na 5. pokusaja\n3.Poeni se racunaju 100/broj_pokusaja.\n\n\n");
 

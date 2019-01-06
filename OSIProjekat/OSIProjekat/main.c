@@ -4,20 +4,19 @@
 #include "TrecaIgra.h"
 #include "Cetvrta Igra.h"
 #include "reglog.h"
+#include "igra.h"
 
-
-void pocetnaStranica();
-
+void PocetnaStranica();
 
 int main() {
 	/*Podaci za test: korisnicko ime: ognjen  lozinka: ognjen123*/
 	
-	pocetnaStranica(); //pozivanje pocetne strane
+	//PocetnaStranica(); //pozivanje pocetne strane
 	
 	//za potrebe Avantura()
 	int bodovi = 0;
 	char sifra[10] = { "123456789" };
-
+	KORISNIK korisnik;
 	int izbor;
 	int p = 0;
 	char c;
@@ -32,7 +31,7 @@ int main() {
 			reg(); 
 			break;
 		case 2: 
-			if (login())
+			if (login(&korisnik))
 				p = 1;
 			else {
 				printf("Neuspjesna prijava\n");
@@ -45,27 +44,13 @@ int main() {
 	} while (izbor < 1 || izbor > 2 || !p);
 
 	//if (!p) return; //u slucaju da proba nastaviti ako nije prijavljen
-
-	izbor = 0;
-
-	do {
-		printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Izlaz\n");
-		scanf("%d", &izbor);
-		while ((c = getchar()) != EOF && c != '\n');
-		//obrisiBafer(); // ocistimo bafer
-		switch(izbor) {
-		case 1: IgrajPrvuIgru(); break;
-		case 2: IgrajDruguIgru(); break;
-		case 3: IgrajTrecuIgru(); break;
-		case 4: Avantura(&bodovi, sifra); break;
-		default: printf("Pogresan unos!!"); break;
-		}
-	} while (izbor != 5);
+	GlavniMeni(&korisnik);
 	return 0;
 }
 
 
-void pocetnaStranica() {
+
+void PocetnaStranica() {
 	system("title Platforma za igre - POHOD");
 	printf("\n\n\n\n\n\n\n\n\n\t\t\tDOBRODOSLI NA PLATFORMU ZA IGRE\n\t\t\t\t  \"POHOD\"\n\n");
 	printf("\t\t\t\tUcitavanje igre\n\n\t\t\t");

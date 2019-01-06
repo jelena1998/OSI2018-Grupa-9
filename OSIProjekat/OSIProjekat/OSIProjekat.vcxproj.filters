@@ -51,6 +51,12 @@
     <ClInclude Include="TrecaIgra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Igra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kljuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cetvrta Igra.c">
@@ -90,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TrecaIgra.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="igra.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kljuc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
