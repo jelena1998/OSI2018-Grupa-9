@@ -24,4 +24,4 @@ void IspisPitanja(PITANJE *pitanje, int rb);
 void IspisPocetak();
 void IspisKraj(int x);
 void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi);
-void IgrajDruguIgru(KORISNIK*); 
+void IgrajDruguIgru(IGRANJE*); 

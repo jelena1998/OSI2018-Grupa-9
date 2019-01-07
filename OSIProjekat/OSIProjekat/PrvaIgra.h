@@ -5,6 +5,6 @@
 #include "igra.h"
 
 #define BROJ_POKUSAJA 5
-void IgrajPrvuIgru(KORISNIK*);
+void IgrajPrvuIgru(IGRANJE*);
 int PogodiBroj(int);
 void Izgubi(); 

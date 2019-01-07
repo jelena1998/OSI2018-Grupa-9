@@ -77,9 +77,10 @@ int Otkljucaj(KORISNIK korisnik, int a) {
 	KLJUC kljuc;
 	char niz[20] = { 0 }, c;
 	printf("\nUnesi kljuc: ");
-	while ((c = getchar()) != '\n')
+	while ((c = getchar()) != '\n') {
 		niz[i++] = c;
-	if (i > 19) return 0;
+		if (i > 19) return 0;
+	}
 	kljuc = TraziKljuc(korisnik.indeksKljca[a - 1]);
 	return !strcmp(niz, kljuc.kljuc);
 }

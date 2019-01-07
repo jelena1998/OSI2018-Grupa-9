@@ -128,7 +128,8 @@ void PisiNiz(int niz[], int n, int pauza) {
 	Sleep(pauza * 1000);
 	printf("\n");
 }
-void IgrajTrecuIgru(KORISNIK* korisnik) {
+
+void IgrajTrecuIgru(IGRANJE* igranje) {
 	int loto[20] = { 0 };
 	int korisnikUnos[7] = { 0 };
 	int poeni, max, izgubljeniPoeni;
@@ -143,5 +144,6 @@ void IgrajTrecuIgru(KORISNIK* korisnik) {
 	PisiNiz(loto, BROJ_IZVLACENJA, 1);
 	BrojPogodaka(loto, korisnikUnos, &poeni);
 	printf("Osvojili ste ukupno %d bodova u ovoj igri\n", poeni);
+	igranje->bodoviUIgri = poeni;
 	system("pause");
 }

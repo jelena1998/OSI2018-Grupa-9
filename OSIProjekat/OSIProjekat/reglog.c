@@ -35,8 +35,9 @@ int login(KORISNIK *korisnik) {
 	//poslije pronalazenja korisnika i citanja podataka provjerava se identicnost unijetih podataka
 	if (!strcmp(korisnik->korisnickoIme, korisnickoIme)) {
 		if (!strcmp(korisnik->lozinka, lozinka)) {
-
-			printf("Dobrodosli %s na platformu.\nVasi bodovi su: %d.\n", korisnik->korisnickoIme, korisnik->bodovi);
+			system("cls");
+			printf("\t\tDobrodosli %s na platformu.\n\t\t    Vasi bodovi su: %d.\n", korisnik->korisnickoIme, korisnik->bodovi);
+			Sleep(2000);
 			return 1;
 		}
 	}
@@ -109,6 +110,18 @@ int reg() {
 			igranje.datum->tm_hour, igranje.datum->tm_min, igranje.datum->tm_sec, igranje.aktivna);
 	}
 	fclose(file);
+
+	char pom[10] = "0.csv";
+	for (i = 0; i < 4; i++) {		//otvaranje datoteka za statistiku igara
+		strcpy(odrediste, "Korisnici\\");
+		strcat(odrediste, korisnik.korisnickoIme);
+		pom[0]++;
+		strcat(odrediste, pom);
+		file = fopen(odrediste, "w");
+		if (file == NULL) {
+			printf("Greska prilikom otvaranja datoteke\n"); return 0;}
+			fclose(file);
+	}
 	return 1;
 }
 

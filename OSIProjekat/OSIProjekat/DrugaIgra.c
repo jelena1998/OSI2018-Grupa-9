@@ -166,7 +166,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 	IspisKraj(*korisnikBodovi);
 }
 
-void IgrajDruguIgru(KORISNIK* korisnik)
+void IgrajDruguIgru(IGRANJE* igranje)
 {
 	FILE *file;
 	PITANJE pitanja[5];
@@ -181,4 +181,5 @@ void IgrajDruguIgru(KORISNIK* korisnik)
 		printf("Greska pri otvaranju datoteke\n");
 	IspisPocetak();
 	IgrajKviz(pitanja, &korisnikBodovi);
+	igranje->bodoviUIgri = korisnikBodovi;
 }

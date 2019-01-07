@@ -40,9 +40,7 @@ int main() {
 			break;
 		default: printf("Pogresan unos.\n");
 		}
-
 	} while (izbor < 1 || izbor > 2 || !p);
-
 	//if (!p) return; //u slucaju da proba nastaviti ako nije prijavljen
 	GlavniMeni(&korisnik);
 	return 0;

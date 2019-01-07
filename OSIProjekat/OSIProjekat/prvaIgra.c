@@ -1,14 +1,14 @@
 #include "PrvaIgra.h"
 
-void IgrajPrvuIgru(KORISNIK* korisnik) {
+void IgrajPrvuIgru(IGRANJE* igranje) {
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
-	printf("\tPravila:\n1. Unesite broj (0-100).\n2.Imate pravo na 5. pokusaja\n3.Poeni se racunaju 100/broj_pokusaja.\n\n\n");
+	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n3. Poeni se racunaju 100/broj_pokusaja.\n\n\n");
 
 	srand((unsigned int)time(NULL));
 
 	int broj = rand() % 101;
-	int pokusaj = 0, p = 1;
-	int izgubi = 1;
+	int pokusaj = 0, p = 1, poeni = 0;
+	int izgubi = 0;
 	/*dodati nacin racunanja bodova kada se sve spoji u jedno...*/
 
 	if (!izgubi) {
@@ -19,15 +19,19 @@ void IgrajPrvuIgru(KORISNIK* korisnik) {
 			p = PogodiBroj(broj);
 			pokusaj++;
 		}
-		if (!p)
-			printf("Kraj igre\nOsvojeni poeni su: %.3lf\n", 100 / (double)pokusaj);
-		else
+		if (!p) {
+			poeni = 100 / pokusaj;
+			printf("Kraj igre\nOsvojeni poeni su: %d\n", poeni);
+		}
+		else {
+			printf("Kraj igre\nOsvojeni poeni su: 0\n");
 			printf("Vise srece drugi put!\n");
-
+		}
 		printf("Trazeni broj je: %d\n", broj);
 	}
-	else
+	else 
 		Izgubi();
+	igranje->bodoviUIgri = poeni;
 }
 
 int PogodiBroj(int broj) {
