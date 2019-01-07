@@ -1,8 +1,8 @@
 #include "Igra.h"
 
 int TraziIgranje(char korisnickoIme[], int igra, IGRANJE* igranje) {
-	time_t now = time(NULL);
 	int adresa;
+	time_t now = time(NULL);
 	igranje->datum = localtime(&now);
 	char pom[100];
 	FILE* f = fopen("igranje.csv", "r");
@@ -38,23 +38,21 @@ void ADIgru(int bool, IGRANJE* igranje) {
 }
 
 int Istekao(IGRANJE* igranje) {
-	time_t now = time(NULL);
-	DATUM tm1 = localtime(&now);
+	time_t t1 = time(NULL);
 	DATUM tm2 = igranje->datum;
-	tm1->tm_mon++; tm1->tm_year += 1900;
+	tm2->tm_year -= 1900;
+	tm2->tm_mon--;
 	switch (igranje->sifraIgre) {
-	case 1: tm2->tm_hour++; break;
+	case 1: tm2->tm_hour++; break;		
 	case 2: tm2->tm_mday++; break;
 	case 3: tm2->tm_mday += 7; break;
 	case 4: tm2->tm_year += 100;
 	default: printf("Greska!"); break;
-	}									//tm2 je datum i vrijeme isteka igre
-	time_t t1 = mktime(tm1);
+	}								//tm2 je datum i vrijeme isteka igre
 	time_t t2 = mktime(tm2);
-	double d = difftime(t2, t1);		// naci dugo rjesenje za poredjenje!!
-	return d > 0;
+	double sec = difftime(t1, t2);
+	return sec > 0;
 }
-
 
 void GlavniMeni(KORISNIK* korisnik) {
 	int izbor;
