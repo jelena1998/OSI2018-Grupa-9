@@ -32,6 +32,7 @@
     <ClInclude Include="PrvaIgra.h" />
     <ClInclude Include="reglog.h" />
     <ClInclude Include="SkrivenaIgra.h" />
+    <ClInclude Include="Statistika.h" />
     <ClInclude Include="TrecaIgra.h" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,7 @@
     <ClCompile Include="prvaIgra.c" />
     <ClCompile Include="reglog.c" />
     <ClCompile Include="SkrivenaIgra.c" />
+    <ClCompile Include="Statistika.c" />
     <ClCompile Include="TrecaIgra.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
