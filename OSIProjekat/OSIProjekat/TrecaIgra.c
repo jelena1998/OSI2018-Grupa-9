@@ -20,7 +20,6 @@ void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 		printf("Unesite broj-> ");
 		scanf("%d", &broj);
 		if (Otkazi(igranje)) return;
-		while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		int a = VecPostoji(korisnik, TIKET_SIZE, broj);
 		while (broj < 1 || broj>45 || !a)
 		{

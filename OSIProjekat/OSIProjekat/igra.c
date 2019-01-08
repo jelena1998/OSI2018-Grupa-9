@@ -255,15 +255,21 @@ int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
 }
 
 int Otkazi(IGRANJE* igranje) {
-	char niz[7] = { 0 }, c, i;
-	for (i = 0; i < 6; i++) {
-		c = getchar();
-		if (c == EOF || c == '\n') return 0;
-		niz[i] = c;
-	}
-	niz[i] = 0;
+	char *niz, c;
+	int n=10,i=0;
+	niz = (char*)calloc(n, sizeof(char)); if(!niz) {printf("Greska kod alokacije memorije"); return 1;}
+		while ((c = getchar()) != EOF && c != '\n') {
+			niz[i++] = c;
+			if (i >= n) {
+				n += 10;
+				niz = (char*)realloc(niz, n);
+			}
+		}
 	if (!strcmp(niz, "OTKAZI")) {
 		ADIgru(0, igranje);
+		free(niz);
 		return 1;
 	}
+	free(niz);
+	return 0;
 }

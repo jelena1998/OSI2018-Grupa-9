@@ -136,7 +136,6 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
 			{
 				pom++;
 				if (Otkazi(igranje)) return;
-				while ((c = getchar()) != EOF && c != '\n');
 				printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
 			}
 			else

@@ -15,7 +15,6 @@ void Pobijedi(IGRANJE* igranje) {
 			printf("\nUnesite broj (0-100)->");
 			scanf("%d", &unos);
 			if (Otkazi(igranje)) return;
-			while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		} while (unos < 0 || unos > 100);
 		if (max - unos > unos - min) {
 			minp = unos;
@@ -87,7 +86,6 @@ int PogodiBroj(int broj,IGRANJE* igranje) {
 		printf("\nUnesite broj (0-100)->");
 		scanf("%d", &unos);
 		if (Otkazi(igranje)) return -1;
-		while ((c = getchar()) != EOF && c != '\n');
 	} while (unos < 0 || unos > 100 || p);
 
 	if (broj == unos) {
@@ -111,7 +109,6 @@ void Izgubi(IGRANJE* igranje) {
 			printf("\nUnesite broj (0-100)->");
 			scanf("%d", &unos);
 			if (Otkazi(igranje)) return;
-			while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		} while (unos < 0 || unos > 100);
 		if (max - unos > unos - min) {
 			minp = unos;
