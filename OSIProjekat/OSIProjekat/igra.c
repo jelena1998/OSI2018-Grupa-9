@@ -126,6 +126,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 				p++;
 		} while (p);
 		IGRANJE igranje;
+		igranje.bodoviUIgri = 0;
 		//while ((c = getchar()) != EOF && c != '\n');
 		//obrisiBafer(); // ocistimo bafer
 
@@ -148,6 +149,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 					Snimi(&igranje);
 				}
 			}
+			Sleep(2000);
 			/*system("pause");*/ GlavniMeni(korisnik); break;
 		case 2:
 			system("cls");
@@ -157,6 +159,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 				korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
 			}
+			Sleep(2000);
 			GlavniMeni(korisnik);
 			break; //da ne propadne dalje
 		case 3:
@@ -167,6 +170,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 				korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
 			}
+			Sleep(2000);
 			GlavniMeni(korisnik);
 			break; //isto tako
 		case 4:
@@ -176,6 +180,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 				//Avantura(&korisnik->bodovi, sifra);	//&korisnik.bodovi, sta je sifra?
 				printf("pristupio si\n");
 			}
+			Sleep(2000);
 			/*system("pause");*/ 
 			GlavniMeni(korisnik); 
 			break;
@@ -220,6 +225,12 @@ int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
 		if (izbor != 1) {printf("Pogresan unos!"); return 0;}
 		if(korisnik->bodovi >= plati)
 			korisnik->bodovi -= plati;
+		else {
+			printf("Nemate dovoljno bodova za igru");
+			Sleep(1500);
+			GlavniMeni(korisnik);
+		}
+
 	}
 	while (igranje->aktivna == -1) {
 		if (Otkljucaj(*korisnik, igranje->sifraIgre)) {
@@ -243,3 +254,16 @@ int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
 	return 0;
 }
 
+int Otkazi(IGRANJE* igranje) {
+	char niz[7] = { 0 }, c, i;
+	for (i = 0; i < 6; i++) {
+		c = getchar();
+		if (c == EOF || c == '\n') return 0;
+		niz[i] = c;
+	}
+	niz[i] = 0;
+	if (!strcmp(niz, "OTKAZI")) {
+		ADIgru(0, igranje);
+		return 1;
+	}
+}

@@ -4,7 +4,8 @@ void Pobijedi(IGRANJE* igranje) {
 	int unos, i, min = 0, max = 100, maxp, minp, pokusaj;
 	char c;
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
-	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n3. Poeni se racunaju 100/broj_pokusaja.\n\n\n");
+	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n"
+	"3. Poeni se racunaju 100/broj_pokusaja.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
 
 	srand((unsigned int)time(NULL));
 	pokusaj = rand() % 5 + 1;		//u kojem pokusaju ce korisnik pobijediti
@@ -13,6 +14,7 @@ void Pobijedi(IGRANJE* igranje) {
 			printf("Pokusaj: %d", i + 1);
 			printf("\nUnesite broj (0-100)->");
 			scanf("%d", &unos);
+			if (Otkazi(igranje)) return;
 			while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		} while (unos < 0 || unos > 100);
 		if (max - unos > unos - min) {
@@ -44,7 +46,8 @@ void Pobijedi(IGRANJE* igranje) {
 
 void IgrajPrvuIgru(IGRANJE* igranje) {
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
-	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n3. Poeni se racunaju 100/broj_pokusaja.\n\n\n");
+	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n"
+		"3. Poeni se racunaju 100/broj_pokusaja.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
 
 	srand((unsigned int)time(NULL));
 
@@ -58,9 +61,10 @@ void IgrajPrvuIgru(IGRANJE* igranje) {
 		while (pokusaj < BROJ_POKUSAJA && p) {
 
 			printf("Pokusaj: %d", pokusaj + 1);
-			p = PogodiBroj(broj);
+			p = PogodiBroj(broj,igranje);
 			pokusaj++;
 		}
+		if (p == -1) return;
 		if (!p) {
 			poeni = 100 / pokusaj;
 			printf("Kraj igre\nOsvojeni poeni su: %d\n", poeni);
@@ -72,16 +76,17 @@ void IgrajPrvuIgru(IGRANJE* igranje) {
 		printf("Trazeni broj je: %d\n", broj);
 	}
 	else 
-		Izgubi();
+		Izgubi(igranje);
 	igranje->bodoviUIgri = poeni;
 }
 
-int PogodiBroj(int broj) {
+int PogodiBroj(int broj,IGRANJE* igranje) {
 	int unos, p = 0;
 	char c;
 	do {
 		printf("\nUnesite broj (0-100)->");
 		scanf("%d", &unos);
+		if (Otkazi(igranje)) return -1;
 		while ((c = getchar()) != EOF && c != '\n');
 	} while (unos < 0 || unos > 100 || p);
 
@@ -97,7 +102,7 @@ int PogodiBroj(int broj) {
 //funkcija uvijek bira siri opseg izmedju (min,unos) i (unos,max), azurira min i max po potrebi
 //i na kraju u posljednjem opsegu (min,max) bira nasumican broj
 
-void Izgubi() {
+void Izgubi(IGRANJE* igranje) {
 	int unos, i, min = 0, max = 100, maxp, minp,pokusaj = 0;
 	char c;
 	for (i = 0; i < 5; i++) {
@@ -105,6 +110,7 @@ void Izgubi() {
 			printf("Pokusaj: %d", pokusaj + 1);
 			printf("\nUnesite broj (0-100)->");
 			scanf("%d", &unos);
+			if (Otkazi(igranje)) return;
 			while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		} while (unos < 0 || unos > 100);
 		if (max - unos > unos - min) {

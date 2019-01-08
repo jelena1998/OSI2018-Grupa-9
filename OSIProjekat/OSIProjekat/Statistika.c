@@ -11,10 +11,10 @@ void PrikazStatistike(KORISNIK* korisnik) {
 		printf("Za koju igru zelite statistiku?\n Unesite brojeve (1-4) ili 5 za sve ");
 		scanf("%d", &izbor);
 	} while (!obrisiBafer() || izbor < 1 || izbor > 5);
-	
+
 	system("cls");
 	if (izbor <= 4 && izbor >= 1) {
-		PisiStatistiku(*korisnik, izbor); 
+		PisiStatistiku(*korisnik, izbor);
 		return;
 	}
 	if (izbor == 5) {
@@ -22,7 +22,7 @@ void PrikazStatistike(KORISNIK* korisnik) {
 			PisiStatistiku(*korisnik, i);
 		return;
 	}
-	
+
 	//printf("Pogresan unos. Bicete vraceni na glavni meni.\n");
 	Sleep(1500);
 	GlavniMeni(korisnik);
@@ -31,17 +31,18 @@ void PrikazStatistike(KORISNIK* korisnik) {
 void PisiStatistiku(KORISNIK korisnik, int igra) {
 	FILE* f;
 	TABELA tabela;
-	char odrediste[50] = "Korisnici\\", pom[10] = "0.csv";
+	char odrediste[50] = "Korisnici\\", pom[10] = "0.csv", i=0;
 	strcat(odrediste, korisnik.korisnickoIme);
 	pom[0] += igra;
 	strcat(odrediste, pom);
 	f = fopen(odrediste, "r");
 	if (f == NULL) { printf("greska pri otvaranju datoteke!"); return; }
 	printf("\t\tStatistika za %d. igru\n", igra);
-	printf("%-8s %-11s %-12s %-s\n", "Ime", "Igra", "Datum", "bodovi");
+	printf("     %-8s %-11s %-12s %-s\n", "Ime", "Igra", "Datum", "bodovi");
 	while (fscanf(f, "%d;%d.%d.%d.;%d\n", &tabela.igra, &tabela.dan, \
 		&tabela.mjesec, &tabela.godina, &tabela.bodovi) != EOF) {
-		printf("%-10s %-7d %-2d.%-2d.%-4d. %-4s %-d\n", korisnik.korisnickoIme, \
+		i++;
+		printf("%-4d %-10s %-7d %d. %d. %-4d. %-4s %-d\n", i,korisnik.korisnickoIme, \
 			tabela.igra, tabela.dan, tabela.mjesec, tabela.godina,"",tabela.bodovi);
 	}
 	printf("\n");

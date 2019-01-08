@@ -44,3 +44,5 @@ int cmp(const void * a, const void * b);
 
 void ucitajPodatke(KORISNIK,int, int);
 void Pobijedi(IGRANJE*);
+
+int Otkazi(IGRANJE*);

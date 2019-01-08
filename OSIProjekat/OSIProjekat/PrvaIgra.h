@@ -7,5 +7,5 @@
 #define BROJ_POKUSAJA 5
 
 void IgrajPrvuIgru(IGRANJE*);
-int PogodiBroj(int);
-void Izgubi(); 
+int PogodiBroj(int,IGRANJE*);
+void Izgubi(IGRANJE*); 

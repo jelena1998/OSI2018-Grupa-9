@@ -23,5 +23,5 @@ void OdaberiPitanja(PITANJE* pitanja, FILE* file);
 void IspisPitanja(PITANJE *pitanje, int rb);
 void IspisPocetak();
 void IspisKraj(int x);
-void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi);
+void IgrajKviz(PITANJE *pitanja, IGRANJE*);
 void IgrajDruguIgru(IGRANJE*); 

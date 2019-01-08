@@ -120,12 +120,13 @@ void IspisKraj(int x)
 	system("cls");
 }
 
-void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
+void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
 {
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
-		int odgovorKorisnik,pom,c;
+		int odgovorKorisnik,pom;
+		char c;
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
 		printf("Unesi tacan odgovor (1,2,3) : ");
@@ -133,8 +134,8 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 			pom = 0;
 			if (scanf("%d", &odgovorKorisnik) != 1 || odgovorKorisnik <1 || odgovorKorisnik >3)
 			{
-				int c;
 				pom++;
+				if (Otkazi(igranje)) return;
 				while ((c = getchar()) != EOF && c != '\n');
 				printf("Pogresan unos! Korisnik mora da unese brojeve 1,2,3.\nPokusaj ponovo: ");
 			}
@@ -147,7 +148,7 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		if (TacanOdgovor((pitanja + i), odgovorKorisnik))
 		{
 			printf("\nOdgovor je tacan!\n\n");
-			*korisnikBodovi += 20;
+			igranje->bodoviUIgri += 20;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
 			Sleep(2000);
@@ -155,23 +156,24 @@ void IgrajKviz(PITANJE *pitanja, int *korisnikBodovi)
 		else
 		{
 			printf("\nNetacan odgovor!\n\n");
-			*korisnikBodovi -= 30;
+			igranje->bodoviUIgri -= 30;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
 		if (tacniOdg == 5)
-			*korisnikBodovi += 50;
+			igranje->bodoviUIgri += 50;
 		system("cls");
 	}
-	IspisKraj(*korisnikBodovi);
+	IspisKraj(igranje->bodoviUIgri);
 }
 
 void IgrajDruguIgru(IGRANJE* igranje)
 {
 	FILE *file;
 	PITANJE pitanja[5];
-	int korisnikBodovi = 0, bodoviBrojac = 0;
-	char pitanjaa[17]; printf("Unesi pitanjaLaka.txt ili pitanjaTeska.txt:   "); scanf("%s", pitanjaa); //dok se ne napravi manipulacija ishoda
+	int bodoviBrojac = 0;
+	char pitanjaa[17]; printf("Unesi pitanjaLaka.txt ili pitanjaTeska.txt:   "); 
+	scanf("%s", pitanjaa); //dok se ne napravi manipulacija ishoda
 	if ((file = fopen(pitanjaa, "r")) != NULL)
 	{
 		OdaberiPitanja(pitanja, file);
@@ -180,6 +182,5 @@ void IgrajDruguIgru(IGRANJE* igranje)
 	else
 		printf("Greska pri otvaranju datoteke\n");
 	IspisPocetak();
-	IgrajKviz(pitanja, &korisnikBodovi);
-	igranje->bodoviUIgri = korisnikBodovi;
+	IgrajKviz(pitanja, igranje);
 }

@@ -9,7 +9,7 @@ int VecPostoji(int niz[], int n, int broj) {
 	return 1;
 }
 
-void Tiket(int korisnik[]) { //korisnik unosi svoje brojeve
+void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 
 	int i, broj;
 	char c;
@@ -19,6 +19,7 @@ void Tiket(int korisnik[]) { //korisnik unosi svoje brojeve
 	{
 		printf("Unesite broj-> ");
 		scanf("%d", &broj);
+		if (Otkazi(igranje)) return;
 		while ((c = getchar()) != EOF && c != '\n');		//za slucajan unos znaka ili stringa
 		int a = VecPostoji(korisnik, TIKET_SIZE, broj);
 		while (broj < 1 || broj>45 || !a)
@@ -26,6 +27,7 @@ void Tiket(int korisnik[]) { //korisnik unosi svoje brojeve
 			printf("Greska! Broj nije u zadanom opsegu ili je vec ranije unesen\n");
 			printf("Unesite broj-> ");
 			scanf("%d", &broj);
+			if (Otkazi(igranje)) return;
 			while ((c = getchar()) != EOF && c != '\n');	//za slucajan unos znaka ili stringa
 			a = VecPostoji(korisnik, TIKET_SIZE, broj);
 		}
@@ -137,7 +139,7 @@ void IgrajTrecuIgru(IGRANJE* igranje) {
 	scanf("%d", &izgubljeniPoeni);
 	max = (int)(izgubljeniPoeni - izgubljeniPoeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
 	printf("Maksimalan broj poena koji je moguce osvojiti u igri je %d\n", max);
-	Tiket(korisnikUnos);								//korisnik unosi 7 brojeva
+	Tiket(korisnikUnos,igranje);								//korisnik unosi 7 brojeva
 	Izvlacenje(loto, korisnikUnos, max);					//sistem generise 20 brojeva za loto
 	//system("cls");
 	PisiNiz(korisnikUnos, TIKET_SIZE, 0);
