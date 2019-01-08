@@ -3,9 +3,10 @@
 #include "Igrica4Komande.h"
 #include "FunkcijeZaIspis.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-int Mordor(int* glavniXP2, int najboljiR, int najboljiP){
+int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	system("title Mordor");
 	OcistiEkran();
 	Load("Mordor loading...", 32);
@@ -17,7 +18,8 @@ int Mordor(int* glavniXP2, int najboljiR, int najboljiP){
 	
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
-	IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+	*osvojeniXP2 = osvojeniXP;
+	IspisRezultata(najboljiR, osvojeniXP);
 	return 0;
 }
 void OnDasNot(){
@@ -38,5 +40,8 @@ void UMordor(){
 	OcistiEkran();
 	IspisSlike("Pikacu.txt");
 	VremenskaPauza(3);
-	Pokreni();
+	OcistiEkran();
+	osvojeniXP = Pokreni();
+	osvojeniXP += 50;
+	OcistiEkran();
 }

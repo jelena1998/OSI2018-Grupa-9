@@ -3,7 +3,7 @@
 
 int glavniXP, osvojeniXP, brojPomoci;
 
-int Mordor(int*, int, int);
+int Mordor(int*, int, int*);
 void OnDasNot();
 void UMordor();
 
