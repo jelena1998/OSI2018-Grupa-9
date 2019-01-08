@@ -40,9 +40,11 @@ void ADIgru(int bool, IGRANJE* igranje) {
 	if (bool) {
 		time_t now = time(NULL);
 		igranje->datum = localtime(&now);
+		igranje->datum->tm_year += 1900;
+		igranje->datum->tm_mon += 1;
 	}
 	fprintf(f, "%s ;%d;%2d.%2d.%d.;%2d:%2d:%2d;%d\n", igranje->korisnickoIme, igranje->sifraIgre, \
-		igranje->datum->tm_mday, igranje->datum->tm_mon + 1, igranje->datum->tm_year + 1900, \
+		igranje->datum->tm_mday, igranje->datum->tm_mon, igranje->datum->tm_year, \
 		igranje->datum->tm_hour, igranje->datum->tm_min, igranje->datum->tm_sec, igranje->aktivna);
 	printf("\nIgra je %s\n", bool ? "otkljucana" : "zakljucana");
 	fclose(f);
