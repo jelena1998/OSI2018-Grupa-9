@@ -6,7 +6,7 @@ int KreirajKljuc() {
 	KLJUC k;
 	FILE* f = fopen("kljuc.csv", "a+");
 	if (f == NULL) { printf("greska pri otvaranju datoteke!"); return 0; }
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	k.kljuc[19] = 0;
 	for (i = 0; i < 19; i++)
 		k.kljuc[i] = '0' + rand() % 10;

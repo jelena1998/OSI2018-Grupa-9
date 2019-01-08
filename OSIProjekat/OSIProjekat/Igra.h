@@ -5,6 +5,8 @@
 #include<Windows.h>
 #include<time.h>
 
+
+
 #define MAX 21
 
 typedef struct tm* DATUM;
@@ -37,3 +39,5 @@ int PristupiIgri(IGRANJE*, KORISNIK*);
 void GlavniMeni(KORISNIK*);
 void Snimi(IGRANJE*);
 int cmp(const void * a, const void * b);
+
+void ucitajPodatke(KORISNIK,int);

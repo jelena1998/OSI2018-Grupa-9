@@ -1,19 +1,29 @@
 #include"Statistika.h"
 
+#include"reglog.h" //zbog obrisiBafer()
+
 void PrikazStatistike(KORISNIK* korisnik) {
 	int izbor, i;
-	printf("Za koju igru zelite statistiku?\n Unesite brojeve (1-4) ili 5 za sve ");
-	scanf("%d", &izbor);
+	int p = 0;
+
+	do {
+		system("cls");
+		printf("Za koju igru zelite statistiku?\n Unesite brojeve (1-4) ili 5 za sve ");
+		scanf("%d", &izbor);
+	} while (!obrisiBafer() || izbor < 1 || izbor > 5);
+	
 	system("cls");
 	if (izbor <= 4 && izbor >= 1) {
-		PisiStatistiku(*korisnik, izbor); return;
+		PisiStatistiku(*korisnik, izbor); 
+		return;
 	}
 	if (izbor == 5) {
 		for (i = 1; i < 5; i++)
 			PisiStatistiku(*korisnik, i);
 		return;
 	}
-	printf("Pogresan unos");
+	
+	//printf("Pogresan unos. Bicete vraceni na glavni meni.\n");
 	Sleep(1500);
 	GlavniMeni(korisnik);
 }
@@ -53,7 +63,7 @@ void Snimi(IGRANJE* igranje) {
 	pom[0] += igranje->sifraIgre;
 	strcat(odrediste, pom);
 	f = fopen(odrediste, "r+");	//prvo ucitavamo sve podatke
-	if (f == NULL) { printf("greska pri otvaranju datoteke!"); return; }
+	if (f == NULL) { printf("Greska pri otvaranju datoteke!"); return; }
 	while (fscanf(f, "%d;%d.%d.%d.;%d\n", &niz[i].igra, &niz[i].dan, \
 		&niz[i].mjesec, &niz[i].godina, &niz[i].bodovi) != EOF)
 		i++;

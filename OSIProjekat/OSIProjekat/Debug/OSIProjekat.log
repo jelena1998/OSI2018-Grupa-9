@@ -1,7 +1,2 @@
-﻿  igra.c
-c:\users\jelena\desktop\osiprojekat\osiprojekat\igra.c(76): warning C4013: 'IgrajPrvuIgru' undefined; assuming extern returning int
-c:\users\jelena\desktop\osiprojekat\osiprojekat\igra.c(82): warning C4013: 'IgrajDruguIgru' undefined; assuming extern returning int
-c:\users\jelena\desktop\osiprojekat\osiprojekat\igra.c(88): warning C4013: 'IgrajTrecuIgru' undefined; assuming extern returning int
-c:\users\jelena\desktop\osiprojekat\osiprojekat\igra.c(99): warning C4013: 'PisiKljuc' undefined; assuming extern returning int
-c:\users\jelena\desktop\osiprojekat\osiprojekat\igra.c(111): warning C4013: 'Otkljucaj' undefined; assuming extern returning int
-  OSIProjekat.vcxproj -> C:\Users\Jelena\Desktop\OSIProjekat\Debug\OSIProjekat.exe
+﻿  main.c
+  OSIProjekat.vcxproj -> C:\Users\HP\source\repos\OSIProjekat\Debug\OSIProjekat.exe

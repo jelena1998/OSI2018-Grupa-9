@@ -1,9 +1,11 @@
 #include"reglog.h"
+#include"Kljuc.h"
+
 
 int login(KORISNIK *korisnik) {
 
 	system("cls");
-	printf("Login\n\n");
+	printf("Prijava na sistem\n\n");
 
 	FILE* file;
 
@@ -26,7 +28,8 @@ int login(KORISNIK *korisnik) {
 	//ukoliko se unese nepostojece ime
 	file = fopen(odrediste, "rb");
 	if (file == NULL) {
-		printf("Korisnicko ime ne postoji u bazi podataka\nMolimo da se registrujete.\n");
+		printf("Nismo pronasli podatke pod tim korisnickim imenom\n");
+	//	fclose(file);
 		return 0;
 	}
 
@@ -37,7 +40,7 @@ int login(KORISNIK *korisnik) {
 		if (!strcmp(korisnik->lozinka, lozinka)) {
 			system("cls");
 			printf("\t\tDobrodosli %s na platformu.\n\t\t    Vasi bodovi su: %d.\n", korisnik->korisnickoIme, korisnik->bodovi);
-			Sleep(2000);
+			Sleep(3000);
 			return 1;
 		}
 	}
@@ -79,7 +82,7 @@ int reg() {
 	//provjera da li korisnicko ime postoji
 	file = fopen(odrediste, "rb");
 	if (file != NULL) {
-		printf("Korisnicko ime postoji\n");
+		printf("Korisnicko ime postoji, izaberite drugo\n");
 		fclose(file);
 		return 0;
 	}
@@ -88,9 +91,13 @@ int reg() {
 	strcpy(korisnik.korisnickoIme, korisnickoIme);
 	strcpy(korisnik.lozinka, lozinka);
 	korisnik.bodovi = 10;
+
+	//kreiranje kljuceva 
+	printf("\nKreiranje kljuceva za igra\n");
 	for (i = 0; i < 4; i++)
 		korisnik.indeksKljca[i] = KreirajKljuc();
 	PisiKljuc(korisnik);
+
 	//upisivanje podataka u datoteku
 	file = fopen(odrediste, "wb");
 	fwrite(&korisnik, sizeof(KORISNIK), 1, file);
@@ -119,7 +126,10 @@ int reg() {
 		strcat(odrediste, pom);
 		file = fopen(odrediste, "w");
 		if (file == NULL) {
-			printf("Greska prilikom otvaranja datoteke\n"); return 0;}
+			printf("Greska prilikom otvaranja datoteke\n"); 
+			fclose(file); //dodano 
+			return 0;
+		}
 			fclose(file);
 	}
 	return 1;
@@ -136,9 +146,10 @@ int provjeriIme(char* korisnickoIme) { //provjera ispravnosti korisnickogImena
 	
 	if (duzina == brojac)
 		return 1;
-	printf("\nKoristite samo engleski alfabet i cifre max 20 karaktera\n");
+	printf("\nKoristite samo engleski alfabet i cifre, max 20 karaktera\n");
 	return 0;
 }
+
 int provjeriLozinku(char* lozinka) { //provjera ispravnosti lozinke
 	
 	int brojacSlova = 0;
@@ -176,6 +187,6 @@ int obrisiBafer(){
 	if (!brojac)
 		return 1;
 	
-	printf("Ne smije se nalaziti razmak.\n");
+	printf("Greska pri unosu\n");
 	return 0;
 }

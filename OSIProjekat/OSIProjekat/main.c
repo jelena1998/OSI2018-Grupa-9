@@ -11,7 +11,7 @@ void PocetnaStranica();
 int main() {
 	/*Podaci za test: korisnicko ime: ognjen  lozinka: ognjen123*/
 	
-	//PocetnaStranica(); //pozivanje pocetne strane
+	PocetnaStranica(); //pozivanje pocetne strane
 	
 	//za potrebe Avantura()
 	int bodovi = 0;
@@ -19,7 +19,7 @@ int main() {
 	KORISNIK korisnik;
 	int izbor;
 	int p = 0;
-	char c;
+	
 	printf("Ukolliko nemate nalog molimo da se registrujete\nUkoliko ste vec registrovani prijavite se na sistem\n\n");
 	do {
 		printf("1.Registracija\n2.Prijava\n->");
@@ -43,6 +43,7 @@ int main() {
 	} while (izbor < 1 || izbor > 2 || !p);
 	//if (!p) return; //u slucaju da proba nastaviti ako nije prijavljen
 	GlavniMeni(&korisnik);
+
 	return 0;
 }
 
