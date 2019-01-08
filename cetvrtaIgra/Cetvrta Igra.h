@@ -1,7 +1,9 @@
 #ifndef CETVRTAIGRA_H_  // Ukljuci cuvara
 #define CETVRTAIGRA_H_
 
-int Avantura(int*, char*);
+#include "Igra.h"
+
+int Avantura(int*, IGRANJE*, int, char*);
 int ProvjeraSifre(char*);
 void Hahahaha();
 void Slika(int);
