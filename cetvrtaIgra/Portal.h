@@ -3,7 +3,7 @@
 
 int glavniXP, osvojeniXP, brojPomoci;
 
-int Portal(int*, int, int, int);
+int Portal(int*, int, int*, int);
 int Pocetak(int*);
 int UzHodnik(int*);
 int NizHodnik(int*);
@@ -25,7 +25,7 @@ int Pukotina2(int*);
 void MatriksEfekat();
 int Sletanje(int*);
 void PitatiProlaznika();
-void NastavljateDalje();
+int NastavljateDalje();
 int Dalje(int*);
 int AgentSmit(int*);
 int ZidProlaz(int*);

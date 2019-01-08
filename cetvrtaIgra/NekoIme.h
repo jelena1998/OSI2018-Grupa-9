@@ -2,9 +2,8 @@
 #define NEKOIME_H_
 
 int glavniXP, osvojeniXP, brojPomoci, uslov;
-char* izlazniKod;
 
-int NekoIme(int*, int, int);
+int NekoIme(int*, int, int*);
 int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int*);
 void SlomljeniMatriks();
 int PocetakIgre(int*);

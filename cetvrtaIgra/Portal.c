@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <time.h>
 
-int Portal(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
+int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
 	system("title Portal");
 	
 	OcistiEkran();
@@ -19,11 +19,11 @@ int Portal(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
 	
 	Pocetak(&zivotniBodovi);
 	
-	osvojeniXP += (zivotniBodovi / 7);
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
+	*oscojeniXP = osvojeniXP;
 	if(pisi == 1){
-		IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+		IspisRezultata(najboljiR, osvojeniXP);
 	}
 	if(zivotniBodovi == 0){
 		return 1;
@@ -39,9 +39,14 @@ int Pocetak(int* zivotniBodovi){
 	DvaIzbora("1. Uz hodnik", "2. Niz hodnik", "HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		UzHodnik(zivotniBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP += 15;
 		NizHodnik(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Pocetak(zivotniBodovi);
@@ -63,6 +68,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("5");
 		sifra[0] = '5';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	
 	printf("2) Koja od navedenih cestica je najbrza?\n");
@@ -72,6 +80,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("2");
 		sifra[1] = '2';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	
 	printf("3) Sta je Quasar?\n");
@@ -81,6 +92,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("8");
 		sifra[2] = '8';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	
 	printf("4) Koji od navedenih svemirskih brodova je najbrzi u galaksiji?\n");
@@ -90,6 +104,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("4");
 		sifra[3] = '4';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	
 	printf("5) Kada se kaze da je galaksija mrtva?\n");
@@ -99,6 +116,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("0");
 		sifra[4] = '0';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	
 	printf("6) Izbaci uljeza?\n");
@@ -108,6 +128,9 @@ int UzHodnik(int* zivotniBodovi){
 		SpecijalniIspis("1");
 		sifra[5] = '1';
 		VremenskaPauza(3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	printf("\n? - nedostaje broj.\n");
 	printf("Kod od vrata: %s\n", sifra);
@@ -117,14 +140,17 @@ int UzHodnik(int* zivotniBodovi){
 		scanf_s("%s", ch, sizeof(ch));
 		if(strcmp("528401", ch) == 0){
 			izlaz = 0;
+		} else if(strcmp("KRAJ", ch) == 0){
+			osvojeniXP = 0;
+			return 0;
 		} else{
 			UsporeniIspisTeksta(100, "Neispravan kod!\n");
-			Pomoc(&brojPomoci,"Kod je 528401\n", &glavniXP, 20);
+			Pomoc(&brojPomoci,"Kod je 528401\n", &glavniXP, 30);
 		}
 	} while(izlaz == 1);
 	
 	UsporeniIspisTeksta(100, "Vrata se otavraju i vi ulazite u prostoriju.\n");
-	osvojeniXP += 1;
+	osvojeniXP += 15;
 	Most(zivotniBodovi);
 	return 0;
 }
@@ -135,6 +161,7 @@ int NizHodnik(int* zivotniBodovi){
 	DvaIzbora("1. Odmaketi se od provalije i sacekati da plamen prodje", "2. Poceti trcati nazad", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP -= 40;
 		IspisSlike("Zastoo.txt");
 		UsporeniIspisTeksta(100, "Vas izbor je bio pogresan. Plamen je ispunio hodnik u kome ste se nalazili ubijajuci vas momentalno.\n");
 		UkloniIgracevXP(&glavniXP);
@@ -144,7 +171,11 @@ int NizHodnik(int* zivotniBodovi){
 		*zivotniBodovi = 0;
 		return 0;
 	} else if(odgovor == 2){
+		osvojeniXP += 15;
 		Trci(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NizHodnik(zivotniBodovi);
@@ -160,17 +191,21 @@ int Trci(int* zivotniBodovi){
 	DvaIzbora("1. Lijevo", "2. Desno", "HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
-		osvojeniXP += 1;
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Skrecete lijevo. Nastavljate da trcite i nailazite na poluotvorena klizna vrata.\nPomjerate malo vrata kako bi ste prosli, a onda ih brzo zatvarate.\n");
 		UsporeniIspisTeksta(100, "Na vratima se nalazi prozor kroz koji vidite kako plamen udara u vrata.\n");
 		Most(zivotniBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Skrecete desno i nailazite na celicne grede koje su se srusile i blokirale hodnik.\nNema vremena da se vratite nazad. Plamen vas sustize i vi umirete.\n");
 		UkloniIgrice4XP(&osvojeniXP);
 		VremenskaPauza(5);
 		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 		*zivotniBodovi = 0;
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Trci(zivotniBodovi);
@@ -184,7 +219,7 @@ int Most(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
-		osvojeniXP += 2;
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Na ekranu dolazi do promjene (Stit za prozor: ISKLJUCEN).\nJedan dio zida pocinje da se spusta i jaka svijetlost ulazi o prostoriju.\n");
 		UsporeniIspisTeksta(100, "Svijetlost obasija konzole i kapetanovo tijelo.\nDok se zid spusta vi primjecujete da na konzoli kod koje stojite nesto pise.\nRukom sklonjate krhotine i prasinu sa natpisa.\n");
 		UsporeniIspisTeksta(100, "Natpis je U.S.S. Enterprise.\nU tom trenutku kad ste procitali naziv zid je do kraja spusten i vi mozete da vidite sta se nalazi sa druge strane.\n");
@@ -193,19 +228,24 @@ int Most(int* zivotniBodovi){
 		DaNe("HORIZONTALNO");
 		do{
 			odgovor = UcitajOdgovor();
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
 		if(odgovor == 1){
+			osvojeniXP += 15;
 			UsporeniIspisTeksta(100, "Sklonjate mrtvu osobu koja je sjedila za konzolom i sjedate na njegovo mjesto.\nPocinjete da pomjerate rucice na konzoli i primjecujete da se brod okrece dalje od pukotine.\n");
 			UsporeniIspisTeksta(100, "Ali vase akcije postavljaju trup broda pod veliko opterecenje koje vec osteceni trup ne moze da podnese.\nBrod se pod opterecenjem raspada uz eksplozije i njegovi ostatci bivaju uvuceni u pukotinu.\n");
 			VremenskaPauza(5);
 			UsporeniIspisTeksta(100, "Nekim cudom Most, a i vi sa njim, je prezivio raspad broda.\n");
 			Pukotina(zivotniBodovi);
+		} else if(odgovor == -2){
+			osvojeniXP = 0;
+			return 0;
 		} else{
+			osvojeniXP -= 40;
 			UsporeniIspisTeksta(100, "Snazan gravitacioni talas udara brod i gura ga u pukotinu, dolazi do eksplozije brotskih motora koja poresa citav brod.\nVi padate na pod, a brod guta pukotina.\n");
 			Pukotina(zivotniBodovi);
 		}
 	} else if(odgovor == 2){
-		osvojeniXP -= 3;
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Pomjerate se od koncole i primjecujete jedna otvorena vrata, prema kojim se upucujete.\nIznenada dolazi do snazne eksplozije koja vas obara na pod, a na vas pada jedna ploca sa natpisom U.S.S. Enterprise.\n");
 		UsporeniIspisTeksta(100, "Sklonjate plocu sa sebe i podizete se. Na jednom od monitora vidite nekakvu semu i upozorenje koje preko nje treperi (PREOPTERECENJE MOTORA).\nDolazi do jos jedne eksplozije koja otkida stit za prozor.\n");
 		UsporeniIspisTeksta(100, "Vi skrecete pogled prema prozoru i vidite crno-plavu pukotinu u svemiru koja privlaci brod.\nAlarmi se cuju na sve strane svuda trepere crvena svijetla i upozorenja, vi gjedate smrti u lice.\n");
@@ -213,6 +253,9 @@ int Most(int* zivotniBodovi){
 		UsporeniIspisTeksta(100, "Pukotina guta brod.\n");
 		VremenskaPauza(5);
 		Pukotina(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Most(zivotniBodovi);
@@ -229,11 +272,14 @@ int Pukotina(int* zivotniBodovi){
 	DvaIzbora("1. Ostati na brodu", "2. Napustiti brod", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
-		osvojeniXP += 1;
+		osvojeniXP += 15;
 		OstatiNaBrodu(zivotniBodovi);
 	} else if(odgovor == 2){
-		osvojeniXP += 3;
+		osvojeniXP += 15;
 		NapustitiBrod(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Pukotina(zivotniBodovi);
@@ -246,11 +292,14 @@ int OstatiNaBrodu(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
-		osvojeniXP += 2;
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Prilazite komunikacionoj konzloji i saljete signal za pomoc.\n");
 	} else if(odgovor == 2){
-		osvojeniXP -= 3;
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Ne saljete signal i gasite taj sistem kako bi ste ustedili energiju.\n");
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		OstatiNaBrodu(zivotniBodovi);
@@ -268,6 +317,7 @@ void Cekanje(int* zivotnoBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Trcite prema satlu za spasavanje koji je prezivio pad i kojeg ste proteklih sest mjeseci popravljali.\nPokrecete satl u nadi da ce moci da leti. Napustate trup broda.\nKroz prozor vidite kako Enterprise propada izmedju dvije novoformirane lebdece planine.\n");
 		UsporeniIspisTeksta(100, "Letite iznad lebdecih planina i divitese cudesnoj prirodi koju je univerzum kreirao.\nSunce je pred zalaskom. Slesete na jednu od planina kako bi ste tu proveli noc.\n");
 		VremenskaPauza(3);
@@ -278,6 +328,7 @@ void Cekanje(int* zivotnoBodovi){
 		UsporeniIspisTeksta(100, "Udaljavate se od pukotine, ali njezina nestabilnost uzrokuje da se pojavi ispred vas i da vas ponovo proguta.\nGravitacioni uticaj pukotine na planetu, dovodi do njezinog pucanja na pola i na kraju eksplozije.\n");
 		Pukotina2(zivotnoBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Zasto bi ste ponovo ostali na brodu.\n");
 		VremenskaPauza(3);
 		IspisSlike("Zastoo.txt");
@@ -287,6 +338,8 @@ void Cekanje(int* zivotnoBodovi){
 		UkloniIgracevXP(&glavniXP);
 		IspisSlike("Kraj Igre.txt");
 		*zivotnoBodovi = 0;
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Cekanje(zivotnoBodovi);
@@ -316,8 +369,10 @@ void Odluke(int* zivotniBodovi){
 			} else if(odgovor == 2){
 				UsporeniIspisTeksta(100, "Nastavlate dalje.\n");
 				Odluke(zivotniBodovi);
+			} else if(odgovor == -2){
+				osvojeniXP = 0;
 			}
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NapustitiBrod(zivotniBodovi);
@@ -325,13 +380,13 @@ void Odluke(int* zivotniBodovi){
 }
 int Lijane(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Pomocu lijana se spustate do tla i nastavljate dalje.\n");
-	osvojeniXP += 3;
+	osvojeniXP += 15;
 	Tlo(zivotniBodovi);
 	return 0;
 }
 int Stepenice(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Pravite zalet i skacete na na planinu koja se nalazila ispod vas.\nSada ponovo skacete na narednu planinu i na narednu i tako dalje dok god se niste spustili do tla.\n");
-	osvojeniXP += 2;
+	osvojeniXP += 15;
 	Tlo(zivotniBodovi);
 	return 0;
 }
@@ -346,6 +401,7 @@ int Tlo(int* zivotniBodovi){
 	DvaIzbora("1. Pokusati popraviti satl", "2. Samo pokupiti neke zalihe", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Ostajete kod satla i zapociljete opravke. Odma promjecujete da satl nije toliko mnogo ostecen\ni da vecina sistema radi i da ce te ga moci veoma brzo popraviti.\n");
 		VremenskaPauza(2);
 		UsporeniIspisTeksta(100, "Dvije sedmice kasnije buka vas budi. Usatjete i izlazite iz satla.\nIznad vas prolecu nekakve vrse letjelica. Vracate se u satl i pocinjete da se spremate da idete za njima.\n");
@@ -354,11 +410,11 @@ int Tlo(int* zivotniBodovi){
 		do{
 			odgovor = UcitajOdgovor();
 			if(odgovor == 1){
-				osvojeniXP -= 2;
+				osvojeniXP -= 40;
 				Prati();
 				*zivotniBodovi = 0;
 			} else if(odgovor == 2){
-				osvojeniXP += 3;
+				osvojeniXP += 15;
 				UsporeniIspisTeksta(100, "Vracate se u satl i pocinjete pripreme za test sistema.\n");
 				VremenskaPauza(2);
 				UsporeniIspisTeksta(100, "Zapocijete test sistema. Za sad sve ide kako treba. Svi sistemi su ispravni.\nOdlucujete da sutra ujutro napustite ovu planetu.\n");
@@ -369,10 +425,13 @@ int Tlo(int* zivotniBodovi){
 				UsporeniIspisTeksta(100, "Kako napustate atmosferu planete vidite da je preko cijele planete teku potoci lave i mnogobrojne vulkanske erupcije.\nU svom tom haosu uocavate poznati fenomen, pukotinu koja vas je progutala i dovela na ovu planetu se sad formira i nestaje uz planete i zahvaca jedan njezin dio.\n");
 				UsporeniIspisTeksta(100, "Udaljavate se od pukotine, ali njezina nestabilnost uzrokuje da se pojavi ispred vas i da vas ponovo proguta.\nGravitacioni uticaj pukotine na planetu, dovodi do njezinog pucanja na pola i na kraju eksplozije.\n");
 				Pukotina2(zivotniBodovi);
+			} else if(odgovor == -2){
+				osvojeniXP = 0;
+				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
 	} else if(odgovor == 2){
-		osvojeniXP -= 2;
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Ulazite u satl, uzimate par stvari iz njega za koje smatrate da ce vam biti od koristi i nastavljate dalje.\n");
 		VremenskaPauza(2);
 		UsporeniIspisTeksta(100, "Dvije sedmice kasnije buka vas budi.\nIznad vas prolecu nekakve vrse letjelica. Ustajete i krecete za letjelicama.\n");
@@ -381,16 +440,21 @@ int Tlo(int* zivotniBodovi){
 		do{
 			odgovor = UcitajOdgovor();
 			if(odgovor == 1){
+				osvojeniXP -= 40;
 				Prati();
 				*zivotniBodovi = 0;
 			} else if(odgovor == 2){
+				osvojeniXP += 15;
 				UsporeniIspisTeksta(100, "Nastavljate dalje prvobitnim putem kojim ste isli.\n");
 				VremenskaPauza(3);
 				UsporeniIspisTeksta(100, "Pada noc. Odlucujete da ce te ujutro nastaviti put.\n");
 				Lava();
 				*zivotniBodovi = 0;
+			} else if(odgovor == -2){
+				osvojeniXP = 0;
+				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Tlo(zivotniBodovi);
@@ -446,7 +510,7 @@ void MatriksEfekat(){
 	
 	OcistiEkran();
 	int width = 170,height = 43;
-	srand(time(NULL));
+	srand((unsigned int) time(NULL));
 	system("color A");
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};
@@ -551,13 +615,18 @@ int Sletanje(int* zivotniBodovi){
     UsporeniIspisTeksta(100, "Izlazite iz satla oko vas vidite drvece, pomisljate da ste opet u sumi.\nOkrecete se i zakljucujete da niste u sumi, jer se iza vas nalaze zgrade.\nShvatate da se nalazite u nekakvom gradu i da tu sigurno postoji neko ko vam moze pomoci.\nTakodje zapazate da jedna od zgrada ima rupu u sebi, vi se prisjecate da ste pri sletanju udarili u nesto.\n");
     UsporeniIspisTeksta(100, "Krecete prema zgradama. Prolazite kroz ulicu i susrecete razne prolaznike.\nDa li ce te pitati nekog za pomoc?\n");
     DaNe("HORIZONTALNO");
-    int odgovor = UcitajOdgovor();
+    int odgovor = UcitajOdgovor(), uslov;
     if(odgovor == 1){
     	PitatiProlaznika();
     	Dalje(zivotniBodovi);
 	} else if(odgovor == 2){
-		NastavljateDalje();
-		Dalje(zivotniBodovi);
+		uslov = NastavljateDalje();
+		if(uslov == 1){
+			Dalje(zivotniBodovi);
+		}
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Sletanje(zivotniBodovi);
@@ -565,11 +634,12 @@ int Sletanje(int* zivotniBodovi){
 	return 0;
 }
 void PitatiProlaznika(){
+	osvojeniXP += 15;
 	UsporeniIspisTeksta(100, "Obracate se jednom od prolaznika za pomoc, ali vas ignorise.\nPitate narednog prolaznika za pomoc, ali vas i taj prolaznik ignorise.\nPocinjete da trcite ulicom i zauatavljate ljude, ali za njih vi kao i da ne postojite.\n");
 	UsporeniIspisTeksta(100, "Tako trceci izlazite na put kamion. Ali umjesto da vas ubije, kamion samo prolazi kroz vas.\nPocinjete da se pitate sta se to okovas desava i gdje se vi zaista nalazite.\n");
 	UsporeniIspisTeksta(100, "Primjecujete sa druge strane ulice neku osobu kako gleda u vas.\nKrecete prema toj osobi, ali ispred vas prolazi autobus i kad je autobus prosao ta osoba se vise tamo nije nalazila.\n");
 }
-void NastavljateDalje(){
+int NastavljateDalje(){
 	UsporeniIspisTeksta(100, "Prolazite kraj jos par prolaznika. Da li ce te sad pitati nekoga za pomoc?\n");
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
@@ -577,10 +647,14 @@ void NastavljateDalje(){
 		PitatiProlaznika();
 	} else if(odgovor == 2){
 		NastavljateDalje();
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 1;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NastavljateDalje();
 	}
+	return 0;
 }
 int Dalje(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Prelazite na drugu stranu ulice i pocinjete da trazite kuda je ta osoba mogla nestati.\nProlazite par ulica ali niste nikoga nasli.\nIznenada pored vas projuri par automobila koje prate drugi automobili.\n");
@@ -588,17 +662,22 @@ int Dalje(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Bacate se u stranu kako bi ste izbjegli automobil.\nAutomobil udara u izlog zgrade i eksplodira.\n");
 		UsporeniIspisTeksta(100, "Primjecujete da osoba koja stoji pored vas pocinje da pravi cudne pokrete glavom i kako postaje sasvim druga osoba.\nTa osoba nakratko baca pogled na vas i  sjeda u obliznji automobil i nastavlja potjeru.\n");
 		UsporeniIspisTeksta(100, "Vidite da se niz ulicu desavaju eksplozije. Odlucujete da odete u sporednu ulicu.\nPri izlasku iz sporedne ulice sudarate se sa osobom koju ste maloprije vidjeli kako se odvezla automobilom.\nPri sudaru primjecujete da mu na sakou pise Agent Smith.\n");
 		AgentSmit(zivotniBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Ako ste mislili da ce automobil proci kroz vas kao kamion, bogme ste se dobro prevarili.\nAutomobil nije prosao kroz vas, nego vas je udario.\nOd siline udarca odmah umirete.\n");
 		UkloniIgracevXP(&glavniXP);
 		VremenskaPauza(5);
 		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 		*zivotniBodovi = 0;
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Dalje(zivotniBodovi);
@@ -612,12 +691,17 @@ int AgentSmit(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Niste trebali poci sa Agentom Smith-om. Agent Smith vas teleportuje negdje.\n");
 		Zatvor();
 		*zivotniBodovi = 0;
 	} else if(odgovor == 2){
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Pocinjete da bjezite u suprotnom smjeru. Agent Smith trci za vama.\nPri trcanju saplicete se od ciglu i krecete da padate prema zidu,\nali ne udarate u zid vec prolazite kroz njega.\n");
 		ZidProlaz(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		AgentSmit(zivotniBodovi);
@@ -630,6 +714,7 @@ int ZidProlaz(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Bjezite u obliznju zgradu. Dok gledate Agente kako prolaze primjecujete\nda se iznad jedne zgrade pojavljuje i nestaje plava plazma.\nOdma shvatate da se to ponovo formira pukotina i da morate sto prije sitici tamao.\n");
 		UsporeniIspisTeksta(100, "Ali postoji jedan problem. Armija Agenata je otisla u tom smijeru.\nAli vi morate pod svaku cijenu stici do pukotine.\n");
 		VremenskaPauza(2);
@@ -644,6 +729,7 @@ int ZidProlaz(int* zivotniBodovi){
 		UsporeniIspisTeksta(100, "Iznenada dolazi do snaznog potresa i do pucanja svih prozora na zgradi.\nPotres vas izbacuje sa stepenista u kancelerije. Agenti vas sutizu.\n");
 		SkokProzor(zivotniBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		IspisSlike("Grumpy Cat.txt");
 		VremenskaPauza(3);
 		UsporeniIspisTeksta(100, "Vidio sam mnoge vrse gluposti, ali ovo, ovo je posebna vrsta gluposti.\nStampedo Agenata koji zele da vas ubiju trce prema vama i vi odlucite da ne bjezite.\n");
@@ -654,6 +740,9 @@ int ZidProlaz(int* zivotniBodovi){
 		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
 		*zivotniBodovi = 0;
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		ZidProlaz(zivotniBodovi);
@@ -752,7 +841,7 @@ int SkokProzor(int* zivotniBodovi){
 	DaNe("HORIZONTALNO");
     int odgovor = UcitajOdgovor();
     if(odgovor == 1){
-    	osvojeniXP -= 1;
+    	osvojeniXP += 15;
     	UsporeniIspisTeksta(100, "Nastavljate dalje da se spustate niz stepenice.\nSisli ste do prizemla, krecete ka vratima, agenti su odma iza vas.\nAli taman kad ste stigli do vrata snazan udarni talas vas baca nazad.\nNakon toga zgrada iznad koje se nalazi pukotina pocije da se urusava.\n");
     	UsporeniIspisTeksta(100, "Sklonjate se od ulaza i trazite zaklon.\n");
     	VremenskaPauza(3);
@@ -767,7 +856,7 @@ int SkokProzor(int* zivotniBodovi){
     	MatriksEfekat();
     	NePonovo();
 	} else if(odgovor == 2){
-		osvojeniXP -= 3;
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Agenti ulaze u kncelarije. Sad vam je ostao samo jedan izlaz.\n");
 		VremenskaPauza(3);
 		UsporeniIspisTeksta(100, "Okrecetese i pocinjete da trcite prema prozoru. Trcite i onda skacete kroz prozor.\nNekim cudom se hvatate za kran koji se tu nalazio.\nKoji vas tacno prebacuje do zgrade iznad koje se nalazi pukotina.\n");
@@ -778,6 +867,9 @@ int SkokProzor(int* zivotniBodovi){
 		OcistiEkran();
 		MatriksEfekat();
 		NePonovo();
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		SkokProzor(zivotniBodovi);
@@ -800,6 +892,6 @@ void NePonovo(){
 	UsporeniIspisTeksta(100, "Na nebu iznad vaseg komsiluka se formira pukotina.\n");
 	IspisSlike("Ne ponovo.txt");
 	VremenskaPauza(10);
-	osvojeniXP +=3;
+	osvojeniXP += 100;
 	OcistiEkran();
 }
