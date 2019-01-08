@@ -5,13 +5,8 @@ void UkloniIgracevXP(int*); // Brise sve XP bodove sa igracevog profila
 void UkloniIgrice4XP(int*); // Brise sve XP bodove koje je igrac ostvario u igrici
 int Dodaj_OduzmiXP(); // Funkcija za nasumicno odlucivanje da li bodove treba dodati ili oduzeti
 
-void UgasiIgricu(int*); // Gasi igricu i brise sve XP bodove sa igracevog profila
-void IzadjiIzIgrice(int*, int); // Gasi igricu i azuira XP bodove za igricu na igracevom profilu
-void NapustiIgricu(int*); // Gasi igricu i brise sve XP bodove koje je igrac ostvario u igrici
-
 void OcistiEkran(); // Cisti sav tekst sa ekrana
 void OcistiEkranPomjeranjem(); // Ispisuje prazne linije tako da daje efekat da je ekran ociscen
-void PostaviVelicinuEkrana(int, int); // Postavlja novu zadatu sirinu i visinu konzole
 void PuniEkran(int); // Postavlja konzolu preko cijelog ekrana i brise sve sto se do tad nalazilo na konzoli
 
 void VremenskaPauza(int); // U funkciju se unosi koliko sekundi program treba da bude pauziran
