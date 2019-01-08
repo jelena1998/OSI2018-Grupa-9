@@ -107,7 +107,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 	printf("\t\t\tGlavni meni \n");
 	printf("BODOVI: %d\n", korisnik->bodovi);
 
-	printf("Pokusaj %d\n", korisnik->pokusaj); //pokusaji za prvu igru
+	//printf("Pokusaj %d\n", korisnik->pokusaj); //pokusaji za prvu igru
 
 	//Vrsi ze upisivanje zbog bodova koji se mijenjaju (bag) - ispravljeno
 	
@@ -201,6 +201,24 @@ void GlavniMeni(KORISNIK* korisnik) {
 }
 
 int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
+	int izbor,plati;
+	char c;
+	if (igranje->sifraIgre != 1) {
+		switch (igranje->sifraIgre) {
+		case 2: plati = 50; break;
+		case 3: plati = 100; break;
+		case 4: plati = 125;
+		}
+		printf("\nKako bi pristupili %d. igri morate platiti %d bodova\n", \
+			igranje->sifraIgre, plati);
+		printf("Da li zelite nastaviti: DA [1]  NE[0]  ");
+		scanf("%d", &izbor);
+		while ((c = getchar()) != EOF && c != '\n');
+		if (izbor == 0) return 0;
+		if (izbor != 1) {printf("Pogresan unos!"); return 0;}
+		if(korisnik->bodovi >= plati)
+			korisnik->bodovi -= plati;
+	}
 	while (igranje->aktivna == -1) {
 		if (Otkljucaj(*korisnik, igranje->sifraIgre)) {
 			ADIgru(1, igranje);
