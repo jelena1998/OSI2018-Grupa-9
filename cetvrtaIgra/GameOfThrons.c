@@ -1,9 +1,10 @@
 #include "GameOfThrons.h"
 #include "FunkcijeZaIspis.h"
 #include "Igrica4Komande.h"
+#include <stdlib.h>
 #include <stdio.h>
 
-int GOTPohod(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
+int GOTPohod(int* glavniXP2, int najboljiR, int* osvojeniXP2, int pisi){
 	system("title Game Of Throns");
 	
 	OcistiEkran();
@@ -12,13 +13,13 @@ int GOTPohod(int* glavniXP2, int najboljiR, int najboljiP, int pisi){
 	glavniXP = *glavniXP2;
 	int zivotniBodovi = 100;
 	Gavran(&zivotniBodovi);
-	osvojeniXP += (zivotniBodovi / 7);
 	if(glavniXP > 0){
 		glavniXP += osvojeniXP;
 	}
 	*glavniXP2 = glavniXP;
+	*osvojeniXP2 = osvojeniXP;
 	if(pisi == 1){
-		IspisRezultata(najboljiR, najboljiP, osvojeniXP);
+		IspisRezultata(najboljiR, osvojeniXP);
 	}
 	if(zivotniBodovi == 0){
 		return 1;
@@ -32,11 +33,15 @@ int Gavran(int* zivotniBodovi){
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
+		osvojeniXP += 15;
 		Poruka(zivotniBodovi);
 	} else if (odgovor == 2) {
 		*zivotniBodovi = 0;
 		OcistiEkran();
 		IspisSlike("Kraj Igre.txt");
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Gavran(zivotniBodovi);
@@ -50,10 +55,16 @@ int Poruka(int* zivotniBodovi) {
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
+		osvojeniXP -= 40;
 		KraljevPut(zivotniBodovi);
 	}
 	else if (odgovor == 2) {
+		osvojeniXP -= 40;
 		LanasterNapad(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -66,10 +77,16 @@ int LanasterNapad(int* zivotniBodovi) {
 	DvaIzbora("1. Pripremiti za napad.", "2. Prihvatiti kraljev poziv.", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
+		osvojeniXP += 15;
 		PripremaZaNapad(zivotniBodovi);
 	}
 	else if (odgovor == 2) {
+		osvojeniXP += 15;
 		KraljevPut(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -85,13 +102,17 @@ int KraljevPut(int* zivotniBodovi) {
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
-		osvojeniXP -= 3;
+		osvojeniXP -= 40;
 		KingsLanding(zivotniBodovi);
 	}
 	else if (odgovor == 2) {
-		osvojeniXP += 2;
+		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Nekoliko mjeseci kasnije.");
 		DzonovaPoruka(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -105,11 +126,16 @@ int KingsLanding(int* zivotniBodovi) {
 	DvaIzbora("1. Mirno se predati kraljevoj strazi.", "2. Ne predavati se bez borbe.", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
+		osvojeniXP -= 40;
 		SjecaGlave(zivotniBodovi);
 	}
 	else if (odgovor == 2) {
-		osvojeniXP += 3;
+		osvojeniXP += 15;
 		KraljevaStraza(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -134,12 +160,16 @@ int KraljevaStraza(int* zivotniBodovi) {
 	DvaIzbora("1. Pesnicama", "2. Sa macem", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
-		osvojeniXP -=3;
+		osvojeniXP -= 40;
 		NapadPesnicama(zivotniBodovi);
 	}
 	else if (odgovor == 2) {
-		osvojeniXP += 3;
+		osvojeniXP += 15;
 		NapadMacem(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -156,6 +186,10 @@ int NapadPesnicama(int* zivotniBodovi) {
 	}
 	else if (odgovor == 2) {
 		KraljevaStraza(zivotniBodovi);
+	}
+	else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	}
 	else {
 		IspisGreskeONepravilnomUnosu();
@@ -188,6 +222,9 @@ int NapadPesnicama1(int* zivotniBodovi) {
 		} else if(potez == 6){
 			UsporeniIspisTeksta(100, "Uuh to je boljelo. Bas mi je dargo da ja nisam taj strazar.\n");
 			sef -= 32;
+		} else if(potez == -2){
+			osvojeniXP = 0;
+			return 0;
 		}
 		if(strazar < 40){
 			zivotniBodovi -= 3;
@@ -262,6 +299,7 @@ int PripremaZaNapad(int* zivotniBodovi){
 	printf("Bitka je pocela!\n");
 	VremenskaPauza(5);
 	if(odgovor == 1){
+		osvojeniXP -= 40;
 		int odluka = Nasumicno(2) ? Nasumicno(2) : Nasumicno(2);
 		if(odluka){
 			osvojeniXP += 4;
@@ -270,6 +308,7 @@ int PripremaZaNapad(int* zivotniBodovi){
 			Poraz(zivotniBodovi);
 		}
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Zao mi je ali vasa strategija je bila pogresna. Vase trupe su masakrirane i Winterfell je pao.\nVi krvarite na bojnom polju. Smrt je neizbjezna.\n");
 		VremenskaPauza(3);
 		printf("Umrli ste.");
@@ -280,6 +319,9 @@ int PripremaZaNapad(int* zivotniBodovi){
 		*zivotniBodovi = 0;
 	} else if(odgovor == 3){
 		Pobjeda(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		PripremaZaNapad(zivotniBodovi);
@@ -289,7 +331,7 @@ int PripremaZaNapad(int* zivotniBodovi){
 }
 int Pobjeda(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Cestitam upravo ste pobjedili vaznu bitku. Winterfell je siguran.\n");
-	osvojeniXP += 2;
+	osvojeniXP += 15;
 	TajmerMjeseci(zivotniBodovi);
 	return 0;
 }
@@ -312,9 +354,14 @@ int Daneres(int* zivotniBodovi){
 	DvaIzbora("1. Pomoci Daenerys da vrati Celicni tron u ruke Targaryen-a", "2. Pomoci Lannister-ima da odbrane Celicni tron", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
+		osvojeniXP += 15;
 		PomociDaneres(zivotniBodovi);
 	} else if(odgovor == 2){
+		osvojeniXP -= 40;
 		PadKraljevstava(zivotniBodovi);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 1;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Daneres(zivotniBodovi);
@@ -342,7 +389,7 @@ int PadZida(int* zivotniBodovi){
 	VremenskaPauza(7);
 	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
-	glavniXP += 200;
+	glavniXP += 75;
 	return 0;
 }
 void Zid(){
@@ -356,14 +403,25 @@ int DzonovaPoruka(int* zivotniBodovi){
 	PorukaSaZida();
 	UsporeniIspisTeksta(100, "Da li ce te poslusati bratova upozorenja i poceti se pripremati za bitku.\n");
 	DaNe("VERTIKALNO");
-	int odgovor = UcitajOdgovor();
+	int odgovor = UcitajOdgovor(), uslov;
 	if(odgovor == 1){
-		Daneres(zivotniBodovi);
+		osvojeniXP += 15;
+		uslov = Daneres(zivotniBodovi);
+		if(uslov == 1){
+			return 0;
+		}
 		PadZida(zivotniBodovi);
 	} else if(odgovor == 2){
-		Daneres(zivotniBodovi);
+		osvojeniXP -= 40;
+		uslov = Daneres(zivotniBodovi);
+		if(uslov == 1){
+			return 0;
+		}
 		Zid();
 		UkloniIgracevXP(&glavniXP);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		DzonovaPoruka(zivotniBodovi);
@@ -384,10 +442,10 @@ void TajmerMjeseci(int* zivotniBodovi){
 	DzonovaPoruka(zivotniBodovi);
 }
 int PomociDaneres(int* zivotniBodovi){
-	UsporeniIspisTeksta(100, "Vidim da ste odlucili pomoci Daenerys Targaryen.\nSvaostala kraljevstva su takodje odlucili da pomognu Daenerys u borbi protiv Lannister-a.\n");
+	UsporeniIspisTeksta(100, "Vidim da ste odlucili pomoci Daenerys Targaryen.\nSva ostala kraljevstva su takodje odlucili da pomognu Daenerys u borbi protiv Lannister-a.\n");
 	UsporeniIspisTeksta(100, "Napad na Kings Landing je poceo.");
 	int n = 0, potez;
-	for(; n < 8;){
+	for(; n < 6;){
 		potez = Nasumicno(10);
 		if(potez == 1){
 			UsporeniIspisTeksta(100, "Zmaj napada Red Keap.\n");
@@ -395,6 +453,7 @@ int PomociDaneres(int* zivotniBodovi){
 			VremenskaPauza(2);
 		} else if(potez == 2){
 			UsporeniIspisTeksta(100, "Tyrell se probijaju kroz jos jednu ulicu.\n");
+			n++;
 			VremenskaPauza(2);
 		} else if(potez == 3){
 			UsporeniIspisTeksta(100, "Lannister-ske trupe zadaju snazan udarac.\n");
@@ -422,8 +481,9 @@ int PomociDaneres(int* zivotniBodovi){
 			VremenskaPauza(2);
 		} else if(potez == 9){
 			UsporeniIspisTeksta(100, "Dothraki jurisaju kroz Kings Landing.\n");
+			n++;
 			VremenskaPauza(2);
-		} 
+		}
 	}
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "\nBitka je dobijena Lannister-i su porazeni.\nWesteros ima novu kraljicu od kuce Targaryen.\nDoba novog mira izmedju sedam kraljevstava je pocelo.\n");

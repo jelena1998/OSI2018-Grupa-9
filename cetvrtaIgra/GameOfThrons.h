@@ -3,8 +3,8 @@
 
 int glavniXP, osvojeniXP;
 
-int GOTPohod(int*, int, int, int);
-// Pitanja
+int GOTPohod(int*, int, int*, int);
+
 int Gavran(int*);
 int Poruka(int*);
 int LanasterNapad(int*);
