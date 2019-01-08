@@ -1,5 +1,61 @@
 #include "PrvaIgra.h"
 
+void Pobijedi(IGRANJE* igranje) {
+	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
+	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n3. Poeni se racunaju 100/broj_pokusaja.\n\n\n");
+
+	srand((unsigned int)time(NULL));
+	int prilika = rand() % 3 + 1;
+	int pogodi = rand() % 101;
+	printf("Prilika: %d\n", prilika);
+	int pokusaj = 0;
+	int unos;
+	int max=100, min=0;
+	int poeni = 0;
+	char c;
+
+	while (pokusaj < BROJ_POKUSAJA) {
+		printf("Pokusaj: %d\n", pokusaj + 1);
+		do {
+			printf("Unesite broj(0-100)->");
+			scanf("%d", &unos);
+			while ((c = getchar()) != EOF && c != '\n'); //za brisanje bafera
+		} while (unos < 0 || unos > 100);
+
+	
+		if ( pokusaj == (prilika-1)) {
+			if (unos > min && unos < max) {
+				printf("Cestitam pobijedili ste.\nTrazeni broj je: %d\n", unos);
+				poeni = (int)(100 / (prilika));
+				pokusaj = 6;
+			}
+			else poeni = 0;
+		}
+		else poeni = 0;
+
+		if ( (pogodi < unos) && (pokusaj < 5)) {
+			printf("Broj koji trazite je veci od unesenog.\n");
+			min = unos;
+		}
+		if ((pogodi > unos) && (pokusaj < 5)) {
+			printf("Broj je manji od unesenog.\n");
+			max = unos;
+		}
+		if (pogodi == unos && pokusaj < 5) {
+			printf("Pogodili ste broj\nTrazeni broj je %d\n", unos);
+			poeni = (int)(100 / (pokusaj+1));
+			pokusaj = 6;
+		}
+		//else poeni = 0;
+		pokusaj++;
+	}
+	printf("Osvojili ste %d bodova\n", poeni);
+		//poeni = (int)(100/(pokusaj+1));
+	igranje->bodoviUIgri = poeni;
+}
+
+
+
 void IgrajPrvuIgru(IGRANJE* igranje) {
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
 	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n3. Poeni se racunaju 100/broj_pokusaja.\n\n\n");

@@ -57,24 +57,24 @@ int reg() {
 	char korisnickoIme[100], lozinka[100];
 	char odrediste[100] = "Korisnici\\", eks[5] = ".dat";
 	int duzina, i;
-	int p=0;
+	int p=0,b=0;
 
 	do {
 		printf("Unesite korisnicko ime(MAX 20 karaktera):\n->");
 		scanf("%s", korisnickoIme);
-		duzina = strlen(korisnickoIme); 
+		duzina = strlen(korisnickoIme);
 		p = provjeriIme(korisnickoIme); //provjera za ime
-		p = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
-	} while (duzina > 20 || !p); //max unos 20 karaktera
+		b = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
+	} while (duzina > 20 || !p || !b); //max unos 20 karaktera
 	p = 0;
-
+	b = 0;
 	do {
 		printf("Unesite password(MIN: 6 MAX: 10 karaktera):\n->");
 		scanf("%s", lozinka);
 		duzina = strlen(lozinka);
 		p = provjeriLozinku(lozinka); //provjera za lozinku
-		p = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
-	} while (duzina < 6 || duzina > 10 || !p); //lozinka moze da ima min 6 karaktera i max 10 karaktera
+		b = obrisiBafer(); //provjera da li je bafer ostao pun poslije unosa
+	} while (duzina < 6 || duzina > 10 || !p || !b); //lozinka moze da ima min 6 karaktera i max 10 karaktera
 	
 	strcat(odrediste, korisnickoIme);
 	strcat(odrediste, eks);
@@ -91,6 +91,7 @@ int reg() {
 	strcpy(korisnik.korisnickoIme, korisnickoIme);
 	strcpy(korisnik.lozinka, lozinka);
 	korisnik.bodovi = 10;
+	korisnik.pokusaj = 3; //za prvu igru 3 pobjede na pocetku odma
 
 	//kreiranje kljuceva 
 	printf("\nKreiranje kljuceva za igra\n");

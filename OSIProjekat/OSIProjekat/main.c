@@ -11,7 +11,7 @@ void PocetnaStranica();
 int main() {
 	/*Podaci za test: korisnicko ime: ognjen  lozinka: ognjen123*/
 	
-	PocetnaStranica(); //pozivanje pocetne strane
+//	PocetnaStranica(); //pozivanje pocetne strane
 	
 	//za potrebe Avantura()
 	int bodovi = 0;

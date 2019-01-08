@@ -16,6 +16,8 @@ typedef struct korisnik {
 	char lozinka[MAX];
 	int bodovi;
 	int indeksKljca[4];
+
+	int pokusaj; //za prvu igru samo
 }KORISNIK;
 
 typedef struct kljuc {
@@ -40,4 +42,5 @@ void GlavniMeni(KORISNIK*);
 void Snimi(IGRANJE*);
 int cmp(const void * a, const void * b);
 
-void ucitajPodatke(KORISNIK,int);
+void ucitajPodatke(KORISNIK,int, int);
+void Pobijedi(IGRANJE*);

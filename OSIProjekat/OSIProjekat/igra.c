@@ -8,7 +8,6 @@
 #include"Kljuc.h"
 #include"Statistika.h"
 
-#include"reglog.h"//obrisibafer
 
 int TraziIgranje(char korisnickoIme[], int igra, IGRANJE* igranje) {
 
@@ -66,7 +65,7 @@ int Istekao(IGRANJE* igranje) {
 	return sec > 0;
 }
 
-void ucitajPodatke(KORISNIK korisnik, int bodovi) {
+void ucitajPodatke(KORISNIK korisnik, int bodovi, int pokusaj) {
 	KORISNIK kopija;
 	char odrediste[100] = "Korisnici\\";
 	char eks[5] = ".dat";
@@ -93,6 +92,7 @@ void ucitajPodatke(KORISNIK korisnik, int bodovi) {
 
 
 	kopija.bodovi = bodovi;
+	kopija.pokusaj = pokusaj;
 
 	fwrite(&kopija, sizeof(KORISNIK), 1, file);
 	fclose(file);
@@ -107,16 +107,22 @@ void GlavniMeni(KORISNIK* korisnik) {
 	printf("\t\t\tGlavni meni \n");
 	printf("BODOVI: %d\n", korisnik->bodovi);
 
-	//Vrsi ze upisivanje zbog bodova koji se mijenjaju (bag) - ispravljeno
-	ucitajPodatke(*korisnik, korisnik->bodovi); //ucitavanje podataka
+	printf("Pokusaj %d\n", korisnik->pokusaj); //pokusaji za prvu igru
 
+	//Vrsi ze upisivanje zbog bodova koji se mijenjaju (bag) - ispravljeno
+	
+	char c; int p = 0;
 	do {
 		do {
-			system("cls");
-			printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Prikaz kljuceva\n6 Statistika\n7 Izlaz\n");
+			//system("cls");
+			printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Prikaz kljuceva\n6 Statistika\n7 Izlaz i snimanje igre\n");
 			printf("Odaberite opciju: ");
 			scanf("%d", &izbor);
-		} while (!obrisiBafer());
+			//printf("Izbor: %d\n", izbor);
+			//system("pause");
+			while ((c = getchar()) != EOF && c != '\n')
+				p++;
+		} while (p);
 		IGRANJE igranje;
 		//while ((c = getchar()) != EOF && c != '\n');
 		//obrisiBafer(); // ocistimo bafer
@@ -126,9 +132,19 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
 			if (PristupiIgri(&igranje, korisnik)) {
-				IgrajPrvuIgru(&igranje);
-				korisnik->bodovi += igranje.bodoviUIgri;
-				Snimi(&igranje);
+
+				if ( (korisnik->pokusaj >= 1) && (korisnik->pokusaj <= 3)) {
+					Pobijedi(&igranje);
+					korisnik->pokusaj--;
+					korisnik->bodovi += igranje.bodoviUIgri;
+					Snimi(&igranje);
+				}
+				else {
+					IgrajPrvuIgru(&igranje);
+					//korisnik->pokusaj--; // umanjujemo pokusaj
+					korisnik->bodovi += igranje.bodoviUIgri;
+					Snimi(&igranje);
+				}
 			}
 			/*system("pause");*/ GlavniMeni(korisnik); break;
 		case 2:
@@ -172,7 +188,10 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("pause"); GlavniMeni(korisnik); break;
 
 		default: 
-			if (izbor == 7) exit(EXIT_SUCCESS);
+			if (izbor == 7) {
+				ucitajPodatke(*korisnik, korisnik->bodovi, korisnik->pokusaj); //ucitavanje podataka
+				exit(EXIT_SUCCESS);
+			}
 			printf("Pogresan unos!!"); Sleep(2000);
 			/*system("pause");*/ GlavniMeni(korisnik); break;
 		}
