@@ -248,10 +248,12 @@ int NapadMacem(int* zivotniBodovi) {
 	UsporeniIspisTeksta(100, "Izvlacite mac i jurisate na kraljevu starzu.\n");
 	UsporeniIspisTeksta(100, "Kraljeva straza se postavlja u borbeni polozaj.\n");
 	VremenskaPauza(2);
-	int strazar = 0, i;
-	for (i = 0; strazar != 5 || zivotniBodovi > 0; i++) {
+	int strazar = 0, i, ranjen = 0;
+	for (i = 0; strazar < 5 && zivotniBodovi > 0; i++) {
 		if(zivotniBodovi <= 0){
 			UsporeniIspisTeksta(100, "Strazar vam zadaje smrtonosti udarac.\nUpravo ste umrli.\n");
+			VremenskaPauza(3);
+			OcistiEkran();
 			IspisSlike("Kraj Igre.txt");
 			UkloniIgrice4XP(&osvojeniXP);
 			*zivotniBodovi = 0;
@@ -267,11 +269,17 @@ int NapadMacem(int* zivotniBodovi) {
 			} else{
 				UsporeniIspisTeksta(100, "Jedan strazar je ranjen.\n");
 				VremenskaPauza(2);
+				ranjen++;
+				if (ranjen == 3) {
+					ranjen = 0;
+					strazar++;
+					UsporeniIspisTeksta(100, "Jedan strazar je ubijen.\n");
+				}
 			}
 		} else {
 			UsporeniIspisTeksta(100, "Strazar vas raljava.\n");
 			VremenskaPauza(2);
-			zivotniBodovi -= Nasumicno(11);
+			zivotniBodovi -= Nasumicno(21);
 		}
 	}
 	
@@ -284,7 +292,7 @@ int SmrtNeda(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Nakon napada Kraljeve straze shvatate da nesto nije uredu i da morate sto prije napustiti Kings Landing.\nDok ste prolazili kroz uske ulice Kings Landing-a, prema kapiji sa ledja vas zaskace Hound.\n");
 	UsporeniIspisTeksta(100, "Hvata vas i odvodi pred novog kralja Joffrey.\nJoffrey vas proglasava za izdajnika i naredjuje vase pogubljenje.\nUmrli set.\n");
 	UkloniIgrice4XP(&osvojeniXP);
-	VremenskaPauza(20);
+	VremenskaPauza(10);
 	OcistiEkran();
 	KordinateXY(40, 14);
 	IspisSlike("Kraj Igre.txt");
