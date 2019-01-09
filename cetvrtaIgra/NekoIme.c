@@ -31,7 +31,9 @@ int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
 	*osvojeniXP2 = osvojeniXP;
-	IspisRezultata(najboljiR, osvojeniXP);
+	if(krajIgre != 1){
+		IspisRezultata(najboljiR, osvojeniXP);
+	}
 	VremenskaPauza(10);
 
 	return 0;
