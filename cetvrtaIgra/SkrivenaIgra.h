@@ -1,7 +1,7 @@
 #ifndef SKRIVENAIGRA_H_  // Ukljuci cuvara
 #define SKRIVENAIGRA_H_
 
-int osvojeniXP;
+int osvojeniXP, otkaziA;
 
 int Pokreni();
 
@@ -27,5 +27,6 @@ void Pitanje19();
 void Pitanje20();
 
 void Poziv(int);
+void Otkazi(int);
 
 #endif // SKRIVENAIGRA_H_

@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include<time.h>
-#include<ctype.h>
+#include <time.h>
+#include <ctype.h>
 #include <process.h>
 
 void UkloniIgracevXP(int* glavniXP){
@@ -49,7 +49,7 @@ int Nasumicno(int max){
 }
 int UcitajOdgovor(){
 	char odgovor[100];
-	int prenos = -1;
+	int prenos = -1, uslov;
 	printf("Vas odgovor je: ");
 	scanf_s("%s", odgovor, sizeof(odgovor));
 	
@@ -59,10 +59,27 @@ int UcitajOdgovor(){
 			DaNe("HORIZONTALNO");
 			printf("Vas odgovor je: ");
 			scanf_s("%s", odgovor, sizeof(odgovor));
-		} while(odgovor[0] != '1' && odgovor[0] != '2');
+			uslov = strlen(odgovor);
+		} while(odgovor[0] != '1' && odgovor[0] != '2' && uslov != 1);
 		if(odgovor[0] == '1'){
 			return -2;
 		} else{
+			return prenos;
+		}
+	}
+
+	if (strcmp(odgovor, "OTKAZI") == 0) {
+		printf("\nDa li ste sigurni da zelite da otkazete igru. Nakon sto potvrdite, vi vise necete moci igrati ovu igru!\n");
+		do {
+			DaNe("HORIZONTALNO");
+			printf("Vas odgovor je: ");
+			scanf_s("%s", odgovor, sizeof(odgovor));
+			uslov = strlen(odgovor);
+		} while (odgovor[0] != '1' && odgovor[0] != '2' && uslov != 1);
+		if (odgovor[0] == '1') {
+			return -3;
+		}
+		else {
 			return prenos;
 		}
 	}

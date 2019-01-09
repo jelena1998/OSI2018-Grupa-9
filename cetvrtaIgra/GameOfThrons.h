@@ -1,7 +1,7 @@
 #ifndef GAMEOFTHRONS_H_  // Ukljuci cuvara
 #define GAMEOFTHRONS_H_
 
-int glavniXP, osvojeniXP;
+int glavniXP, osvojeniXP, otkazi;
 
 int GOTPohod(int*, int, int*, int);
 

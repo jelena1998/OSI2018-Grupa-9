@@ -1,7 +1,7 @@
 #ifndef PORTAL_H_  // Ukljuci cuvara
 #define PORTAL_H_
 
-int glavniXP, osvojeniXP, brojPomoci;
+int glavniXP, osvojeniXP, brojPomoci, otkazi;
 
 int Portal(int*, int, int*, int);
 int Pocetak(int*);
@@ -12,9 +12,9 @@ int Trci(int*);
 int Most(int*);
 int Pukotina(int*);
 int OstatiNaBrodu(int*);
-void Cekanje(int*);
+int Cekanje(int*);
 int NapustitiBrod(int*);
-void Odluke(int*);
+int Odluke(int*);
 int Lijane(int*);
 int Stepenice(int*);
 int Tlo(int*);

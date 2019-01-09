@@ -18,9 +18,15 @@ int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	osvojeniXP = 0;
 	brojPomoci = 0;
 	uslov = 1;
+	otkazi = 0;
+	krajIgre = 0;
 	int zivotniBodovi = 100;
 	
 	StvarnoNeZnamKakoDaNazovemOvuFunkciju(&zivotniBodovi);
+	
+	if(otkazi == 1){
+		return -3;
+	}
 	
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
@@ -51,12 +57,24 @@ int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
 	while(uslov){
 		PocetakIgre(zivotniBodovi);
 	}
-	
+	OcistiEkran();
+
+	if (otkazi == 1) {
+		// Vraca prethodnu boju teksta u konzoli
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		return 0;
+	}
+	if (krajIgre == 1) {
+		// Vraca prethodnu boju teksta u konzoli
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		return 0;
+	}
+
 	UsporeniIspisTeksta(100, "Nemesis: Neeeeee! Nemoguce! Neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n");
 	SlomljeniMatriks();
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
-	
+
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "Gospodar Igre: Hvala vam sto ste ju opet zatocili. Popravili ste svoju gresku.\n");
 	OcistiEkran();
@@ -123,7 +141,7 @@ void SlomljeniMatriks(){
 							coord.Y = mevcut[x] - i * 10;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - i * 10][x]);
-							printf("hvh kh kjb uh j hu AVANTURA jk45 68 # ) @# h j  lhnk .moj k,  4 x21 fd4 v gd6 41v 46 1df 46v 4v g 46");
+							printf("hvh kh kjb uh j hu POHOD jk45 68 # ) @# h j  lhnk .moj k,  4 x21 fd4 v gd6 41v 46 1df 46v 4v g 46");
 						}
 					}
 					printf("dva f 863hf 4sg5n7bdg 4 8fd fs sf 4f f f +f re &RTIU # *((U E(OR GYI  T#O*I))) gfrn6 45n 7rn4  8nnf45hdn");
@@ -200,6 +218,12 @@ int PocetakIgre(int* zivotniBodovi){
 		Smrt();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -236,6 +260,12 @@ int Bijeg(int* zivotniBodovi){
 		Smrt();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -257,6 +287,12 @@ int Vrata(int* zivotniBodovi){
 		Smrt();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -293,11 +329,23 @@ int Narnia(int* zivotniBodovi){
 				DCU(zivotniBodovi);
 			} else if(odgovor == -2){
 				osvojeniXP = 0;
+				uslov = 0;
+				krajIgre = 1;
+				return 0;
+			} else if(odgovor == -3){
+				otkazi = 1;
+				uslov = 0;
 				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -324,6 +372,12 @@ int Pirati(int* zivotniBodovi){
 		Gospodar1();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -332,7 +386,7 @@ int Pirati(int* zivotniBodovi){
 	PovratakIzPukotine(zivotniBodovi);
 	return 0;
 }
-void Gospodar1(){
+int Gospodar1(){
 	VremenskaPauza(7);
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -342,9 +396,17 @@ void Gospodar1(){
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
 	
-	int x = 100;
+	int x = 100, kraj = 0;
 	MaliMatriks1();
-	Portal(&x, 0, &x, 0);
+	kraj = Portal(&x, 0, &x, 0);
+	
+	if(kraj == -3){
+		otkazi = 1;
+		uslov = 0;
+		// Vraca prethodnu boju teksta u konzoli
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		return 0;
+	}
 	
 	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);
@@ -352,8 +414,9 @@ void Gospodar1(){
 	
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
+	return 0;
 }
-void Gospodar2(){
+int Gospodar2(){
 	VremenskaPauza(7);
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -364,9 +427,17 @@ void Gospodar2(){
 	saved_attributes = consoleInfo.wAttributes;
 	
 	UsporeniIspisTeksta(100, "Budite se nekom zamku.\n");
-	int x = 100;
+	int x = 100, kraj;
 	MaliMatriks1();
-	GOTPohod(&x, 0, &x, 0);
+	kraj = GOTPohod(&x, 0, &x, 0);
+	
+	if(kraj == -3){
+		otkazi = 1;
+		uslov = 0;
+		// Vraca prethodnu boju teksta u konzoli
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		return 0;
+	}
 	
 	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);
@@ -374,6 +445,7 @@ void Gospodar2(){
 	
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
+	return 0;
 }
 int IzgubljeniSvijet(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Potres prestaje i svjetlost nestaje. Vi izlazite iz pecine.\nCim ste izasli shvatate da vise niste u Narniji. Vi se nalazite u podnozju neke planine i ispred vas je suma.\nCujete neku riku. Iz sume izlazi T-Reks i krece prema vama. Da li ce te:\n");
@@ -387,6 +459,12 @@ int IzgubljeniSvijet(int* zivotniBodovi){
 		PremaSumi(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -406,6 +484,12 @@ int NazadUPecinu(int* zivotniBodovi){
 		PremaSumi(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -413,7 +497,7 @@ int NazadUPecinu(int* zivotniBodovi){
 	}
 	return 0;
 }
-void Bijezite(){
+int Bijezite(){
 	UsporeniIspisTeksta(100, "Krecete da se penjete na planinu dok T-Reks trci ka vama.\nNemesis: Nema bjezanja.\nIznenada iz vedrog neba se pojavljuje i pocije da pada na planinu Sidnejska Opera.\nGradjevina udara o planinu i pri udaru se raspada. Velika lavina kamena, betona i celika ide prema vama.\nDa li ce te poceti bjezati?\n");
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
@@ -426,20 +510,30 @@ void Bijezite(){
 		UsporeniIspisTeksta(100, "Kao sto je i bilo za ocekivati kamena lavina vas ubija.\n");
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Bijezite();
 	}
 	Smrt();
+	return 0;
 }
 int PremaSumi(int* zivotniBodovi){
-	osvojeniXP += 1;
+	osvojeniXP += 15;
 	UsporeniIspisTeksta(100, "Trcite prema sumi. T-Reks pocinje da vas sustize. Iznenada zacu se pucanj.\nVi se okrecete i vidite jednog kauboja kako odvlaci paznju T-Reksu, koji krece za njim.\nVi zastajete na ivici sume i gledate kako T-Reks odlazi za kaubojom.\n");
 	UsporeniIspisTeksta(100, "Iznenada vas neko grabi i uvlaci u sumu. Nakon par sekundi vas pusta.\nVi se okfrecete i vidite jednog starijeg covjeka i jednu veoma atraktivnu plavusu.\nStariji covjek: Ja sam Profesor George Challenger, ovo je Veronica Layton, a kauboja koga ste maloprije vidjeli je Lord John Roxton.\n                Nisam vas prije vidjao ovdje.\n");
 	UsporeniIspisTeksta(100, "Vi mu odgovarate da ste maloprije stigli ovdje, gdje god ovo bilo.\nChallenger: Cekaj, samo malo. Jel mi vi to govorite da ste nasli ulaz u Izgubljeni Svijet. Brzo podjite za mnom morate sve da mi ispricate.\n");
 	UsporeniIspisTeksta(100, "Krecete za profesorom, dok idete za njim iznenada vas sa strane zaskace zombi i obara vas.\n");
 	Gospodar2();
-	Zombi(zivotniBodovi);
+	if (otkazi == 0) {
+		Zombi(zivotniBodovi);
+	}
 	return 0;
 }
 int DCU(int* zivotniBodovi){
@@ -456,6 +550,12 @@ int DCU(int* zivotniBodovi){
 		Tepih(zivotniBodovi);
 	} else if(odluka == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odluka == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -475,6 +575,12 @@ int Zombi(int* zivotniBodovi){
 		NastavljateDalje1(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -494,6 +600,12 @@ int NastavljateDalje1(int* zivotniBodovi){
 		Gliser();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -525,15 +637,27 @@ int PrekoMosta(int* zivotniBodovi){
 				Smrt();
 			}  else if(odgovor == -2){
 				osvojeniXP = 0;
+				uslov = 0;
+				krajIgre = 1;
+				return 0;
+			} else if(odgovor == -3){
+				otkazi = 1;
+				uslov = 0;
 				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
 	} else if(odgovor == 2){
 		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Nastavljate dalje ignorisuci poziv za pomoc. Nekoliko trenutaka kasnije cujete vrisak i nakon toga samo tisinu.\nIznenada se ispred vas pojavljuje svjetlosni zid koji juri prema vama i guta vas.\n");
 		DCU(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -560,6 +684,12 @@ int Vrisak(int* zivotniBodovi){
 		Smrt();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -586,6 +716,12 @@ int Skok(int* zivotniBodovi){
 		Titanik(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -606,6 +742,12 @@ int Tepih(int* zivotniBodovi){
 		Bezubi(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -627,6 +769,12 @@ int Titanik(int* zivotniBodovi){
 		StarGate(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -650,6 +798,12 @@ int StarGate(int* zivotniBodovi){
 		Vremeplov(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -671,6 +825,12 @@ int Bezubi(int* zivotniBodovi){
 		Feniks(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -693,6 +853,12 @@ int Feniks(int* zivotniBodovi){
 		IspisSlike("Kraj Igre.txt");
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		uslov = 0;
+		krajIgre = 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		uslov = 0;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();

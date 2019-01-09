@@ -12,12 +12,16 @@ int GOTPohod(int* glavniXP2, int najboljiR, int* osvojeniXP2, int pisi){
 	
 	glavniXP = *glavniXP2;
 	int zivotniBodovi = 100;
+	otkazi = 0;
 	Gavran(&zivotniBodovi);
 	if(glavniXP > 0){
 		glavniXP += osvojeniXP;
 	}
 	*glavniXP2 = glavniXP;
 	*osvojeniXP2 = osvojeniXP;
+	if (otkazi == 1) {
+		return -3;
+	}
 	if(pisi == 1){
 		IspisRezultata(najboljiR, osvojeniXP);
 	}
@@ -42,6 +46,9 @@ int Gavran(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Gavran(zivotniBodovi);
@@ -61,9 +68,11 @@ int Poruka(int* zivotniBodovi) {
 	else if (odgovor == 2) {
 		osvojeniXP -= 40;
 		LanasterNapad(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -83,9 +92,11 @@ int LanasterNapad(int* zivotniBodovi) {
 	else if (odgovor == 2) {
 		osvojeniXP += 15;
 		KraljevPut(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -109,9 +120,11 @@ int KraljevPut(int* zivotniBodovi) {
 		osvojeniXP += 15;
 		UsporeniIspisTeksta(100, "Nekoliko mjeseci kasnije.");
 		DzonovaPoruka(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -132,9 +145,11 @@ int KingsLanding(int* zivotniBodovi) {
 	else if (odgovor == 2) {
 		osvojeniXP += 15;
 		KraljevaStraza(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -166,9 +181,11 @@ int KraljevaStraza(int* zivotniBodovi) {
 	else if (odgovor == 2) {
 		osvojeniXP += 15;
 		NapadMacem(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -186,9 +203,11 @@ int NapadPesnicama(int* zivotniBodovi) {
 	}
 	else if (odgovor == 2) {
 		KraljevaStraza(zivotniBodovi);
-	}
-	else if(odgovor == -2){
+	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	else {
@@ -224,6 +243,9 @@ int NapadPesnicama1(int* zivotniBodovi) {
 			sef -= 32;
 		} else if(potez == -2){
 			osvojeniXP = 0;
+			return 0;
+		} else if(potez == -3){
+			otkazi = 1;
 			return 0;
 		}
 		if(strazar < 40){
@@ -330,6 +352,9 @@ int PripremaZaNapad(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		PripremaZaNapad(zivotniBodovi);
@@ -369,7 +394,10 @@ int Daneres(int* zivotniBodovi){
 		PadKraljevstava(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
-		return 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Daneres(zivotniBodovi);
@@ -415,20 +443,31 @@ int DzonovaPoruka(int* zivotniBodovi){
 	if(odgovor == 1){
 		osvojeniXP += 15;
 		uslov = Daneres(zivotniBodovi);
-		if(uslov == 1){
+		if(odgovor == -2){
+			osvojeniXP = 0;
+			return 0;
+		} else if(odgovor == -3){
+			otkazi = 1;
 			return 0;
 		}
 		PadZida(zivotniBodovi);
 	} else if(odgovor == 2){
 		osvojeniXP -= 40;
 		uslov = Daneres(zivotniBodovi);
-		if(uslov == 1){
+		if(odgovor == -2){
+			osvojeniXP = 0;
+			return 0;
+		} else if(odgovor == -3){
+			otkazi = 1;
 			return 0;
 		}
 		Zid();
 		UkloniIgracevXP(&glavniXP);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();

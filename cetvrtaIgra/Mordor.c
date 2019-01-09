@@ -13,8 +13,13 @@ int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	glavniXP = *glavniXP2;
 	osvojeniXP = 0;
 	brojPomoci = 0;
-	
+	otkazi = 0;
+
 	OnDasNot();
+	
+	if(otkazi == 1){
+		return -3;
+	}
 	
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
@@ -29,7 +34,7 @@ void OnDasNot(){
 	IspisSlike("Mordor.txt");
 	VremenskaPauza(10);
 	UsporeniIspisTeksta(100, "Unesite bilo sta kako bi ste izasli.\n");
-	char hobit[6];
+	char hobit[21];
 	scanf_s("%s", &hobit, sizeof(hobit));
 	if(strcmp(hobit, "frodo") == 0){
 		UMordor();
@@ -37,6 +42,8 @@ void OnDasNot(){
 		UMordor();
 	} else if(strcmp(hobit, "Frodo") == 0){
 		UMordor();
+	} else if (strcmp(hobit, "OTKAZI") == 0) {
+		otkazi = 1;
 	}
 }
 void UMordor(){
@@ -45,6 +52,12 @@ void UMordor(){
 	VremenskaPauza(3);
 	OcistiEkran();
 	osvojeniXP = Pokreni();
-	osvojeniXP += 50;
+	if(osvojeniXP == -2){
+		osvojeniXP = 0;
+	} else if(osvojeniXP == -3){
+		otkazi = 1;
+	} else{
+		osvojeniXP += 50;
+	}
 	OcistiEkran();
 }

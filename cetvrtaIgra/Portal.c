@@ -16,12 +16,16 @@ int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
 	osvojeniXP = 0;
 	int zivotniBodovi = 100;
 	brojPomoci = 0;
-	
+	otkazi = 0;
+
 	Pocetak(&zivotniBodovi);
 	
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
 	*oscojeniXP = osvojeniXP;
+	if (otkazi == 1) {
+		return -3;
+	}
 	if(pisi == 1){
 		IspisRezultata(najboljiR, osvojeniXP);
 	}
@@ -47,6 +51,9 @@ int Pocetak(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Pocetak(zivotniBodovi);
@@ -59,7 +66,7 @@ int UzHodnik(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Primjecujete na desnoj strani pored vrata panel za otvaranje. Prilazite panelu koji zahtjeva da unesete sifru kako bi ste otvorili vrata.\n");
 	Kviz();
 	int odgovor, izlaz = 1;
-	char sifra[6] = "??????", ch[7];
+	char sifra[6] = "??????", ch[21];
 	
 	printf("1) Koja od navedenih planeta se najsporije rotira oko svoje ose?\n");
 	CetiriIzbora("1. Mars", "2. Zemlja", "3. Venera", "4. Saturn", "HORIZONTALNO");
@@ -70,6 +77,9 @@ int UzHodnik(int* zivotniBodovi){
 		VremenskaPauza(3);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	
@@ -83,6 +93,9 @@ int UzHodnik(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	}
 	
 	printf("3) Sta je Quasar?\n");
@@ -94,6 +107,9 @@ int UzHodnik(int* zivotniBodovi){
 		VremenskaPauza(3);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	
@@ -107,6 +123,9 @@ int UzHodnik(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	}
 	
 	printf("5) Kada se kaze da je galaksija mrtva?\n");
@@ -118,6 +137,9 @@ int UzHodnik(int* zivotniBodovi){
 		VremenskaPauza(3);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	}
 	
@@ -131,7 +153,11 @@ int UzHodnik(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	}
+	
 	printf("\n? - nedostaje broj.\n");
 	printf("Kod od vrata: %s\n", sifra);
 	
@@ -142,6 +168,9 @@ int UzHodnik(int* zivotniBodovi){
 			izlaz = 0;
 		} else if(strcmp("KRAJ", ch) == 0){
 			osvojeniXP = 0;
+			return 0;
+		} else if(strcmp("OTKAZI", ch)){
+			otkazi = 1;
 			return 0;
 		} else{
 			UsporeniIspisTeksta(100, "Neispravan kod!\n");
@@ -176,6 +205,9 @@ int NizHodnik(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NizHodnik(zivotniBodovi);
@@ -206,6 +238,9 @@ int Trci(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Trci(zivotniBodovi);
@@ -228,7 +263,7 @@ int Most(int* zivotniBodovi){
 		DaNe("HORIZONTALNO");
 		do{
 			odgovor = UcitajOdgovor();
-		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
 		if(odgovor == 1){
 			osvojeniXP += 15;
 			UsporeniIspisTeksta(100, "Sklonjate mrtvu osobu koja je sjedila za konzolom i sjedate na njegovo mjesto.\nPocinjete da pomjerate rucice na konzoli i primjecujete da se brod okrece dalje od pukotine.\n");
@@ -238,6 +273,9 @@ int Most(int* zivotniBodovi){
 			Pukotina(zivotniBodovi);
 		} else if(odgovor == -2){
 			osvojeniXP = 0;
+			return 0;
+		} else if(odgovor == -3){
+			otkazi = 1;
 			return 0;
 		} else{
 			osvojeniXP -= 40;
@@ -255,6 +293,9 @@ int Most(int* zivotniBodovi){
 		Pukotina(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -280,6 +321,9 @@ int Pukotina(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Pukotina(zivotniBodovi);
@@ -300,6 +344,9 @@ int OstatiNaBrodu(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		OstatiNaBrodu(zivotniBodovi);
@@ -307,7 +354,7 @@ int OstatiNaBrodu(int* zivotniBodovi){
 	Cekanje(zivotniBodovi);
 	return 0;
 }
-void Cekanje(int* zivotnoBodovi){
+int Cekanje(int* zivotnoBodovi){
 	Mjeseci();
 	UsporeniIspisTeksta(100, "Proslo je sest mjeseci od kad ste se srusili na ne poznatu planetu.\nIznenada cujete neku eksploziju koja dolazi sa polja. Iazlazite iz broda i u daljini vidite veliku eksploziju.\n");
 	UsporeniIspisTeksta(100, "Koristite primitivni elektronski uvecavajuci uredjaj, koji ste napravili od ostataka opreme sa mosta, da vidite sat se desava.\nVidite nekakve vrste letjelica kako granatiraju neko ogromno drvo u sred sume i kako ga obaraju.\n");
@@ -340,10 +387,15 @@ void Cekanje(int* zivotnoBodovi){
 		*zivotnoBodovi = 0;
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Cekanje(zivotnoBodovi);
 	}
+	return 0;
 }
 int NapustitiBrod(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Spustate se niz trup broda i silazite na sumsko tlo. Krecete da se probijate kroz sumu.\nDolazite do ivice sume i vidite da vi niste ustvari na povrsini planete.\n");
@@ -352,7 +404,7 @@ int NapustitiBrod(int* zivotniBodovi){
 	Odluke(zivotniBodovi);
 	return 0;
 }
-void Odluke(int* zivotniBodovi){
+int Odluke(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Nailazite na grupu lijana koje se spustaju skroz do tla.\nDa li ce te iskoristiti lijane da se spustite?\n");
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
@@ -371,12 +423,23 @@ void Odluke(int* zivotniBodovi){
 				Odluke(zivotniBodovi);
 			} else if(odgovor == -2){
 				osvojeniXP = 0;
+				return 0;
+			} else if(odgovor == -3){
+				otkazi = 1;
+				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NapustitiBrod(zivotniBodovi);
 	}
+	return 0;
 }
 int Lijane(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Pomocu lijana se spustate do tla i nastavljate dalje.\n");
@@ -428,8 +491,11 @@ int Tlo(int* zivotniBodovi){
 			} else if(odgovor == -2){
 				osvojeniXP = 0;
 				return 0;
+			} else if(odgovor == -3){
+				otkazi = 1;
+				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
 	} else if(odgovor == 2){
 		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Ulazite u satl, uzimate par stvari iz njega za koje smatrate da ce vam biti od koristi i nastavljate dalje.\n");
@@ -453,8 +519,17 @@ int Tlo(int* zivotniBodovi){
 			} else if(odgovor == -2){
 				osvojeniXP = 0;
 				return 0;
+			} else if(odgovor == -3){
+				otkazi = 1;
+				return 0;
 			}
-		} while(odgovor != 1 && odgovor != 2 && odgovor != -2);
+		} while(odgovor != 1 && odgovor != 2 && odgovor != -2 && odgovor != -3);
+	} else if(odgovor == -2){
+		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Tlo(zivotniBodovi);
@@ -627,6 +702,9 @@ int Sletanje(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Sletanje(zivotniBodovi);
@@ -645,11 +723,15 @@ int NastavljateDalje(){
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
 		PitatiProlaznika();
+		return 1;
 	} else if(odgovor == 2){
 		NastavljateDalje();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
-		return 1;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		NastavljateDalje();
@@ -678,6 +760,9 @@ int Dalje(int* zivotniBodovi){
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
 		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
+		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
 		Dalje(zivotniBodovi);
@@ -701,6 +786,9 @@ int AgentSmit(int* zivotniBodovi){
 		ZidProlaz(zivotniBodovi);
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -742,6 +830,9 @@ int ZidProlaz(int* zivotniBodovi){
 		*zivotniBodovi = 0;
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
@@ -869,6 +960,9 @@ int SkokProzor(int* zivotniBodovi){
 		NePonovo();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
+		return 0;
+	} else if(odgovor == -3){
+		otkazi = 1;
 		return 0;
 	} else{
 		IspisGreskeONepravilnomUnosu();
