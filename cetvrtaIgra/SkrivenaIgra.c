@@ -5,10 +5,10 @@
 
 int Pokreni(){
 	osvojeniXP = 0;
-	int brojac = 0, pitanja[17] = {0}, redniBroj;
+	int brojac = 0, pitanja[20] = {0}, redniBroj;
 	
 	do{
-		redniBroj = Nasumicno(17);
+		redniBroj = Nasumicno(20);
 		if (pitanja[redniBroj] == 0) {
 			pitanja[redniBroj] = 1;
 			brojac++;
@@ -131,122 +131,26 @@ void Pitanje17(){
 	int odgovor = UcitajOdgovor();
 	ProvjeraOdgovora(odgovor, 30, 4, &osvojeniXP);
 }
-/*
+
 void Pitanje18(){
-	UsporeniIspisTeksta(100, "");
+	UsporeniIspisTeksta(100, "Ko bi pobjedio u borbi jedan na jedan: \n");
 	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
+	DvaIzbora("1. Superman", "2. Hulk", "HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
+	ProvjeraOdgovora(odgovor, 30, 2, &osvojeniXP);
 }
 void Pitanje19(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
+	UsporeniIspisTeksta(100, "Ko najbolje barata sa macem: \n");
+	CetiriIzbora("1. The Bride", "2. Zoro", "3. Darth Maul", "4. Maximus", "HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
+	ProvjeraOdgovora(odgovor, 30, 2, &osvojeniXP);
 }
 void Pitanje20(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
+	UsporeniIspisTeksta(100, "Ko je najmocniji carabnjak: \n");
+	CetiriIzbora("1. Gandalf", "2. Albus Dumbledore", "3. White Witch", "4. Merlin", "HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
+	ProvjeraOdgovora(odgovor, 30, 2, &osvojeniXP);
 }
-void Pitanje21(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje22(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje23(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje24(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje25(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje26(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje27(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje28(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje29(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje30(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje31(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje32(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje33(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje34(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje35(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje36(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje37(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje38(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje39(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}
-void Pitanje40(){
-	UsporeniIspisTeksta(100, "");
-	CetiriIzbora("1. ", "2. ", "3. ", "4. ", "HORIZONTALNO");
-	int odgovor = UcitajOdgovor();
-}*/
 void Poziv(int n){
 	if(n == 1){
 		Pitanje1();
@@ -282,51 +186,11 @@ void Poziv(int n){
 		Pitanje16();
 	} else if(n == 17){
 		Pitanje17();
-	} /*else if(n == 18){
+	} else if(n == 18){
 		Pitanje18();
 	} else if(n == 19){
 		Pitanje19();
 	} else if(n == 20){
 		Pitanje20();
-	} else if(n == 21){
-		Pitanje21();
-	} else if(n == 22){
-		Pitanje22();
-	} else if(n == 23){
-		Pitanje23();
-	} else if(n == 24){
-		Pitanje24();
-	} else if(n == 25){
-		Pitanje25();
-	} else if(n == 26){
-		Pitanje26();
-	} else if(n == 27){
-		Pitanje27();
-	} else if(n == 28){
-		Pitanje28();
-	} else if(n == 29){
-		Pitanje29();
-	} else if(n == 30){
-		Pitanje30();
-	} else if(n == 31){
-		Pitanje31();
-	} else if(n == 32){
-		Pitanje32();
-	} else if(n == 33){
-		Pitanje33();
-	} else if(n == 34){
-		Pitanje34();
-	} else if(n == 35){
-		Pitanje35();
-	} else if(n == 36){
-		Pitanje36();
-	} else if(n == 37){
-		Pitanje37();
-	} else if(n == 38){
-		Pitanje38();
-	} else if(n == 39){
-		Pitanje39();
-	} else if(n == 40){
-		Pitanje40();
-	} */
+	}
 }
