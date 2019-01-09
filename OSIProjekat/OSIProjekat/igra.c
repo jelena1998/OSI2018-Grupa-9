@@ -226,9 +226,13 @@ void Plati(IGRANJE* igranje, KORISNIK* korisnik) {
 		printf("Da li zelite nastaviti: DA [1]  NE[0]  ");
 		scanf("%d", &izbor);
 		while ((c = getchar()) != EOF && c != '\n');
-		if (izbor == 0) return 0;
+		if (izbor == 0) {
+			Sleep(1500);
+			GlavniMeni(korisnik);
+			return;
+		}
 		if (izbor != 1) { printf("Pogresan unos!"); return 0; }
-		if (korisnik->bodovi > plati)
+		if (korisnik->bodovi >= plati)
 			korisnik->bodovi -= plati;
 		else {
 			printf("Nemate dovoljno bodova za igru");
