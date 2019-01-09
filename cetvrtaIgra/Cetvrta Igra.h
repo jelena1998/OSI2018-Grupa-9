@@ -3,8 +3,7 @@
 
 #include "Igra.h"
 
-int Avantura(int*, IGRANJE*, int, char*);
-int ProvjeraSifre(char*);
+int Avantura(int*, IGRANJE*, int);
 void Hahahaha();
 void Slika(int);
 
