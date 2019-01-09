@@ -120,7 +120,7 @@ void IspisKraj(int x)
 	system("cls");
 }
 
-void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
+void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljeni)
 {
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
@@ -148,6 +148,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			igranje->bodoviUIgri += 20;
+			*dobijeni += 20;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
 			Sleep(2000);
@@ -156,6 +157,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
 		{
 			printf("\nNetacan odgovor!\n\n");
 			igranje->bodoviUIgri -= 30;
+			*izgubljeni -= 30;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
@@ -166,14 +168,15 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje)
 	IspisKraj(igranje->bodoviUIgri);
 }
 
-void IgrajDruguIgru(IGRANJE* igranje)
+void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni)
 {
+	int bool;
+	bool = *izgubljeni < (*dobijeni + (*dobijeni) * 0.4);
 	FILE *file;
 	PITANJE pitanja[5];
 	int bodoviBrojac = 0;
-	char pitanjaa[17]; printf("Unesi pitanjaLaka.txt ili pitanjaTeska.txt:   "); 
-	scanf("%s", pitanjaa); //dok se ne napravi manipulacija ishoda
-	if ((file = fopen(pitanjaa, "r")) != NULL)
+	char pitanjaa[2][17] = { {"pitanjaLaka.txt"}, {"pitanjaTeska.txt"} };
+	if ((file = fopen(pitanjaa[bool], "r")) != NULL)
 	{
 		OdaberiPitanja(pitanja, file);
 		fclose(file);
@@ -181,5 +184,5 @@ void IgrajDruguIgru(IGRANJE* igranje)
 	else
 		printf("Greska pri otvaranju datoteke\n");
 	IspisPocetak();
-	IgrajKviz(pitanja, igranje);
+	IgrajKviz(pitanja, igranje,dobijeni,izgubljeni);
 }

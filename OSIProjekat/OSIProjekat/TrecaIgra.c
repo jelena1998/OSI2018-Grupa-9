@@ -1,9 +1,9 @@
 #include "TrecaIgra.h"
 
-int VecPostoji(int niz[], int n, int broj) { 
+int VecPostoji(int niz[], int n, int broj) {
 	int i;
 	for (i = 0; i < n; i++) {
-		if (niz[i] == broj)   
+		if (niz[i] == broj)
 			return 0;
 	}
 	return 1;
@@ -34,13 +34,13 @@ void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 	}
 }
 
-void Izvlacenje(int loto[], int korisnik[], int max) {		//max je maksimalan broj bodova koji se moze osvojiti 
+void Izvlacenje(int loto[], int korisnik[], int max) {		//max je maksimalan broj bodova koji se moze osvojiti
 	srand((unsigned int)time(0)); //Ogi dodao unsigned int
 	if (max > 208) max = 280;							//jer je maksimalan broj poena u igri 280
 	max /= 10;
 	int i = 0, broj, komb[7], poz[TIKET_SIZE] = {-1,-1,-1,-1,-1,-1,-1};		//u nizu poz smjestaju se pozicije pogodaka u loto nizu
 	int osvojeni = rand() % (max + 1);						//broj poena koji ce se osvojiti u igri (mora biti <=max)
-	printf("Broj poena koji ce se osvojiti: %d\n", osvojeni*10);
+	//printf("Broj poena koji ce se osvojiti: %d\n", osvojeni*10);//nece pokuazivati tacno jer su dodani negativni poeni
 	Kombinacija(osvojeni, komb);
 	while (i < BROJ_IZVLACENJA) {
 		broj = rand() % LOTO_BROJEVI;
@@ -57,7 +57,7 @@ void Izvlacenje(int loto[], int korisnik[], int max) {		//max je maksimalan broj
 			i++;
 		}
 	}
-	for (int i=0; i < TIKET_SIZE; i++) 
+	for (int i=0; i < TIKET_SIZE; i++)
 		if (komb[i] != 0 && VecPostoji(loto,BROJ_IZVLACENJA,korisnik[komb[i]-1]) )
 			loto[poz[i]] = korisnik[komb[i] - 1];
 }
@@ -94,29 +94,32 @@ void Kombinacija(int a, int niz[]) {
 	int s = 0;
 	if(red+1)						//zbog dijeljenja sa nulom
 		s = rand() % (++red);		//s je broj nasumicne kombinacije za dobijanje a-poena
-	//printf("%d\n", s);			
+	//printf("%d\n", s);
 	for (int i = 0; i < 7; i++)
 		niz[i] = mat[s][i];
 }
 
-void BrojPogodaka(int loto[], int korisnik[], int* poeni) { //broji koliko pogodaka ima
-	int pogodak = 0, i, j,*pogodci;
-	pogodci = (int*)calloc(TIKET_SIZE,sizeof(int));
+void BrojPogodaka(int loto[], int korisnik[], int* poeni,int* dobijeni,int* izgubljeni) { //broji koliko pogodaka ima
+	int pogodak = 0, i, j,*pogoci;
+	pogoci = (int*)calloc(TIKET_SIZE,sizeof(int));
 	*poeni = 0;
 	for (i = 0; i < BROJ_IZVLACENJA; i++) {
 		for (j = 0; j < TIKET_SIZE; j++) {
 			if (loto[i] == korisnik[j]) {
-				pogodci[pogodak++] = loto[i];
+				pogoci[pogodak++] = loto[i];
 				int t = j;
 				*poeni += (t + 1) * 10;
+				*dobijeni = *poeni;
 			}
 		}
 	}
+	*izgubljeni = (TIKET_SIZE - pogodak) * 10;
+	*poeni -= *izgubljeni;	//dodano, moraju se gubiti poeni u igri
 	printf("Broj pogodaka je: %d\n", pogodak);
 	if (pogodak)
 		printf("Pogodili ste brojeve: ");
-	PisiNiz(pogodci, pogodak, 0);		//pogodjeni brojevi
-	free(pogodci);
+	PisiNiz(pogoci, pogodak, 0);		//pogodjeni brojevi
+	free(pogoci);
 }
 
 
@@ -130,20 +133,17 @@ void PisiNiz(int niz[], int n, int pauza) {
 	printf("\n");
 }
 
-void IgrajTrecuIgru(IGRANJE* igranje) {
+void IgrajTrecuIgru(IGRANJE* igranje,int max,int* dobijeni, int* izgubljeni) {
 	int loto[20] = { 0 };
 	int korisnikUnos[7] = { 0 };
-	int poeni, max, izgubljeniPoeni;
-	printf("Unesi broj izgubljenih poena: ");
-	scanf("%d", &izgubljeniPoeni);
-	max = (int)(izgubljeniPoeni - izgubljeniPoeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
-	printf("Maksimalan broj poena koji je moguce osvojiti u igri je %d\n", max);
+	int poeni;
+	if(max > 100) max = 100;     //manji od ulozenih poena
 	Tiket(korisnikUnos,igranje);								//korisnik unosi 7 brojeva
 	Izvlacenje(loto, korisnikUnos, max);					//sistem generise 20 brojeva za loto
 	//system("cls");
 	PisiNiz(korisnikUnos, TIKET_SIZE, 0);
 	PisiNiz(loto, BROJ_IZVLACENJA, 1);
-	BrojPogodaka(loto, korisnikUnos, &poeni);
+	BrojPogodaka(loto, korisnikUnos, &poeni,dobijeni,izgubljeni);
 	printf("Osvojili ste ukupno %d bodova u ovoj igri\n", poeni);
 	igranje->bodoviUIgri = poeni;
 	system("pause");

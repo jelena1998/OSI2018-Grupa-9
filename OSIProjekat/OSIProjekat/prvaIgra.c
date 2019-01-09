@@ -43,7 +43,7 @@ void Pobijedi(IGRANJE* igranje) {
 
 
 
-void IgrajPrvuIgru(IGRANJE* igranje) {
+void IgrajPrvuIgru(IGRANJE* igranje,int izgubi) {
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
 	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n"
 		"3. Poeni se racunaju 100/broj_pokusaja.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
@@ -52,7 +52,6 @@ void IgrajPrvuIgru(IGRANJE* igranje) {
 
 	int broj = rand() % 101;
 	int pokusaj = 0, p = 1, poeni = 0;
-	int izgubi = 0;
 	/*dodati nacin racunanja bodova kada se sve spoji u jedno...*/
 
 	if (!izgubi) {

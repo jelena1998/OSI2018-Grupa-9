@@ -13,6 +13,6 @@ int VecPostoji(int[], int n, int a);	//provjerava da li se broj a vec nalazi u n
 void Tiket(int[],IGRANJE*);						//ispunjavanje tiketa
 void Izvlacenje(int[],int[],int);					
 void Kombinacija(int a, int[]);		//u niz treba da smjesti jednu slucajnu kombinaciju pogodaka za osvajanje a-bodova
-void BrojPogodaka(int[], int[], int*);	
+void BrojPogodaka(int[], int[], int*,int*,int*);	
 void PisiNiz(int[], int n,int pauza);    //ispisuju se elementi niza u razmaku pauza-sekundi
-void IgrajTrecuIgru(IGRANJE*);
+void IgrajTrecuIgru(IGRANJE*,int,int*,int*);
