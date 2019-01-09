@@ -19,7 +19,10 @@ int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
 	*osvojeniXP2 = osvojeniXP;
+	OcistiEkran();
+	IspisSlike("Kraj Igre.txt");
 	IspisRezultata(najboljiR, osvojeniXP);
+	VremenskaPauza(10);
 	return 0;
 }
 void OnDasNot(){

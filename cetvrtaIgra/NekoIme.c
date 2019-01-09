@@ -26,7 +26,8 @@ int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	*glavniXP2 = glavniXP;
 	*osvojeniXP2 = osvojeniXP;
 	IspisRezultata(najboljiR, osvojeniXP);
-	
+	VremenskaPauza(10);
+
 	return 0;
 }
 int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
