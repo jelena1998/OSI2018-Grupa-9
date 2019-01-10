@@ -2,7 +2,7 @@
 
 void Pobijedi(IGRANJE* igranje) {
 	int unos, i, min = 0, max = 100, maxp, minp, pokusaj;
-	char c;
+//	char c;
 	printf("\t\t\t***IGRA POGADJANJA BROJA***\n\n");
 	printf("\tPravila:\n1. Unesite broj (0-100).\n2. Imate pravo na 5 pokusaja\n"
 	"3. Poeni se racunaju 100/broj_pokusaja.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
@@ -80,7 +80,7 @@ void IgrajPrvuIgru(IGRANJE* igranje,int izgubi) {
 
 int PogodiBroj(int broj,IGRANJE* igranje) {
 	int unos, p = 0;
-	char c;
+//	char c;
 	do {
 		printf("\nUnesite broj (0-100)->");
 		scanf("%d", &unos);
@@ -101,7 +101,7 @@ int PogodiBroj(int broj,IGRANJE* igranje) {
 
 void Izgubi(IGRANJE* igranje) {
 	int unos, i, min = 0, max = 100, maxp, minp,pokusaj = 0;
-	char c;
+//	char c;
 	for (i = 0; i < 5; i++) {
 		do {
 			printf("Pokusaj: %d", pokusaj + 1);

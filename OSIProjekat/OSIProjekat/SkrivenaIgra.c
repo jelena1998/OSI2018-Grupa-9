@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //za potrebe ispisa teksta
-const int brZina = 0;
+const int brZina = 50;
 
 int Pokreni(){
 	osvojeniXP = 0;

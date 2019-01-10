@@ -108,7 +108,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 	int izbor;
 	//char c;
 	system("cls");
-	printf("\t\t\tGlavni meni \n");
+	printf("\t\t\tGlavni meni\n");
 	printf("BODOVI: %d\n", korisnik->bodovi);
 
 	//printf("Pokusaj %d\n", korisnik->pokusaj); //pokusaji za prvu igru

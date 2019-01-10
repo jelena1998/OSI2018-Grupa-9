@@ -5,7 +5,7 @@
 int login(KORISNIK *korisnik) {
 
 	system("cls");
-	printf("Prijava na sistem\n\n");
+	printf("\nPrijava\n\n");
 
 	FILE* file;
 
@@ -28,7 +28,7 @@ int login(KORISNIK *korisnik) {
 	//ukoliko se unese nepostojece ime
 	file = fopen(odrediste, "rb");
 	if (file == NULL) {
-		printf("Nismo pronasli podatke pod tim korisnickim imenom\n");
+		printf("\nNismo pronasli podatke pod tim korisnickim imenom\n");
 	//	fclose(file);
 		return 0;
 	}
@@ -39,7 +39,7 @@ int login(KORISNIK *korisnik) {
 	if (!strcmp(korisnik->korisnickoIme, korisnickoIme)) {
 		if (!strcmp(korisnik->lozinka, lozinka)) {
 			system("cls");
-			printf("\t\tDobrodosli %s na platformu.\n\t\t    Vasi bodovi su: %d.\n", korisnik->korisnickoIme, korisnik->bodovi);
+			printf("\n\n\n\n\t\tDobrodosli %s.\n\n", korisnik->korisnickoIme); //poruka pozdrav
 			Sleep(3000);
 			return 1;
 		}
@@ -50,7 +50,7 @@ int login(KORISNIK *korisnik) {
 int reg() {
 
 	system("cls");
-	printf("Registracija\n");
+	printf("\nRegistracija\n\n");
 
 	KORISNIK korisnik;
 	FILE* file;
@@ -90,15 +90,22 @@ int reg() {
 	//snimanje podataka
 	strcpy(korisnik.korisnickoIme, korisnickoIme);
 	strcpy(korisnik.lozinka, lozinka);
-	//korisnik.bodovi = 10;
-	korisnik.bodovi = 1000; //za potrebe testiranja
+	korisnik.bodovi = 10;
+	//korisnik.bodovi = 1000; //za potrebe testiranja
 	korisnik.pokusaj = 3; //za prvu igru 3 pobjede na pocetku odma
 
+	Sleep(1000);
+	system("cls");
+
 	//kreiranje kljuceva 
-	printf("\nKreiranje kljuceva za igra\n");
+	printf("\nKreiranje kljuceva\n");
 	for (i = 0; i < 4; i++)
 		korisnik.indeksKljca[i] = KreirajKljuc();
 	PisiKljuc(korisnik);
+	
+	printf("\n\nKljuceve mozete pogledati u glavnom meniju pod opcijom 5.\n\n");
+	Sleep(3500);
+	system("cls");
 
 	//upisivanje podataka u datoteku
 	file = fopen(odrediste, "wb");
@@ -129,11 +136,15 @@ int reg() {
 		file = fopen(odrediste, "w");
 		if (file == NULL) {
 			printf("Greska prilikom otvaranja datoteke\n"); 
-			fclose(file); //dodano 
+			//fclose(file); 
 			return 0;
 		}
 			fclose(file);
 	}
+
+	printf("\nPrijavite se\n\n");
+//	Sleep(3500);
+
 	return 1;
 }
 

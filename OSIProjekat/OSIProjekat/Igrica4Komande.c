@@ -48,10 +48,14 @@ int Nasumicno(int max){
 	return (rand() % max);
 }
 int UcitajOdgovor(){
+	char c;
 	char odgovor[100];
 	int prenos = -1; //uslov;
 	printf("Vas odgovor je: ");
 	scanf_s("%s", odgovor, sizeof(odgovor));
+
+	while ((c = getchar()) != EOF && c != '\n'); //isprazni bafer
+
 	/* nije potrebno za ovim
 	if(strcmp(odgovor, "KRAJ") == 0){
 		printf("\nDa li ste sigurni da zelite da napustite igru. Osvojeni bodovi nece biti sacuvani!\n");

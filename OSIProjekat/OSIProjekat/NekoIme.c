@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <time.h>
 
-const int Brzina = 0;
+const int Brzina = 50;
 
 
 int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){

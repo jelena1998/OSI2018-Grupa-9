@@ -11,7 +11,7 @@ void PocetnaStranica();
 int main() {
 	/*Podaci za test: korisnicko ime: ognjen  lozinka: ognjen123*/
 	
-//	PocetnaStranica(); //pozivanje pocetne strane
+	PocetnaStranica(); //pozivanje pocetne strane
 	
 	//za potrebe Avantura()
 	int bodovi = 0;
@@ -28,11 +28,14 @@ int main() {
 
 		switch (izbor) {
 		case 1:
-			reg(); 
+			reg();
 			break;
 		case 2: 
-			if (login(&korisnik))
+			if (login(&korisnik)) {
+				system("cls");
+				printf("\nPrijavite se na sistem\n\n");
 				p = 1;
+			}
 			else {
 				printf("Neuspjesna prijava\n");
 				p = 0;

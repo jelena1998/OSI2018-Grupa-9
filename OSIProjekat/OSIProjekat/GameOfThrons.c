@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 //za potrebe ispisa
-const int brzinaa = 0;
+const int brzinaa = 50;
 
 
 int GOTPohod(int* glavniXP2, int najboljiR, int* osvojeniXP2, int pisi){

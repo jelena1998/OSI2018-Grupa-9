@@ -11,7 +11,7 @@
 
 
 //za potrebe ispisa
-const int brzina = 0;
+const int brzina = 50;
 
 
 int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){

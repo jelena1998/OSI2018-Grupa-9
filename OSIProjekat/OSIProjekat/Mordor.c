@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int brzinA = 0;
+const int brzinA = 50;
 
 int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	system("title Mordor");

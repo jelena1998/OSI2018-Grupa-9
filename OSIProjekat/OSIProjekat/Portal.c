@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <time.h>
 
-const int bRzina = 0;
+const int bRzina = 50;
 
 
 int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
