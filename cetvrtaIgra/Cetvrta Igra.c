@@ -56,7 +56,10 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 		}
 	}
 	else if (izbor == 3) {
-		Mordor(&glavniXPA, najveciRekordIgre, &osvojeniXP);
+		mim = Mordor(&glavniXPA, najveciRekordIgre, &osvojeniXP);
+		if (mim == -3) {
+			uslovOtkazi = 1;
+		}
 	}
 	else if (izbor == 4) {
 		UsporeniIspisTeksta(100, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li cete nastaviti dalje?\n");
