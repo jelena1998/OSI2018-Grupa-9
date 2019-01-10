@@ -1,10 +1,9 @@
 #ifndef NEKOIME_H_  // Ukljuci cuvara
 #define NEKOIME_H_
 
-int glavniXP, osvojeniXP, brojPomoci, uslov;
-char* izlazniKod;
+int glavniXP, osvojeniXP, brojPomoci, uslov, otkazi, krajIgre;
 
-int NekoIme(int*, int, int);
+int NekoIme(int*, int, int*);
 int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int*);
 void SlomljeniMatriks();
 int PocetakIgre(int*);
@@ -15,11 +14,11 @@ int Narnia(int*);
 int Pirati(int*);
 int IzgubljeniSvijet(int*);
 int NazadUPecinu(int*);
-void Bijezite();
+int Bijezite();
 int PremaSumi(int*);
 int DCU(int*);
-void Gospodar1();
-void Gospodar2();
+int Gospodar1();
+int Gospodar2();
 int Zombi(int*);
 int PovratakIzPukotine(int*);
 int NastavljateDalje1(int*);

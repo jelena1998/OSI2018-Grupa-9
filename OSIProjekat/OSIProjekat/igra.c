@@ -59,7 +59,7 @@ int Istekao(IGRANJE* igranje) {
 	case 1: tm2.tm_hour++; break;		
 	case 2: tm2.tm_mday++; break;
 	case 3: tm2.tm_mday += 7; break;
-	case 4: tm2.tm_year += 100;
+	case 4: tm2.tm_year += 100; break;
 	default: printf("Greska!"); break;
 	}								//tm2 je datum i vrijeme isteka igre
 	time_t t2 = mktime(&tm2);
@@ -181,9 +181,13 @@ void GlavniMeni(KORISNIK* korisnik) {
 		case 4:
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
+			//printf("TraziIgru se izvrsilo\n"); system("pause");
 			if (PristupiIgri(&igranje, korisnik)) {
+			//	printf("PristupiIgri se izvrsilo kao i if u tijelu if smo\n"); system("pause");
+				Avantura(&korisnik->bodovi, &igranje, 0);
 				//Avantura(&korisnik->bodovi, sifra);	//&korisnik.bodovi, sta je sifra?
-				printf("pristupio si\n");
+				//printf("pristupio si\n");
+				Snimi(&igranje);
 			}
 			Sleep(2000);
 			/*system("pause");*/ 
@@ -231,7 +235,7 @@ void Plati(IGRANJE* igranje, KORISNIK* korisnik) {
 			GlavniMeni(korisnik);
 			return;
 		}
-		if (izbor != 1) { printf("Pogresan unos!"); return 0; }
+		if (izbor != 1) { printf("Pogresan unos!"); return; }
 		if (korisnik->bodovi >= plati)
 			korisnik->bodovi -= plati;
 		else {
@@ -243,7 +247,7 @@ void Plati(IGRANJE* igranje, KORISNIK* korisnik) {
 }
 
 int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
-	char c;
+//	char c;
 	while (igranje->aktivna == -1) {
 		if (Otkljucaj(*korisnik, igranje->sifraIgre)) {
 			ADIgru(1, igranje);

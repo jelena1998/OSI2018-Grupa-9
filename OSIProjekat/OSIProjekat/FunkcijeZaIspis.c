@@ -4,16 +4,6 @@
 #include <string.h>
 #include <windows.h>
 
-void IspisTekstaSaPauzama(char* tekst) {
-	
-	if (strcmp(tekst, "=+=+=+=+=+=+=+=+=+=") == 1) {
-		VremenskaPauza(5);
-		printf("\n");
-	}
-	else {
-		printf("%s", tekst);
-	}
-}
 void UsporeniIspisTeksta(int milisekunde, char* tekst){
 	
 	int brojKaraktera = strlen(tekst), i;
@@ -24,16 +14,6 @@ void UsporeniIspisTeksta(int milisekunde, char* tekst){
 }
 void IspisiPrazanRed(int brojRedova){
 	while(brojRedova--){
-		printf("\n");
-	}
-}
-void IspisiKarakterVisePuta(char karakter, int broj, int redovi){
-
-	for (; redovi > 0; redovi--) {
-		int i;
-		for (i = broj; i > 0; i--) {
-			printf("%c", karakter);
-		}
 		printf("\n");
 	}
 }
@@ -75,25 +55,6 @@ void IspisSlike(char* url) {
 	fclose(slika);
 	printf("\n");
 }
-void IspisPasosa(char* url) {
-
-	FILE* pasos;
-	errno_t err = fopen_s(&pasos, url, "r");
-
-	if (err == 0) {
-
-		char red[171];
-		while (fgets(red, 171, pasos)) {
-			IspisTekstaSaPauzama(red);
-		}
-	}
-	else {
-		printf("Greska pri otvaranju tekstualne datoteke [Pasosi].\n");
-	}
-
-	fclose(pasos);
-	printf("\n");
-}
 void PisiZvijezde(){
 	printf("                      ******************************************************\n");
 }
@@ -108,16 +69,21 @@ void PisiRed(){
 void PisiLiniju(){
 	printf("                      *	|||||	=================================    ||||| *\n");
 }
-void IspisRezultata(int najboljiR, int najboljiP, int novi){
+void IspisRezultata(int najboljiR, int novi){
 	IspisiPrazanRed(3);
 	PisiZvijezde();
 	PisiStrele();
 	PisiRed();
-	printf("                      *	|||||	Najbolji rekord:	   %04d      ||||| *\n", najboljiR);
-	PisiLiniju();
-	printf("                      * |||||   Rekord price:		   %04d      ||||| *\n", najboljiP);
-	PisiLiniju();
-	printf("                      *	|||||	Trenutni rekord:	   %04d      ||||| *\n", novi);
+	if (novi < najboljiR) {
+	//	printf("                      *	|||||	Najbolji rekord:	   %04d      ||||| *\n", najboljiR);
+	//	PisiLiniju();
+		printf("                      *	|||||	Osvojeno bodova:	   %04d      ||||| *\n", novi);
+	}
+	else {
+		//printf("                      *	|||||	Stari rekord:		   %04d      ||||| *\n", najboljiR);
+	//	PisiLiniju();
+		printf("                      *	|||||	Osvojeno bodova:		   %04d      ||||| *\n", novi);
+	}
 	PisiRed();
 	PisiStrele();
 	PisiZvijezde();

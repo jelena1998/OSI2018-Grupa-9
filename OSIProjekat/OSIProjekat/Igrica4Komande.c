@@ -2,12 +2,10 @@
 #include "FunkcijeZaIspis.h"
 #include <windows.h>
 #include <stdio.h>
-#include <time.h>
-
 #include <stdlib.h>
 #include <conio.h>
-#include<time.h>
-#include<ctype.h>
+#include <time.h>
+#include <ctype.h>
 #include <process.h>
 
 void UkloniIgracevXP(int* glavniXP){
@@ -27,30 +25,11 @@ int Dodaj_OduzmiXP(){
 	return (sansa < 40) ? 0 : 1;
 }
 
-void UgasiIgricu(int* glavniXP){
-	UkloniIgracevXP(glavniXP);
-	exit(1);
-}
-void IzadjiIzIgrice(int* glavniXP, int osvojeniXP){
-	*glavniXP += osvojeniXP;
-	// Napisati funkciju za povratak u glavni main tj. povratak u konzolu za biranje igrica
-}
-void NapustiIgricu(int* osvojeniXP){
-	UkloniIgrice4XP(osvojeniXP);
-	exit(1);
-}
-
 void OcistiEkran(){
 	system("CLS");
 }
 void OcistiEkranPomjeranjem(){
 	IspisiPrazanRed(50);
-}
-void PostaviVelicinuEkrana(int sirina, int visina){
-	
-	HWND hwnd = GetConsoleWindow();
-	RECT rect = {0, 0, visina, sirina};
-	MoveWindow(hwnd, rect.top, rect.left, rect.bottom-rect.top, rect.right-rect.left, TRUE);
 }
 void PuniEkran(int uslov){
 	if(uslov == 1){
@@ -65,26 +44,67 @@ void VremenskaPauza(int sekunde){
 }
 
 int Nasumicno(int max){
+	srand ( (unsigned int) time(NULL) );
 	return (rand() % max);
 }
 int UcitajOdgovor(){
 	char odgovor[100];
-	int prenos = -1;
+	int prenos = -1; //uslov;
 	printf("Vas odgovor je: ");
 	scanf_s("%s", odgovor, sizeof(odgovor));
-	if(odgovor[0] == '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'){
-		prenos = atoi(odgovor);
-	} else{
-		prenos = -1;
+	/* nije potrebno za ovim
+	if(strcmp(odgovor, "KRAJ") == 0){
+		printf("\nDa li ste sigurni da zelite da napustite igru. Osvojeni bodovi nece biti sacuvani!\n");
+		do{
+			DaNe("HORIZONTALNO");
+			printf("Vas odgovor je: ");
+			scanf_s("%s", odgovor, sizeof(odgovor));
+			uslov = strlen(odgovor);
+		} while(odgovor[0] != '1' && odgovor[0] != '2' && uslov != 1);
+		if(odgovor[0] == '1'){
+			return -2;
+		} else{
+			return prenos;
+		}
 	}
+	*/
+	if (strcmp(odgovor, "OTKAZI") == 0) {
+		return -3;
+	}
+	/* nije potrebna ovakva implementacija
+	if (strcmp(odgovor, "OTKAZI") == 0) {
+		printf("\nDa li ste sigurni da zelite da otkazete igru. Nakon sto potvrdite, vi vise necete moci igrati ovu igru!\n");
+		do {
+			DaNe("HORIZONTALNO");
+			printf("Vas odgovor je: ");
+			scanf_s("%s", odgovor, sizeof(odgovor));
+			uslov = strlen(odgovor);
+		} while (odgovor[0] != '1' && odgovor[0] != '2' && uslov != 1);
+		if (odgovor[0] == '1') {
+			return -3;
+		}
+		else {
+			return prenos;
+		}
+	} */
+
+	
+	if(strlen(odgovor) == 1){
+		if(odgovor[0] == '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'){
+			prenos = atoi(odgovor);
+		} else{
+			prenos = -1;
+		}
+	}
+	
 	return prenos;
 }
 void ProvjeraOdgovora(int odgovor, int xp, int brOdgovora, int* osvojeniXP){
 	if (odgovor > 0 && odgovor < brOdgovora + 1) {
 		if (Dodaj_OduzmiXP()) {
-			osvojeniXP += xp;
+			*osvojeniXP += xp;
 		} else {
-			osvojeniXP -= xp;
+			*osvojeniXP -= xp;
 		}
 	}
 }

@@ -9,8 +9,8 @@
 int main(){
 
 	int glavniXP = 100;
-	char c[10] = "123456789";
-	Avantura(&glavniXP, c);
+	IGRANJE rekord;
+	Avantura(&glavniXP, &rekord, 50); // 50 - trenitni najbolji rekord ostvaren u igri
 	
 	return 0;
 }

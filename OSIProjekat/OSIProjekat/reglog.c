@@ -90,7 +90,8 @@ int reg() {
 	//snimanje podataka
 	strcpy(korisnik.korisnickoIme, korisnickoIme);
 	strcpy(korisnik.lozinka, lozinka);
-	korisnik.bodovi = 10;
+	//korisnik.bodovi = 10;
+	korisnik.bodovi = 1000; //za potrebe testiranja
 	korisnik.pokusaj = 3; //za prvu igru 3 pobjede na pocetku odma
 
 	//kreiranje kljuceva 
