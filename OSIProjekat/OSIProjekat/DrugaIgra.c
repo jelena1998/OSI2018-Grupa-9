@@ -120,13 +120,14 @@ void IspisKraj(int x)
 	system("cls");
 }
 
-void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljeni)
+void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljeni,int* bodovi)
 {
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
 		int odgovorKorisnik,pom;
 		char c;
+		printf("BODOVI: %d\n", *bodovi);
 		printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
@@ -149,6 +150,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			igranje->bodoviUIgri += 20;
+			*bodovi += 20;
 			*dobijeni += 20;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
@@ -159,6 +161,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 			printf("\nNetacan odgovor!\n\n");
 			igranje->bodoviUIgri -= 30;
 			*izgubljeni -= 30;
+			*bodovi -= 30;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
@@ -169,7 +172,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 	IspisKraj(igranje->bodoviUIgri);
 }
 
-void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni)
+void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni,int* bodovi)
 {
 	int bool;
 	bool = *izgubljeni < (*dobijeni + (*dobijeni) * 0.4);
@@ -185,5 +188,5 @@ void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni)
 	else
 		printf("Greska pri otvaranju datoteke\n");
 	IspisPocetak();
-	IgrajKviz(pitanja, igranje,dobijeni,izgubljeni);
+	IgrajKviz(pitanja, igranje,dobijeni,izgubljeni,bodovi);
 }

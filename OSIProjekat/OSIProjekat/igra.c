@@ -140,6 +140,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 
 				if ( (korisnik->pokusaj >= 1) && (korisnik->pokusaj <= 3)) {
+					printf("BODOVI: %d", korisnik->bodovi);
 					Pobijedi(&igranje);
 					korisnik->pokusaj--;
 					korisnik->bodovi += igranje.bodoviUIgri;
@@ -150,6 +151,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 					int bool;
 					bool = izgubljeni < (dobijeni + dobijeni * 0.4);
 					if (korisnik->bodovi < 50) bool = 0;		//ako nema dovoljno bodova za ostale igre
+					printf("BODOVI: %d", korisnik->bodovi);
 					IgrajPrvuIgru(&igranje, bool);
 					//korisnik->pokusaj--; // umanjujemo pokusaj
 					korisnik->bodovi += igranje.bodoviUIgri;
@@ -163,8 +165,8 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
 			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
-				IgrajDruguIgru(&igranje,&dobijeni,&izgubljeni);
-				korisnik->bodovi += igranje.bodoviUIgri;
+				IgrajDruguIgru(&igranje,&dobijeni,&izgubljeni,&korisnik->bodovi);
+				//korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
 			}
 			Sleep(2000);
@@ -175,6 +177,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
 			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 				int max = (int)(izgubljeni - izgubljeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
+				printf("BODOVI: %d\n", korisnik->bodovi);
 				IgrajTrecuIgru(&igranje,max,&dobijeni,&izgubljeni);					
 				korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
