@@ -58,7 +58,7 @@ int Istekao(IGRANJE* igranje) {
 	tm2.tm_year -= 1900;
 	tm2.tm_mon--;
 	switch (igranje->sifraIgre) {
-	case 1: tm2.tm_hour++; break;		
+	case 1: tm2.tm_hour++; break;
 	case 2: tm2.tm_mday++; break;
 	case 3: tm2.tm_mday += 7; break;
 	case 4: tm2.tm_year += 100; break;
@@ -107,19 +107,20 @@ void GlavniMeni(KORISNIK* korisnik) {
 	//char* sifra = "123456789"; //za potrebe 4 igre
 	static int dobijeni;
 	static int izgubljeni;
-	int izbor;
+	int izbor,max;
 	//char c;
 	system("cls");
+	//printf("%d %d", dobijeni, izgubljeni);
 	printf("\t\t\tGlavni meni\n");
 	printf("BODOVI: %d\n", korisnik->bodovi);
 
 	//printf("Pokusaj %d\n", korisnik->pokusaj); //pokusaji za prvu igru
 
 	//Vrsi ze upisivanje zbog bodova koji se mijenjaju (bag) - ispravljeno
-	
+
 	char c; int p = 0;
 	do {
-		
+
 		//system("cls");
 		printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Prikaz kljuceva"
 			"\n6 Statistika\n7 Snimanje igre\n8 Izlaz\n");
@@ -176,9 +177,13 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
 			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
-				int max = (int)(izgubljeni - izgubljeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
+				//int max = (int)(izgubljeni - izgubljeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
 				printf("BODOVI: %d\n", korisnik->bodovi);
-				IgrajTrecuIgru(&igranje,max,&dobijeni,&izgubljeni);					
+				if (izgubljeni < (dobijeni + (dobijeni) * 0.4))
+					max = 0;
+				else
+					max = izgubljeni - (int)(dobijeni + (dobijeni) * 0.4);
+				IgrajTrecuIgru(&igranje,max,&dobijeni,&izgubljeni);
 				korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
 			}
@@ -197,20 +202,20 @@ void GlavniMeni(KORISNIK* korisnik) {
 				Snimi(&igranje);
 			}
 			Sleep(2000);
-			/*system("pause");*/ 
-			GlavniMeni(korisnik); 
+			/*system("pause");*/
+			GlavniMeni(korisnik);
 			break;
-			
-		case 5: 
+
+		case 5:
 			system("cls");
 			PisiKljuc(*korisnik);
 			system("pause"); GlavniMeni(korisnik); break;
-		case 6: 
+		case 6:
 			system("cls");
 			PrikazStatistike(korisnik);
 			system("pause"); GlavniMeni(korisnik); break;
 		case 7: ucitajPodatke(*korisnik, korisnik->bodovi, korisnik->pokusaj); GlavniMeni(korisnik); break;
-		default: 
+		default:
 			if (izbor == 8) {
 				ucitajPodatke(*korisnik, korisnik->bodovi, korisnik->pokusaj); //ucitavanje podataka
 				exit(EXIT_SUCCESS);
@@ -220,7 +225,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 		}
 	} while (izbor != 8);
 
-	
+
 }
 
 void Plati(IGRANJE* igranje, KORISNIK* korisnik,int* izgubljeni) {

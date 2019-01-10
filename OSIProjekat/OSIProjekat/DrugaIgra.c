@@ -86,7 +86,9 @@ void IspisPocetak()
 	printf("==========================================\n");
 	printf("************DOBRODOSLI NA KVIZ************\n");
 	printf("==========================================\n\n");
-	Sleep(2000);
+	printf("\tPravila:\n1. Odgovarate na 5 pitanja.\n2. Tacan odgovor nosi 20 poena\n"
+		"3. Netacan odgovor vam oduzima 30 poena.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
+	Sleep(5000);
 	system("cls");
 }
 
@@ -163,7 +165,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 		{
 			printf("\nNetacan odgovor!\n\n");
 			igranje->bodoviUIgri -= 30;
-			*izgubljeni -= 30;
+			*izgubljeni += 30;
 			*bodovi -= 30;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
@@ -184,10 +186,7 @@ void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni,int* bodovi)
 	FILE *file;
 	PITANJE pitanja[5];
 	//pitanja->pitanje = NULL;
-	
 	//pitanja->odgovor[0] = NULL;
-	
-
 	int bodoviBrojac = 0;
 	char pitanjaa[2][17] = { {"pitanjaLaka.txt"}, {"pitanjaTeska.txt"} };
 	if ((file = fopen(pitanjaa[bool], "r")) != NULL)

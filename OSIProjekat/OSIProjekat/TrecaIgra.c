@@ -13,7 +13,7 @@ void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 
 	int i, broj;
 //	char c;
-	printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
+	//printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 	printf("Unesite 7 brojeva da popunite vas tiket\n");
 	printf("Vasi brojevi moraju biti u rasponu od 1 do 45\n");
 	for (i = 0; i < TIKET_SIZE; i++)
@@ -109,7 +109,7 @@ void BrojPogodaka(int loto[], int korisnik[], int* poeni,int* dobijeni,int* izgu
 				pogoci[pogodak++] = loto[i];
 				int t = j;
 				*poeni += (t + 1) * 10;
-				*dobijeni = *poeni;
+				*dobijeni += *poeni;
 			}
 		}
 	}
@@ -137,6 +137,10 @@ void IgrajTrecuIgru(IGRANJE* igranje,int max,int* dobijeni, int* izgubljeni) {
 	int loto[20] = { 0 };
 	int korisnikUnos[7] = { 0 };
 	int poeni;
+	printf("\t\t\t***LOTO***\n\n");
+	printf("\tPravila:\n1. Unosite 7 brojeva na tiket.\n2. Izvalci se 20 nasumicnih brojeva od  1 do 45\n"
+		"3. Svaki pogodjen broj donosi (redni_broj_pogotka)*10 bodova.\n4. Svaki promasen broj vam oduzima 5 bodova\n5. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
+	Sleep(5000);
 	if(max > 100) max = 100;     //manji od ulozenih poena
 	Tiket(korisnikUnos,igranje);								//korisnik unosi 7 brojeva
 	Izvlacenje(loto, korisnikUnos, max);					//sistem generise 20 brojeva za loto
