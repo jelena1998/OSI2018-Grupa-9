@@ -1,0 +1,7 @@
+Ne mjenjati nista iz foldera kao ni ime foldera
+OSIProjekat.
+Aplikacija se pokrece preko POHOD
+moze se prebacivati bilo gdje povezana je fajlovima
+Za testiranje aplikacije koristiti nalog
+ognjen
+ognjen123 dodano 1000bodova
