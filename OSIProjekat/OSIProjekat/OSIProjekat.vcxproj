@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cetvrta Igra.h" />
+    <ClInclude Include="CetvrtaIgra.h" />
     <ClInclude Include="DrugaIgra.h" />
     <ClInclude Include="FunkcijeZaIspis.h" />
     <ClInclude Include="GameOfThrons.h" />
@@ -36,7 +36,7 @@
     <ClInclude Include="TrecaIgra.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cetvrta Igra.c" />
+    <ClCompile Include="CetvrtaIgra.c" />
     <ClCompile Include="DrugaIgra.c" />
     <ClCompile Include="FunkcijeZaIspis.c" />
     <ClCompile Include="GameOfThrons.c" />
