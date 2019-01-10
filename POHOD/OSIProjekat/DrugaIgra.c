@@ -1,5 +1,8 @@
 #include"DrugaIgra.h"
 
+//void oslobodi(PITANJE*);
+
+
 int TacanOdgovor(PITANJE *pitanje, int odgovor)
 {
 	return pitanje->tacanOdgovor == odgovor;
@@ -20,7 +23,7 @@ int VecPostojiBroj(int niz[], int n, int broj)
 void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 {
 	srand((unsigned)time(0));
-	char *pom;
+	char *pom=NULL;
 	int duzina;
 	int znak, linija, i = 0, j, k, broj, ukupnoPitanja;
 	int indexPitanja[BROJ_PITANJA] = { 0 };
@@ -36,7 +39,7 @@ void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 	for (i = 0; i < 5; i++)
 	{
 		int c = 10;
-		pom = (char*)malloc(c * sizeof(char));
+		pom = (char*)calloc(c, sizeof(char));
 		duzina = 0;
 		broj = indexPitanja[i];
 		for (linija = 2, k = 0; k < broj - 1; linija += 5, k++); //trazi pocetak linije pitanja
@@ -47,19 +50,19 @@ void OdaberiPitanja(PITANJE* pitanja, FILE* file)
 			while ((znak = fgetc(file)) != '\n')
 			{
 				if (duzina == c)
-					pom = (char*)realloc(pom, (c *= 2) * sizeof(char));
+					pom = (char*)realloc(pom, (c *= 20) * sizeof(char));
 				pom[duzina] = znak;
 				duzina++;
 			}
 			pom[duzina] = 0;
 			if (j == 0)
 			{
-				pitanja[i].pitanje = (char*)malloc(duzina * sizeof(char));
+				pitanja[i].pitanje = (char*)calloc(duzina+1, sizeof(char));
 				strcpy(pitanja[i].pitanje, pom);
 			}
 			else
 			{
-				pitanja[i].odgovor[j - 1] = (char*)malloc(duzina * sizeof(char));
+				pitanja[i].odgovor[j - 1] = (char*)calloc(duzina+1, sizeof(char));
 				strcpy(pitanja[i].odgovor[j - 1], pom);
 			}
 			duzina = 0;
@@ -83,7 +86,9 @@ void IspisPocetak()
 	printf("==========================================\n");
 	printf("************DOBRODOSLI NA KVIZ************\n");
 	printf("==========================================\n\n");
-	Sleep(2000);
+	printf("\tPravila:\n1. Odgovarate na 5 pitanja.\n2. Tacan odgovor nosi 20 poena\n"
+		"3. Netacan odgovor vam oduzima 30 poena.\n4. Za otkazivanje igre unesite 'OTKAZI'\n\n\n");
+	Sleep(5000);
 	system("cls");
 }
 
@@ -120,13 +125,15 @@ void IspisKraj(int x)
 	system("cls");
 }
 
-void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljeni)
+void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljeni,int* bodovi)
 {
 	int i, tacniOdg = 0;
 	for (i = 0; i < 5; i++)
 	{
 		int odgovorKorisnik,pom;
 		char c;
+		printf("BODOVI: %d\n", *bodovi);
+		printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
 		printf("Unesi tacan odgovor (1,2,3) : ");
@@ -148,6 +155,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 		{
 			printf("\nOdgovor je tacan!\n\n");
 			igranje->bodoviUIgri += 20;
+			*bodovi += 20;
 			*dobijeni += 20;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			tacniOdg++;
@@ -157,23 +165,28 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 		{
 			printf("\nNetacan odgovor!\n\n");
 			igranje->bodoviUIgri -= 30;
-			*izgubljeni -= 30;
+			*izgubljeni += 30;
+			*bodovi -= 30;
 			while ((c = getchar()) != EOF && c != '\n'); //ako se unese vise odgovora odjednom
 			Sleep(2000);
 		}
-		if (tacniOdg == 5)
+		if (tacniOdg == 5) {
 			igranje->bodoviUIgri += 50;
+			*dobijeni += 50;
+		}
 		system("cls");
 	}
 	IspisKraj(igranje->bodoviUIgri);
 }
 
-void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni)
+void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni,int* bodovi)
 {
 	int bool;
 	bool = *izgubljeni < (*dobijeni + (*dobijeni) * 0.4);
 	FILE *file;
 	PITANJE pitanja[5];
+	//pitanja->pitanje = NULL;
+	//pitanja->odgovor[0] = NULL;
 	int bodoviBrojac = 0;
 	char pitanjaa[2][17] = { {"pitanjaLaka.txt"}, {"pitanjaTeska.txt"} };
 	if ((file = fopen(pitanjaa[bool], "r")) != NULL)
@@ -183,6 +196,32 @@ void IgrajDruguIgru(IGRANJE* igranje,int* dobijeni, int* izgubljeni)
 	}
 	else
 		printf("Greska pri otvaranju datoteke\n");
+	
 	IspisPocetak();
-	IgrajKviz(pitanja, igranje,dobijeni,izgubljeni);
+	IgrajKviz(pitanja, igranje,dobijeni,izgubljeni,bodovi);
+	//free(pitanja);
+	//oslobodi(pitanja);
 }
+/*
+void oslobodi(PITANJE* pitanja) {
+	int i, j;
+	for (i = 0; i < 5; i++) {
+		for (j = 0; j < 4; j++) {
+			if (j == 0)
+			{
+				free(pitanja[i].pitanje);
+				pitanja[i].pitanje = NULL;
+				//strcpy(pitanja[i].pitanje, pom);
+			}
+			else
+			{
+				free(pitanja[i].odgovor[j - 1]);
+				pitanja[i].odgovor[j - 1] = NULL;
+				//strcpy(pitanja[i].odgovor[j - 1], pom);
+			}
+			//pitanja[i] = NULL;
+		}
+		//free(pitanja[i].pitanje);
+	}
+}
+*/

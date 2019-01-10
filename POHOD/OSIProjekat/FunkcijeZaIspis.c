@@ -5,7 +5,7 @@
 #include <windows.h>
 
 void UsporeniIspisTeksta(int milisekunde, char* tekst){
-	
+
 	int brojKaraktera = strlen(tekst), i;
 	for(i = 0; i < brojKaraktera; i++){
 		printf("%c", tekst[i]);
@@ -27,7 +27,7 @@ void IspisGreskeONepravilnomUnosu(){
     saved_attributes = consoleInfo.wAttributes;
 
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-    printf("\nKOMANDA KOJU STE UNJELI NE POSTOJI. MOLIM VAS UNESITE ISPRAVNU KOMANDU!\n\n");
+    printf("\nKOMANDA KOJU STE UNIJELI NE POSTOJI. MOLIM VAS UNESITE ISPRAVNU KOMANDU!\n\n");
 
     // Vraca prethodnu boju teksta u konzoli
     SetConsoleTextAttribute(hConsole, saved_attributes);
@@ -59,7 +59,7 @@ void PisiZvijezde(){
 	printf("                      ******************************************************\n");
 }
 void PisiStrele(){
-	
+
 	printf("                      * /////========================================\\\\\\\\\\ *\n");
 	printf("                      *	\\\\\\\\\\========================================///// *\n");
 }
@@ -77,12 +77,12 @@ void IspisRezultata(int najboljiR, int novi){
 	if (novi < najboljiR) {
 	//	printf("                      *	|||||	Najbolji rekord:	   %04d      ||||| *\n", najboljiR);
 	//	PisiLiniju();
-		printf("                      *	|||||	Osvojeno bodova:	   %04d      ||||| *\n", novi);
+		printf("                      *	|||||	Trenutni bodovi:	   %04d      ||||| *\n", novi);
 	}
 	else {
 		//printf("                      *	|||||	Stari rekord:		   %04d      ||||| *\n", najboljiR);
-	//	PisiLiniju();
-		printf("                      *	|||||	Osvojeno bodova:		   %04d      ||||| *\n", novi);
+		//PisiLiniju();
+		printf("                      *	|||||	Novi bodovi:		   %04d      ||||| *\n", novi);
 	}
 	PisiRed();
 	PisiStrele();

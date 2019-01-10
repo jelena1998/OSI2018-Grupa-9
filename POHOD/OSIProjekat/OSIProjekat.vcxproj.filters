@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cetvrta Igra.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DrugaIgra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,11 +57,11 @@
     <ClInclude Include="Statistika.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CetvrtaIgra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cetvrta Igra.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DrugaIgra.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -108,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Statistika.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CetvrtaIgra.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

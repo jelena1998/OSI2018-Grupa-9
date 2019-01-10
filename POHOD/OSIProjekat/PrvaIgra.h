@@ -9,3 +9,4 @@
 void IgrajPrvuIgru(IGRANJE*,int);
 int PogodiBroj(int,IGRANJE*);
 void Izgubi(IGRANJE*); 
+void Pobijedi(IGRANJE*);

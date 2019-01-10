@@ -16,6 +16,7 @@ void Pobijedi(IGRANJE* igranje) {
 			scanf("%d", &unos);
 			if (Otkazi(igranje)) return;
 		} while (unos < 0 || unos > 100);
+		if ((i + 1) != pokusaj)
 		if (max - unos > unos - min) {
 			minp = unos;
 			if (minp > min) min = minp;
@@ -29,7 +30,7 @@ void Pobijedi(IGRANJE* igranje) {
 			printf("Broj je %s od unijetog broja\n", "manji");
 		}
 		//     printf("min %d i max %d\n",min,max);
-		if ((i+1 >= pokusaj) && (unos >= min) && (unos <= max)) { 
+		if ((i+1 >= pokusaj) && (unos > min) && (unos < max)) { 
 			igranje->bodoviUIgri = 100 / pokusaj;
 			printf("Kraj igre\nOsvojeni poeni su: %d\n", 100/pokusaj);
 			printf("Trazeni broj je: %d\n", unos);
