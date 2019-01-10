@@ -144,7 +144,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 					Pobijedi(&igranje);
 					korisnik->pokusaj--;
 					korisnik->bodovi += igranje.bodoviUIgri;
-					dobijeni = igranje.aktivna;
+					dobijeni += igranje.bodoviUIgri;
 					Snimi(&igranje);
 				}
 				else {
@@ -155,7 +155,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 					IgrajPrvuIgru(&igranje, bool);
 					//korisnik->pokusaj--; // umanjujemo pokusaj
 					korisnik->bodovi += igranje.bodoviUIgri;
-					dobijeni = igranje.aktivna;
+					dobijeni += igranje.bodoviUIgri;
 					Snimi(&igranje);
 				}
 			}

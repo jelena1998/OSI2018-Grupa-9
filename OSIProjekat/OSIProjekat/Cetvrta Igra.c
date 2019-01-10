@@ -9,28 +9,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
-//za potrebe ispisa
-const int brzina = 50;
-
-
 int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
-	
-	
+
 	PuniEkran(1);
 	system("title Pohod");
 	int glavniXPA = *glavniXP;
 	int osvojeniXP, uslovOtkazi = 0;
-	
+
 	Load("Pohod loading..", 33);
-	UsporeniIspisTeksta(brzina, "Gospodar Igre: A odlicno nova zrtva je stigla. Dobro dosli u igru vaseg zivota.\n               Moje ime je Gospodar Igre, od ovog trenutka pa sve do kraja igre vasa sudbina je u mojim rukama.\n");
+	UsporeniIspisTeksta(100, "Gospodar Igre: A odlicno nova zrtva je stigla. Dobro dosli u igru vaseg zivota.\n               Moje ime je Gospodar Igre, od ovog trenutka pa sve do kraja igre vasa sudbina je u mojim rukama.\n");
 	VremenskaPauza(5);
 	OcistiEkran();
 	IspisSlike("Avantura.txt");
 	VremenskaPauza(5);
 	OcistiEkran();
-	UsporeniIspisTeksta(brzina, "Gospodar Igre: Pravila igre su sledeca:\n\n	Birate jednu od cetiri ponudjene opcije, unosom broja koji se nalazi ispred opcije.\n	Nakon toga igrica pocinje. Pred vama ce biti postavljen niz odluka.\n	Na osnovu vase odluke igrica ce napredovati u razlicitim smjerovima.\n");
-	UsporeniIspisTeksta(brzina, "	Vas cilj je da dodjete do kraja price.\n	Upamtite da u slucaju donosenja pogresnih odluka postoji sansa da izgubite sve bodove sa profila.\n	Ukoliko zelite da otkazete igru, umjesto odgovora unesite OTKAZI.\n\n	Neka igra pocne!\n\n\n\n");
+	UsporeniIspisTeksta(100, "Gospodar Igre: Pravila igre su sledeca:\n\n	Birate jednu od cetiri ponudjene opcije, unosom broja koji se nalazi ispred opcije.\n	Nakon toga igrica pocinje. Pred vama ce biti postavljen niz odluka.\n	Na osnovu vase odluke igrica ce napredovati u razlicitim smjerovima.\n");
+	UsporeniIspisTeksta(100, "	Vas cilj je da dodjete do kraja price.\n	Upamtite! U slucaju da donesete pogresnu odluku postoji sansa da izgubite sve bodove sa profila.\n	Ukoliko zelite da napustite igru, prije nego sto se igra zavrsila, umjesto odgovora unesite KRAJ.\n	Ukoliko zelite da otkazete igru, umjesto odgovora unesite OTKAZI.\n\n	Neka igra pocne!\n\n\n\n");
 	printf("		1. Game Of Throns\n");
 	printf("		2. Portal\n");
 	printf("		3. Mordor\n");
@@ -62,14 +56,17 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 		}
 	}
 	else if (izbor == 3) {
-		Mordor(&glavniXPA, najveciRekordIgre, &osvojeniXP);
+		mim = Mordor(&glavniXPA, najveciRekordIgre, &osvojeniXP);
+		if (mim == -3) {
+			uslovOtkazi = 1;
+		}
 	}
 	else if (izbor == 4) {
-		UsporeniIspisTeksta(brzina, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li ce te nastaviti dalje?\n");
+		UsporeniIspisTeksta(100, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li cete nastaviti dalje?\n");
 		DaNe("HORIZONTALNO");
 		int odgovor = UcitajOdgovor();
 		if (odgovor == 1) {
-			UsporeniIspisTeksta(brzina, "Gospodar Igre: Zastooo! Zastoooo!\n");
+			UsporeniIspisTeksta(100, "Gospodar Igre: Zastooo! Zastoooo!\n");
 			VremenskaPauza(3);
 			NekoIme(&glavniXPA, najveciRekordIgre, &osvojeniXP);
 		}
@@ -80,7 +77,7 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 			uslovOtkazi = 1;
 		}
 		else {
-			UsporeniIspisTeksta(brzina, "Gospodar Igre: Napravili ste dobar izbor.\n");
+			UsporeniIspisTeksta(100, "Gospodar Igre: Napravili ste dobar izbor.\n");
 		}
 	}
 	else if (izbor == -2) {
@@ -92,17 +89,16 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 
 	if (uslovOtkazi == 1) {
 		ADIgru(0, rekord); // Deaktivacija igre
-		osvojeniXP = 0;
 	}
 
 	*glavniXP = glavniXPA;
 	rekord->bodoviUIgri = osvojeniXP;
-	
+
 	return 0;
 }
 void Hahahaha(){
 	OcistiEkran();
-	UsporeniIspisTeksta(brzina, "Gospodar Igre: \n\n");
+	UsporeniIspisTeksta(100, "Gospodar Igre: \n\n");
 	VremenskaPauza(1);
 	IspisSlike("You shall not pass.txt");
 	VremenskaPauza(3);
@@ -115,7 +111,7 @@ void Slika(int mim){
 		IspisSlike("Pikacu.txt");
 	} else{
 		IspisSlike("Ha Ha.txt");
-		UsporeniIspisTeksta(brzina, "Gospodar Igre: Rekao sam vam.\n");
+		UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam.\n");
 	}
 	VremenskaPauza(10);
 	OcistiEkran();

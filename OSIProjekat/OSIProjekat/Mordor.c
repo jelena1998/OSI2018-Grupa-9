@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int brzinA = 50;
-
 int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	system("title Mordor");
 	OcistiEkran();
@@ -35,7 +33,7 @@ int Mordor(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 void OnDasNot(){
 	IspisSlike("Mordor.txt");
 	VremenskaPauza(10);
-	UsporeniIspisTeksta(brzinA, "Unesite bilo sta kako bi ste izasli.\n");
+	UsporeniIspisTeksta(100, "Unesite bilo sta kako bi ste izasli.\n");
 	char hobit[21];
 	scanf_s("%s", &hobit, sizeof(hobit));
 	if(strcmp(hobit, "frodo") == 0){

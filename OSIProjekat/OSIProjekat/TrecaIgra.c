@@ -12,7 +12,7 @@ int VecPostoji(int niz[], int n, int broj) {
 void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 
 	int i, broj;
-	char c;
+//	char c;
 	printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 	printf("Unesite 7 brojeva da popunite vas tiket\n");
 	printf("Vasi brojevi moraju biti u rasponu od 1 do 45\n");
