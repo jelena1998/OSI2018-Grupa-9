@@ -8,10 +8,10 @@
 
 int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
 	system("title Portal");
-	
+
 	OcistiEkran();
 	Load("Portal loading...", 32);
-	
+
 	glavniXP = *glavniXP2;
 	osvojeniXP = 0;
 	int zivotniBodovi = 100;
@@ -19,7 +19,7 @@ int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
 	otkazi = 0;
 
 	Pocetak(&zivotniBodovi);
-	
+
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
 	*oscojeniXP = osvojeniXP;
@@ -32,7 +32,7 @@ int Portal(int* glavniXP2, int najboljiR, int* oscojeniXP, int pisi){
 	if(zivotniBodovi == 0){
 		return 1;
 	}
-	
+
 	return 0;
 }
 
@@ -67,7 +67,7 @@ int UzHodnik(int* zivotniBodovi){
 	Kviz();
 	int odgovor, izlaz = 1;
 	char sifra[6] = "??????", ch[21];
-	
+
 	printf("1) Koja od navedenih planeta se najsporije rotira oko svoje ose?\n");
 	CetiriIzbora("1. Mars", "2. Zemlja", "3. Venera", "4. Saturn", "HORIZONTALNO");
 	odgovor = UcitajOdgovor();
@@ -82,7 +82,7 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("2) Koja od navedenih cestica je najbrza?\n");
 	CetiriIzbora("1. Tachyon", "2. Neutrino", "3. Higgs boson", "4. Quark", "HORIZONTALNO");
 	odgovor = UcitajOdgovor();
@@ -97,7 +97,7 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("3) Sta je Quasar?\n");
 	CetiriIzbora("1. Zvijezda", "2. Veoma brzo rotirajuca Neutronska zvijezda", "3. Planeta", "4. Najsjajniji objekat u svemiru", "HORIZONTALNO");
 	odgovor = UcitajOdgovor();
@@ -112,7 +112,7 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("4) Koji od navedenih svemirskih brodova je najbrzi u galaksiji?\n");
 	CetiriIzbora("1. U.S.S. Enterprise", "2. Millennium Falcon", "3. Battlestar Galactica", "4. BC507 Crateris", "HORIZONTALNO");
 	odgovor = UcitajOdgovor();
@@ -127,9 +127,9 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("5) Kada se kaze da je galaksija mrtva?\n");
-	CetiriIzbora("1. Kada se sve zcijezde ugase", "2. Kada galaksija vise ne moze da proisvodi nove zvijezde", "3. Kada sav zivot u njoj nestane", "4. Galagsije ne mogu da umru", "VERTIKALNO");
+	CetiriIzbora("1. Kada se sve zvijezde ugase", "2. Kada galaksija vise ne moze da proizvodi nove zvijezde", "3. Kada sav zivot u njoj nestane", "4. Galagsije ne mogu da umru", "VERTIKALNO");
 	odgovor = UcitajOdgovor();
 	if(odgovor == 2){
 		SpecijalniIspis("0");
@@ -142,7 +142,7 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("6) Izbaci uljeza?\n");
 	CetiriIzbora("1. Vulkan", "2. Pandora", "3. Asgard", "4. Alfa", "HORIZONTALNO");
 	odgovor = UcitajOdgovor();
@@ -157,10 +157,10 @@ int UzHodnik(int* zivotniBodovi){
 		otkazi = 1;
 		return 0;
 	}
-	
+
 	printf("\n? - nedostaje broj.\n");
 	printf("Kod od vrata: %s\n", sifra);
-	
+
 	do{
 		UsporeniIspisTeksta(100, "Unesite kod: ");
 		scanf_s("%s", ch, sizeof(ch));
@@ -177,7 +177,7 @@ int UzHodnik(int* zivotniBodovi){
 			Pomoc(&brojPomoci,"Kod je 528401\n", &glavniXP, 30);
 		}
 	} while(izlaz == 1);
-	
+
 	UsporeniIspisTeksta(100, "Vrata se otavraju i vi ulazite u prostoriju.\n");
 	osvojeniXP += 15;
 	Most(zivotniBodovi);
@@ -573,16 +573,16 @@ int Pukotina2(int* zivotniBodovi){
     // Cuva trenutnu boji teksta u konzoli
     GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
     saved_attributes = consoleInfo.wAttributes;
-    
+
 	MatriksEfekat();
 	VremenskaPauza(3);
     Sletanje(zivotniBodovi);
-    
+
     SetConsoleTextAttribute(hConsole, saved_attributes);
     return 0;
 }
 void MatriksEfekat(){
-	
+
 	OcistiEkran();
 	int width = 170,height = 43;
 	srand((unsigned int) time(NULL));
@@ -590,7 +590,7 @@ void MatriksEfekat(){
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};
 	int giris[170] = {0}, uzunluk[170] = {0}, mevcut[170] = {0}, yaz[170] = {0}, x, i, rast, test, dolu[170] = {0};
-	
+
 	for(x = 0; x < width; x++){
 		giris[x] = rand() % 30;
 		uzunluk[x] = rand() % 30 + 15;
@@ -608,7 +608,7 @@ void MatriksEfekat(){
 	while(vrijeme > clock()){
 		for(x = 0; x < width; x++){
 			if(yaz[x] == 1){
-				coord.X = x; 
+				coord.X = x;
 				coord.Y = mevcut[x];
 				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 				if(dolu[x] == 0){
@@ -619,14 +619,14 @@ void MatriksEfekat(){
 					}
 					if(matrix2[mevcut[x] - 1][x] == 1){
 						SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN|FOREGROUND_INTENSITY);
-						coord.X = x; 
+						coord.X = x;
 						coord.Y = mevcut[x] - 1;
 						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 						printf("%c",matrix[mevcut[x] - 1][x]);
 					}
 					if(matrix2[mevcut[x] - 5][x] == 1){
 							SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
-							coord.X = x; 
+							coord.X = x;
 							coord.Y = mevcut[x] - 5;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - 5][x]);
@@ -634,7 +634,7 @@ void MatriksEfekat(){
 					for(i = 1; i < 5; i++){
 						if(matrix2[mevcut[x] - i * 10][x] == 1){
 							SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
-							coord.X = x; 
+							coord.X = x;
 							coord.Y = mevcut[x] - i * 10;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - i * 10][x]);
@@ -909,10 +909,10 @@ void Zatvor(){
 	IspisSlike("Kraj Igre.txt");
 }
 void MaliMartiks(int milisekunde){
-	
+
 	int de;
 	clock_t vrijeme = milisekunde + clock();
-	
+
 	while(vrijeme > clock()){
 		/* Nasumicni izbor karaktera */
 		char cb = 'a' + rand() % (('z'-'a') + 1);
@@ -972,7 +972,7 @@ int SkokProzor(int* zivotniBodovi){
 	return 0;
 }
 void NePonovo(){
-	
+
 	OcistiEkran();
 	system("cls");
 	system("COLOR F2");

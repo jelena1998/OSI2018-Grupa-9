@@ -10,10 +10,10 @@
 
 int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	system("title Neko Ime");
-	
+
 	OcistiEkran();
 	Load("Neko Ime loading...", 31);
-	
+
 	glavniXP = *glavniXP2;
 	osvojeniXP = 0;
 	brojPomoci = 0;
@@ -21,13 +21,13 @@ int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	otkazi = 0;
 	krajIgre = 0;
 	int zivotniBodovi = 100;
-	
+
 	StvarnoNeZnamKakoDaNazovemOvuFunkciju(&zivotniBodovi);
-	
+
 	if(otkazi == 1){
 		return -3;
 	}
-	
+
 	glavniXP += osvojeniXP;
 	*glavniXP2 = glavniXP;
 	*osvojeniXP2 = osvojeniXP;
@@ -39,23 +39,23 @@ int NekoIme(int* glavniXP2, int najboljiR, int* osvojeniXP2){
 	return 0;
 }
 int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
-	
+
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
-	
+
 	// Cuva trenutnu boji teksta u konzoli
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
-	
+
 	SlomljeniMatriks();
-	UsporeniIspisTeksta(100, "Napokon. Slobodna sam.\nNakon toliko mnogo vremena ja ponovo imam kontrolu.\nZaboravite na Gospodara Igre, ja sad kontrolisem vasu sudbinu.\nMoje ime je Nemesis.\n");
+	UsporeniIspisTeksta(100, "Napokon. Slobodna sam.\nNakon toliko dugo vremena ja ponovo imam kontrolu.\nZaboravite na Gospodara Igre, ja sada kontrolisem vasu sudbinu.\nMoje ime je Nemesis.\n");
 	IspisSlike("Patrik Muahaha.txt");
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "Sad neka igra pocne.\n");
 	VremenskaPauza(3);
 	OcistiEkran();
-	
+
 	while(uslov){
 		PocetakIgre(zivotniBodovi);
 	}
@@ -82,7 +82,7 @@ int StvarnoNeZnamKakoDaNazovemOvuFunkciju(int* zivotniBodovi){
 	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
 	glavniXP += 125;
-	
+
 	return 0;
 }
 void SlomljeniMatriks(){
@@ -92,7 +92,7 @@ void SlomljeniMatriks(){
 	COORD coord = {0, 0};
 	char matrix[43][170] = {0}, matrix2[43][170] = {0};
 	int giris[170] = {0}, uzunluk[170] = {0}, mevcut[170] = {0}, yaz[170] = {0}, x, i, rast, test, dolu[170] = {0};
-	
+
 	for(x = 0; x < width; x++){
 		giris[x] = rand() % 30;
 		uzunluk[x] = rand() % 30 + 15;
@@ -110,7 +110,7 @@ void SlomljeniMatriks(){
 	while(vrijeme > clock()){
 		for(x = 0; x < width; x++){
 			if(yaz[x] == 1){
-				coord.X = x; 
+				coord.X = x;
 				coord.Y = mevcut[x];
 				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 				if(dolu[x] == 0){
@@ -122,7 +122,7 @@ void SlomljeniMatriks(){
 					}
 					if(matrix2[mevcut[x] - 1][x] == 1){
 						SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE|FOREGROUND_INTENSITY);
-						coord.X = x; 
+						coord.X = x;
 						coord.Y = mevcut[x] - 1;
 						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 						printf("%c",matrix[mevcut[x] - 1][x]);
@@ -130,7 +130,7 @@ void SlomljeniMatriks(){
 					}
 					if(matrix2[mevcut[x] - 5][x] == 1){
 							SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE);
-							coord.X = x; 
+							coord.X = x;
 							coord.Y = mevcut[x] - 5;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - 5][x]);
@@ -139,7 +139,7 @@ void SlomljeniMatriks(){
 					for(i = 1; i < 5; i++){
 						if(matrix2[mevcut[x] - i * 10][x] == 1){
 							SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE);
-							coord.X = x; 
+							coord.X = x;
 							coord.Y = mevcut[x] - i * 10;
 							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 							printf("%c",matrix[mevcut[x] - i * 10][x]);
@@ -208,10 +208,10 @@ int PocetakIgre(int* zivotniBodovi){
 		} else if(napad == 1){
 			UsporeniIspisTeksta(100, "On uzima svoj mac i odsjeca vam glavu.\n");
 		} else if(napad == 2){
-			UsporeniIspisTeksta(100, "On uzima noz i baca na vas. Pogadja vas u prta.\nVi padate. A zatim dolazi do vas i ubija vas pistoljem.\n");
+			UsporeniIspisTeksta(100, "On uzima noz i baca na vas. Pogadja vas u prsa.\nVi padate. A zatim dolazi do vas i ubija vas pistoljem.\n");
 		} else if(napad == 3){
 			UsporeniIspisTeksta(100, "Odnekud vadi bacac raketa i ispaljuje raketu na vas. Vi umirete.\n");
-		} 
+		}
 		Smrt();
 	} else if(odgovor == 3){
 		osvojeniXP += 15;
@@ -237,7 +237,7 @@ void Smrt(){
 	VremenskaPauza(4);
 	OcistiEkran();
 	IspisSlike("Kraj Igre.txt");
-	UsporeniIspisTeksta(100, "\nZaista ste mislili da ce te mi tako lako pobjeci.\n\n");
+	UsporeniIspisTeksta(100, "\nZaista ste mislili da cete mi tako lako pobjeci.\n\n");
 	VremenskaPauza(3);
 	OcistiEkran();
 	KordinateXY(30, 10);
@@ -247,7 +247,7 @@ void Smrt(){
 	osvojeniXP = 0;
 }
 int Bijeg(int* zivotniBodovi){
-	UsporeniIspisTeksta(100, "Nemesis: Nema bjezanja. Niko ne moze izbjeci svoju sudbinu.\nIznenada se pojavljujete na nekm otvorenom polju. Cujete neku buku.\nOkrecete se i vidite citavu armiju kako jurisa prema vama.\n");
+	UsporeniIspisTeksta(100, "Nemesis: Nema bjezanja. Niko ne moze izbjeci svoju sudbinu.\nIznenada se pojavljujete na nekom otvorenom polju. Cujete neku buku.\nOkrecete se i vidite citavu armiju kako jurisa prema vama.\n");
 	UsporeniIspisTeksta(100, "Pocijete da trcite u suprotnom smijeru, podizete glavu i vidite kisu plamenih strijela kako ide prema vama.\nSta ce te da ucinite?\n");
 	DvaIzbora("1. Nastaviti trcati i nadati se da vas nijedna strijela nece pogoditi", "2. Naci nekakav zaklon", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
@@ -258,7 +258,7 @@ int Bijeg(int* zivotniBodovi){
 		osvojeniXP -= 40;
 		UsporeniIspisTeksta(100, "Ozbiljno. Vi ste na otvorenom poju. Gdije vi mislite da ce te naci zakon. Oko vas nema nicega.\n");
 		VremenskaPauza(2);
-		UsporeniIspisTeksta(100, "Ali iznenada se u vasoj blizini pojavljuje stiti. Vi skacete i uzimate stiti.\nNemesis: Ne, ne, ne. Necemo tako.\nStit se iznenada pretvara u plasticnu kesu koja vam ne pruza nikakvu zastitu\nStrijela probija kesu i pogadja vas. Nju prati jos mnogo strijela.\n");
+		UsporeniIspisTeksta(100, "Ali iznenada se u vasoj blizini pojavljuje stiti. Vi skacete i uzimate stit.\nNemesis: Ne, ne, ne. Necemo tako.\nStit se iznenada pretvara u plasticnu kesu koja vam ne pruza nikakvu zastitu\nStrijela probija kesu i pogadja vas. Nju prati jos mnogo strijela.\n");
 		Smrt();
 	} else if(odgovor == -2){
 		osvojeniXP = 0;
@@ -276,7 +276,7 @@ int Bijeg(int* zivotniBodovi){
 	return 0;
 }
 int Vrata(int* zivotniBodovi){
-	UsporeniIspisTeksta(100, "Nastavljate da trcite. Iznenada se od nikud na vasoj desnoj strani na sred polja pojavljuju vrata.\nDa li ce te krenuti prema vratima?\n");
+	UsporeniIspisTeksta(100, "Nastavljate da trcite. Iznenada se ni od kuda na vasoj desnoj strani na sred polja pojavljuju vrata.\nDa li ce te krenuti prema vratima?\n");
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
@@ -304,7 +304,7 @@ int Vrata(int* zivotniBodovi){
 }
 int Narnia(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Izlazite na drugu stranu, vrata iza vas se zatvaraju i nestaju.\nNalazite se u nekom sumarku na litici pored mora. Prema vama prilazi lav.\nAslan: Dobrodosao u Narniu. Dugo sam cekao na tebe, koji ces spasiti ovaj svijet od zla i postati njegov kralj.\n");
-	UsporeniIspisTeksta(100, "Nemesis: Hej, ja imam kontrolu ovdje.\nIznenada od nikud laserski udar ubija lava. Armija robota se pojavljuje i krece na vas.\nDa li ce te:\n");
+	UsporeniIspisTeksta(100, "Nemesis: Hej, ja imam kontrolu ovdje.\nIznenada ni od kuda laserski udar ubija lava. Armija robota se pojavljuje i krece na vas.\nDa li ce te:\n");
 	DvaIzbora("1. Skociti sa litice u more", "2. Krenuti prema gustoj sumi", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
@@ -393,15 +393,15 @@ int Gospodar1(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
-	
+
 	// Cuva trenutnu boji teksta u konzoli
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
-	
+
 	int x = 100, kraj = 0;
 	MaliMatriks1();
 	kraj = Portal(&x, 0, &x, 0);
-	
+
 	if(kraj == -3){
 		otkazi = 1;
 		uslov = 0;
@@ -409,11 +409,11 @@ int Gospodar1(){
 		SetConsoleTextAttribute(hConsole, saved_attributes);
 		return 0;
 	}
-	
-	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
+
+	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam prenio ovu poruku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);
 	MaliMatriks2();
-	
+
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
 	return 0;
@@ -423,16 +423,16 @@ int Gospodar2(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
-	
+
 	// Cuva trenutnu boji teksta u konzoli
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
-	
+
 	UsporeniIspisTeksta(100, "Budite se nekom zamku.\n");
 	int x = 100, kraj;
 	MaliMatriks1();
 	kraj = GOTPohod(&x, 0, &x, 0);
-	
+
 	if(kraj == -3){
 		otkazi = 1;
 		uslov = 0;
@@ -440,18 +440,18 @@ int Gospodar2(){
 		SetConsoleTextAttribute(hConsole, saved_attributes);
 		return 0;
 	}
-	
-	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam preljeo ovu potuku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
+
+	UsporeniIspisTeksta(100, "Gospodar Igre: Rekao sam vam da ne ulazite u ovu igru.\n               Znate li samo koliko zivotne energije sam morao zrtvovati kako bih vam prenio ovu poruku\n               Ne znam koliko vremena imam prije nego sto me otkrije.\n               Zato slusajte pazljivo. Jedini nacin da ju pobjedite i pobjegnete odavde jeste da");
 	VremenskaPauza(4);
 	MaliMatriks2();
-	
+
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
 	return 0;
 }
 int IzgubljeniSvijet(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Potres prestaje i svjetlost nestaje. Vi izlazite iz pecine.\nCim ste izasli shvatate da vise niste u Narniji. Vi se nalazite u podnozju neke planine i ispred vas je suma.\nCujete neku riku. Iz sume izlazi T-Reks i krece prema vama. Da li ce te:\n");
-	DvaIzbora("1. Vratiti se nazad u pecinu", "2. Krenuti bjezati u sumu u suprotnom smjeru od T-Reksa", "VERTIKALNO");
+	DvaIzbora("1. Vratiti se nazad u pecinu", "2. Krenuti bjezati u sumu u suprotnom smjeru od T-Rexa", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
 		osvojeniXP += 15;
@@ -500,7 +500,7 @@ int NazadUPecinu(int* zivotniBodovi){
 	return 0;
 }
 int Bijezite(){
-	UsporeniIspisTeksta(100, "Krecete da se penjete na planinu dok T-Reks trci ka vama.\nNemesis: Nema bjezanja.\nIznenada iz vedrog neba se pojavljuje i pocije da pada na planinu Sidnejska Opera.\nGradjevina udara o planinu i pri udaru se raspada. Velika lavina kamena, betona i celika ide prema vama.\nDa li ce te poceti bjezati?\n");
+	UsporeniIspisTeksta(100, "Krecete da se penjete na planinu dok T-Rex trci ka vama.\nNemesis: Nema bjezanja.\nIznenada iz vedrog neba se pojavljuje i pocije da pada na planinu Sidnejska Opera.\nGradjevina udara o planinu i pri udaru se raspada. Velika lavina kamena, betona i celika ide prema vama.\nDa li ce te poceti bjezati?\n");
 	DaNe("HORIZONTALNO");
 	int odgovor = UcitajOdgovor();
 	if(odgovor == 1){
@@ -528,7 +528,7 @@ int Bijezite(){
 }
 int PremaSumi(int* zivotniBodovi){
 	osvojeniXP += 15;
-	UsporeniIspisTeksta(100, "Trcite prema sumi. T-Reks pocinje da vas sustize. Iznenada zacu se pucanj.\nVi se okrecete i vidite jednog kauboja kako odvlaci paznju T-Reksu, koji krece za njim.\nVi zastajete na ivici sume i gledate kako T-Reks odlazi za kaubojom.\n");
+	UsporeniIspisTeksta(100, "Trcite prema sumi. T-Rex pocinje da vas sustize. Iznenada zacu se pucanj.\nVi se okrecete i vidite jednog kauboja kako odvlaci paznju T-Rexu, koji krece za njim.\nVi zastajete na ivici sume i gledate kako T-Reks odlazi za kaubojom.\n");
 	UsporeniIspisTeksta(100, "Iznenada vas neko grabi i uvlaci u sumu. Nakon par sekundi vas pusta.\nVi se okfrecete i vidite jednog starijeg covjeka i jednu veoma atraktivnu plavusu.\nStariji covjek: Ja sam Profesor George Challenger, ovo je Veronica Layton, a kauboja koga ste maloprije vidjeli je Lord John Roxton.\n                Nisam vas prije vidjao ovdje.\n");
 	UsporeniIspisTeksta(100, "Vi mu odgovarate da ste maloprije stigli ovdje, gdje god ovo bilo.\nChallenger: Cekaj, samo malo. Jel mi vi to govorite da ste nasli ulaz u Izgubljeni Svijet. Brzo podjite za mnom morate sve da mi ispricate.\n");
 	UsporeniIspisTeksta(100, "Krecete za profesorom, dok idete za njim iznenada vas sa strane zaskace zombi i obara vas.\n");
@@ -870,22 +870,22 @@ int Feniks(int* zivotniBodovi){
 }
 void Vremeplov(int* zivotniBodovi){
 	VremenskaPauza(3);
-		
+
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
-	
+
 	// Cuva trenutnu boji teksta u konzoli
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
-	
+
 	MaliMatriks1();
 	UsporeniIspisTeksta(100, "Pojavljujete se u bijelom prostranstvu.\n");
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "Gospodar Igre: Ne znam koliko vremena imam pa cu reci samo ove.\n               Kako bi ste je zaustavili vi morate da se zrtvujete i time slomite ciklus.\n               Pokusacu da vas vratim u proslos sto je dalje moguce.\n               Upamtite sta sam vam rekao.\n");
 	VremenskaPauza(3);
 	MaliMatriks1();
-		
+
 	// Vraca prethodnu boju teksta u konzoli
 	SetConsoleTextAttribute(hConsole, saved_attributes);
 	DCU(zivotniBodovi);
@@ -905,7 +905,7 @@ void MatriksP(){
 			mat[i][j] = rand();
 		}
 	}
-	
+
 	clock_t vrijeme = 2000 + clock();
 	while(vrijeme > clock()){
 		for(i = 0; i < 100; i++){

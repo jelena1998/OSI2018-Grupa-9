@@ -10,12 +10,12 @@
 #include <stdio.h>
 
 int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
-	
+
 	PuniEkran(1);
 	system("title Pohod");
 	int glavniXPA = *glavniXP;
 	int osvojeniXP, uslovOtkazi = 0;
-	
+
 	Load("Pohod loading..", 33);
 	UsporeniIspisTeksta(100, "Gospodar Igre: A odlicno nova zrtva je stigla. Dobro dosli u igru vaseg zivota.\n               Moje ime je Gospodar Igre, od ovog trenutka pa sve do kraja igre vasa sudbina je u mojim rukama.\n");
 	VremenskaPauza(5);
@@ -24,7 +24,7 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 	VremenskaPauza(5);
 	OcistiEkran();
 	UsporeniIspisTeksta(100, "Gospodar Igre: Pravila igre su sledeca:\n\n	Birate jednu od cetiri ponudjene opcije, unosom broja koji se nalazi ispred opcije.\n	Nakon toga igrica pocinje. Pred vama ce biti postavljen niz odluka.\n	Na osnovu vase odluke igrica ce napredovati u razlicitim smjerovima.\n");
-	UsporeniIspisTeksta(100, "	Vas cilj je da dodjete do kraja price.\n	Upamtite da u slucaju donosenja pogresnih odluka postoji sansa da izgubite sve bodove sa profila.\n	Ukoliko zelite da napustite igru, prije nego sto se igra zavrsila, umjesto odgovora unesite KRAJ.\n	Ukoliko zelite da otkazete igru, umjesto odgovora unesite OTKAZI.\n\n	Neka igra pocne!\n\n\n\n");
+	UsporeniIspisTeksta(100, "	Vas cilj je da dodjete do kraja price.\n	Upamtite! U slucaju da donesete pogresnu odluku postoji sansa da izgubite sve bodove sa profila.\n	Ukoliko zelite da napustite igru, prije nego sto se igra zavrsila, umjesto odgovora unesite KRAJ.\n	Ukoliko zelite da otkazete igru, umjesto odgovora unesite OTKAZI.\n\n	Neka igra pocne!\n\n\n\n");
 	printf("		1. Game Of Throns\n");
 	printf("		2. Portal\n");
 	printf("		3. Mordor\n");
@@ -59,7 +59,7 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 		Mordor(&glavniXPA, najveciRekordIgre, &osvojeniXP);
 	}
 	else if (izbor == 4) {
-		UsporeniIspisTeksta(100, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li ce te nastaviti dalje?\n");
+		UsporeniIspisTeksta(100, "Gospodar Igre: Molim vas ne cinite ovo. Vi pravite veliku gresku. Vratite se nazad.\nDa li cete nastaviti dalje?\n");
 		DaNe("HORIZONTALNO");
 		int odgovor = UcitajOdgovor();
 		if (odgovor == 1) {
@@ -90,7 +90,7 @@ int Avantura(int* glavniXP, IGRANJE* rekord, int najveciRekordIgre){
 
 	*glavniXP = glavniXPA;
 	rekord->bodoviUIgri = osvojeniXP;
-	
+
 	return 0;
 }
 void Hahahaha(){

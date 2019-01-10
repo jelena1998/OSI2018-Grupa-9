@@ -6,10 +6,10 @@
 
 int GOTPohod(int* glavniXP2, int najboljiR, int* osvojeniXP2, int pisi){
 	system("title Game Of Throns");
-	
+
 	OcistiEkran();
 	Load("GOT loading...", 34);
-	
+
 	glavniXP = *glavniXP2;
 	int zivotniBodovi = 100;
 	otkazi = 0;
@@ -28,12 +28,12 @@ int GOTPohod(int* glavniXP2, int najboljiR, int* osvojeniXP2, int pisi){
 	if(zivotniBodovi == 0){
 		return 1;
 	}
-	
+
 	return 0;
 }
 
 int Gavran(int* zivotniBodovi){
-	UsporeniIspisTeksta(100, "Stigao je gavran sa porukom. Da li zelite da ju procitate.\n");
+	UsporeniIspisTeksta(100, "Stigao je gavran sa porukom. Da li zelite da je procitate.\n");
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
@@ -56,8 +56,8 @@ int Gavran(int* zivotniBodovi){
 	return 0;
 }
 int Poruka(int* zivotniBodovi) {
-	UsporeniIspisTeksta(100, "\nTvoj kralj Robert Baratheon, ti naredjuje da smjesta\nnapustis Winterfell i krenes prema Kings Landing.\nOdbijanje kraljevog poziva moze imati strasne posljedice.\n\n");
-	UsporeniIspisTeksta(100, "Da li ce te prihvatiti kraljev poziv i krenuti prema Kings Landing-u (DA),\n");
+	UsporeniIspisTeksta(100, "\nTvoj kralj Robert Baratheon ti naredjuje da smjesta\nnapustis Winterfell i krenes prema Kings Landing.\nOdbijanje kraljevog poziva moze imati strasne posljedice.\n\n");
+	UsporeniIspisTeksta(100, "Da li cete prihvatiti kraljev poziv i krenuti prema Kings Landing-u (DA),\n");
 	UsporeniIspisTeksta(100, "ili ce te odbaciti kraljev poziv (NE) i ostati u Winterfell-u?\n");
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
@@ -82,7 +82,7 @@ int Poruka(int* zivotniBodovi) {
 	return 0;
 }
 int LanasterNapad(int* zivotniBodovi) {
-	UsporeniIspisTeksta(100, "Lannister-ske trupe marsiraju prema Winterfell-u. Da li ce te se:\n");
+	UsporeniIspisTeksta(100, "Lannister-ske trupe marsiraju prema Winterfell-u. Da li cete se:\n");
 	DvaIzbora("1. Pripremiti za napad.", "2. Prihvatiti kraljev poziv.", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
@@ -109,7 +109,7 @@ int KraljevPut(int* zivotniBodovi) {
 	UsporeniIspisTeksta(100, "Na putu ste za Kings Landing. Prema vama ide postar na konju sa porukom iz Kings Landing-a.\n");
 	UsporeniIspisTeksta(100, "Poruka:\n");
 	UsporeniIspisTeksta(100, "Kralj Robert Baratheon je mrtav.\n");
-	UsporeniIspisTeksta(100, "Da li ce te nastaviti put prema Kings Landing-u.\n");
+	UsporeniIspisTeksta(100, "Da li cete nastaviti put prema Kings Landing-u.\n");
 	DaNe("VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
@@ -135,8 +135,8 @@ int KraljevPut(int* zivotniBodovi) {
 }
 int KingsLanding(int* zivotniBodovi) {
 	UsporeniIspisTeksta(100, "Ulazite u Kings Landing. Kraljeva straza vas privodi.\n");
-	UsporeniIspisTeksta(100, "Sta ce te uciniti?\n");
-	DvaIzbora("1. Mirno se predati kraljevoj strazi.", "2. Ne predavati se bez borbe.", "VERTIKALNO");
+	UsporeniIspisTeksta(100, "Sta cete uciniti?\n");
+	DvaIzbora("1. Mirno se predati kraljevoj strazi.", "2. Ne predati se bez borbe.", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	if (odgovor == 1) {
 		osvojeniXP -= 40;
@@ -252,7 +252,7 @@ int NapadPesnicama1(int* zivotniBodovi) {
 			zivotniBodovi -= 3;
 		}
 	} while(zivotniBodovi > 0 && sef > 0);
-	
+
 	if(zivotniBodovi < 0){
 		UsporeniIspisTeksta(100, "Strazar vam zadaje smrtonosti udarac.\nUpravo ste umrli.\n");
 		VremenskaPauza(3);
@@ -304,9 +304,9 @@ int NapadMacem(int* zivotniBodovi) {
 			zivotniBodovi -= Nasumicno(21);
 		}
 	}
-	
+
 	SmrtNeda(zivotniBodovi);
-	
+
 	return 0;
 }
 int SmrtNeda(int* zivotniBodovi){
@@ -323,7 +323,7 @@ int SmrtNeda(int* zivotniBodovi){
 }
 int PripremaZaNapad(int* zivotniBodovi){
 	UsporeniIspisTeksta(100, "Winterfell je u stanju pripravnosti.\nVi predvodite trupe na bojno polje da se suocite sa Lannister-ima.\n");
-	UsporeniIspisTeksta(100, "Doslo je vrijeme da odaberete strategiju napada. Da li ce te:\n");
+	UsporeniIspisTeksta(100, "Doslo je vrijeme da odaberete strategiju napada. Da li cete:\n");
 	TriIzbora("1. Napasti u formaciji Trougao", "2. Napasti u Liniskoj formaciji", "3. Napasti u formaciji Rimske kornjace sa tri strane", "VERTIKALNO");
 	int odgovor = UcitajOdgovor();
 	printf("Bitka je pocela!\n");
@@ -359,7 +359,7 @@ int PripremaZaNapad(int* zivotniBodovi){
 		IspisGreskeONepravilnomUnosu();
 		PripremaZaNapad(zivotniBodovi);
 	}
-	
+
 	return 0;
 }
 int Pobjeda(int* zivotniBodovi){
@@ -377,7 +377,7 @@ int Poraz(int* zivotniBodovi){
 void PorukaSaZida(){
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "Vama stize gavran sa porukom od Lorda Komandanta Nocne Straze Jon Snow-a.\n\n");
-	UsporeniIspisTeksta(100, "    Dragi brate. Postoji velika pretnja s druge strane zida.\nPrice o White Walker-ima nisu samo price. Oni su stvarni.\nSavjetujem te da se pripremis za najvecu bitku u poslednjih hiljadu godina.\n");
+	UsporeniIspisTeksta(100, "    Dragi brate. Postoji velika prijetnja s druge strane zida.\nPrice o White Walker-ima nisu samo price. Oni su stvarni.\nSavjetujem te da se pripremis za najvecu bitku u poslednjih hiljadu godina.\n");
 	UsporeniIspisTeksta(100, "Lorda Komandanta Nocne Straze i tvoj dragi brat, Jon Snow\n\n");
 	VremenskaPauza(3);
 }
@@ -431,7 +431,7 @@ int PadZida(int* zivotniBodovi){
 void Zid(){
 	VremenskaPauza(3);
 	UsporeniIspisTeksta(100, "\nU medjuvremenu na Zidu.\n\nNight King sa armijom mrtvih napada zid.\nNocna straza pokusava da odbrani zid i ne dozvoli White Walker-ima da predju u Westeros.\n");
-	UsporeniIspisTeksta(100, "Napori Nocne straze su uzaludni. Lord Komadant Nocne Straze Jon Snow je mrtav.\nMagija koja je drzala zid i sprecavala mrtve da ga predju je nestala.\n");
+	UsporeniIspisTeksta(100, "Napori Nocne straze su uzaludni. Lord Komadant Nocne Straze Jon Snow je mrtav.\nMagija koja je drzala zid i sprijecavala mrtve da ga predju je nestala.\n");
 	UsporeniIspisTeksta(100, "Zid pada, Nocna straza je porazena. 1000 godina nakon njegovog podiza mrtvi ulaze u Westeros.\n\n");
 }
 int DzonovaPoruka(int* zivotniBodovi){
