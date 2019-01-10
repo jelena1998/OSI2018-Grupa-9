@@ -127,6 +127,7 @@ void IgrajKviz(PITANJE *pitanja, IGRANJE* igranje, int* dobijeni, int* izgubljen
 	{
 		int odgovorKorisnik,pom;
 		char c;
+		printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 		printf("%d. PITANJE:\n\n", i + 1);
 		IspisPitanja(pitanja, i);
 		printf("Unesi tacan odgovor (1,2,3) : ");

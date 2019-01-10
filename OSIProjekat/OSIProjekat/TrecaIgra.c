@@ -13,6 +13,7 @@ void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 
 	int i, broj;
 	char c;
+	printf("Za otkazivanje igre unesite \"OTKAZI\"\n");
 	printf("Unesite 7 brojeva da popunite vas tiket\n");
 	printf("Vasi brojevi moraju biti u rasponu od 1 do 45\n");
 	for (i = 0; i < TIKET_SIZE; i++)
@@ -27,7 +28,6 @@ void Tiket(int korisnik[],IGRANJE* igranje) { //korisnik unosi svoje brojeve
 			printf("Unesite broj-> ");
 			scanf("%d", &broj);
 			if (Otkazi(igranje)) return;
-			while ((c = getchar()) != EOF && c != '\n');	//za slucajan unos znaka ili stringa
 			a = VecPostoji(korisnik, TIKET_SIZE, broj);
 		}
 		korisnik[i] = broj;
@@ -113,8 +113,8 @@ void BrojPogodaka(int loto[], int korisnik[], int* poeni,int* dobijeni,int* izgu
 			}
 		}
 	}
-	*izgubljeni = (TIKET_SIZE - pogodak) * 10;
-	*poeni -= *izgubljeni;	//dodano, moraju se gubiti poeni u igri
+	*izgubljeni += (TIKET_SIZE - pogodak) * 5;
+	*poeni -= (TIKET_SIZE - pogodak) * 5;						//dodano, moraju se gubiti poeni u igri
 	printf("Broj pogodaka je: %d\n", pogodak);
 	if (pogodak)
 		printf("Pogodili ste brojeve: ");
@@ -146,5 +146,5 @@ void IgrajTrecuIgru(IGRANJE* igranje,int max,int* dobijeni, int* izgubljeni) {
 	BrojPogodaka(loto, korisnikUnos, &poeni,dobijeni,izgubljeni);
 	printf("Osvojili ste ukupno %d bodova u ovoj igri\n", poeni);
 	igranje->bodoviUIgri = poeni;
-	system("pause");
+	//system("pause");
 }

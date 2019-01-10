@@ -47,6 +47,8 @@ void ADIgru(int bool, IGRANJE* igranje) {
 		igranje->datum->tm_mday, igranje->datum->tm_mon, igranje->datum->tm_year, \
 		igranje->datum->tm_hour, igranje->datum->tm_min, igranje->datum->tm_sec, igranje->aktivna);
 	printf("\nIgra je %s\n", bool ? "otkljucana" : "zakljucana");
+	Sleep(1500);
+	system("cls");
 	fclose(f);
 }
 
@@ -119,7 +121,8 @@ void GlavniMeni(KORISNIK* korisnik) {
 	do {
 		
 		//system("cls");
-		printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Prikaz kljuceva\n6 Statistika\n7 Izlaz i snimanje igre\n");
+		printf("\n1 Igra pogadjanja\n2 Kviz\n3 Loto\n4 Pohod\n5 Prikaz kljuceva"
+			"\n6 Statistika\n7 Snimanje igre\n8 Izlaz\n");
 		printf("Odaberite opciju: ");
 		scanf("%d", &izbor);
 		//printf("Izbor: %d\n", izbor);
@@ -134,7 +137,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 		case 1:
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
-			if (PristupiIgri(&igranje, korisnik)) {
+			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 
 				if ( (korisnik->pokusaj >= 1) && (korisnik->pokusaj <= 3)) {
 					Pobijedi(&igranje);
@@ -146,6 +149,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 				else {
 					int bool;
 					bool = izgubljeni < (dobijeni + dobijeni * 0.4);
+					if (korisnik->bodovi < 50) bool = 0;		//ako nema dovoljno bodova za ostale igre
 					IgrajPrvuIgru(&igranje, bool);
 					//korisnik->pokusaj--; // umanjujemo pokusaj
 					korisnik->bodovi += igranje.bodoviUIgri;
@@ -158,7 +162,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 		case 2:
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
-			if (PristupiIgri(&igranje, korisnik)) {
+			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 				IgrajDruguIgru(&igranje,&dobijeni,&izgubljeni);
 				korisnik->bodovi += igranje.bodoviUIgri;
 				Snimi(&igranje);
@@ -169,7 +173,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 		case 3:
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
-			if (PristupiIgri(&igranje, korisnik)) {
+			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 				int max = (int)(izgubljeni - izgubljeni * 0.4); //Mnozi se sa 0.4 max je int, samo sam castovo u int zbog warrninga, Ogi
 				IgrajTrecuIgru(&igranje,max,&dobijeni,&izgubljeni);					
 				korisnik->bodovi += igranje.bodoviUIgri;
@@ -182,7 +186,7 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("cls");
 			TraziIgranje(korisnik->korisnickoIme, izbor, &igranje);
 			//printf("TraziIgru se izvrsilo\n"); system("pause");
-			if (PristupiIgri(&igranje, korisnik)) {
+			if (PristupiIgri(&igranje, korisnik,&izgubljeni)) {
 			//	printf("PristupiIgri se izvrsilo kao i if u tijelu if smo\n"); system("pause");
 				Avantura(&korisnik->bodovi, &igranje, 0);
 				//Avantura(&korisnik->bodovi, sifra);	//&korisnik.bodovi, sta je sifra?
@@ -202,21 +206,21 @@ void GlavniMeni(KORISNIK* korisnik) {
 			system("cls");
 			PrikazStatistike(korisnik);
 			system("pause"); GlavniMeni(korisnik); break;
-
+		case 7: ucitajPodatke(*korisnik, korisnik->bodovi, korisnik->pokusaj); GlavniMeni(korisnik); break;
 		default: 
-			if (izbor == 7) {
+			if (izbor == 8) {
 				ucitajPodatke(*korisnik, korisnik->bodovi, korisnik->pokusaj); //ucitavanje podataka
 				exit(EXIT_SUCCESS);
 			}
 			printf("Pogresan unos!!"); Sleep(2000);
 			/*system("pause");*/ GlavniMeni(korisnik); break;
 		}
-	} while (izbor != 7);
+	} while (izbor != 8);
 
 	
 }
 
-void Plati(IGRANJE* igranje, KORISNIK* korisnik) {
+void Plati(IGRANJE* igranje, KORISNIK* korisnik,int* izgubljeni) {
 	int plati,izbor;
 	char c;
 	if (igranje->sifraIgre != 1) {
@@ -236,22 +240,26 @@ void Plati(IGRANJE* igranje, KORISNIK* korisnik) {
 			return;
 		}
 		if (izbor != 1) { printf("Pogresan unos!"); return; }
-		if (korisnik->bodovi >= plati)
+		if (korisnik->bodovi >= plati) {
 			korisnik->bodovi -= plati;
+			*izgubljeni += plati;
+		}
 		else {
 			printf("Nemate dovoljno bodova za igru");
 			Sleep(1500);
 			GlavniMeni(korisnik);
 		}
+		Sleep(1500);
+		system("cls");
 	}
 }
 
-int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
+int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik, int* izgubljeni) {
 //	char c;
 	while (igranje->aktivna == -1) {
 		if (Otkljucaj(*korisnik, igranje->sifraIgre)) {
 			ADIgru(1, igranje);
-			Plati(igranje, korisnik);
+			Plati(igranje, korisnik,izgubljeni);
 			return 1;
 		}
 		else {
@@ -265,7 +273,7 @@ int PristupiIgri(IGRANJE* igranje, KORISNIK *korisnik) {
 		return 0;
 	}
 	else if ((igranje->aktivna == 1) && !Istekao(igranje)) {
-		Plati(igranje, korisnik);
+		Plati(igranje, korisnik,izgubljeni);
 		return 1;
 	}
 	else

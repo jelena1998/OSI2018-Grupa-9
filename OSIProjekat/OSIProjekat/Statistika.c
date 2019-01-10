@@ -38,11 +38,12 @@ void PisiStatistiku(KORISNIK korisnik, int igra) {
 	f = fopen(odrediste, "r");
 	if (f == NULL) { printf("greska pri otvaranju datoteke!"); return; }
 	printf("\t\tStatistika za %d. igru\n", igra);
-	printf("     %-8s %-11s %-12s %-s\n", "Ime", "Igra", "Datum", "bodovi");
+	printf("\n     %-14s %-11s %-14s %-s\n", "Ime", "Igra", "Datum", "bodovi");
+	printf("--------------------------------------------------------\n");
 	while (fscanf(f, "%d;%d.%d.%d.;%d\n", &tabela.igra, &tabela.dan, \
 		&tabela.mjesec, &tabela.godina, &tabela.bodovi) != EOF) {
 		i++;
-		printf("%-4d %-10s %-7d %d. %d. %-4d. %-4s %-d\n", i,korisnik.korisnickoIme, \
+		printf("%-4d %-16s %-7d %d. %d. %-4d. %-4s %-d\n", i,korisnik.korisnickoIme, \
 			tabela.igra, tabela.dan, tabela.mjesec, tabela.godina,"",tabela.bodovi);
 	}
 	printf("\n");

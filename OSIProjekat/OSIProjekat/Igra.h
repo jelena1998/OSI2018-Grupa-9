@@ -37,12 +37,11 @@ int TraziIgranje(char[], int, IGRANJE*); //vraca adresu pocetka trazene linije
 void ADIgru(int bool, IGRANJE*); //aktivira ili deaktivira igru
 int Istekao(IGRANJE* igranje);		//provjerava da li je kljuc istekao#pragma once
 
-int PristupiIgri(IGRANJE*, KORISNIK*);
+int PristupiIgri(IGRANJE*, KORISNIK*,int*);
 void GlavniMeni(KORISNIK*);
 void Snimi(IGRANJE*);
 int cmp(const void * a, const void * b);
 
 void ucitajPodatke(KORISNIK,int, int);
-void Pobijedi(IGRANJE*);
 
 int Otkazi(IGRANJE*);
